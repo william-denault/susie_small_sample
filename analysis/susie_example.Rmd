@@ -1,0 +1,38 @@
+---
+title: "Example susie analysis"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+This is a short analysis with susie just to illustrate the use of
+R Markdown and workflowr for documenting our work.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis.
+
+```{r load-pkgs, message=FALSE}
+library(susieR)
+```
+
+Set the seed for reproducibility.
+
+```{r set-seed}
+set.seed(1)
+```
+
+Run susie:
+
+```{r susie}
+data(N3finemapping)
+fit <- susie(N3finemapping$X,N3finemapping$Y[,1],verbose = TRUE)
+```
+
+Plot the results:
+
+```{r susie-plot}
+susie_plot(fit,y = "PIP",b = N3finemapping$true_coef[,1])
+```

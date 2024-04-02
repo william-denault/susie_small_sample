@@ -20,8 +20,7 @@ sim_dat <- function(N=20,  h=0.5){
   }
    predictor <- y
   } 
-  
-  
+   
   
   
   y <- y + rnorm( N, sd=  sqrt(var(y)/h -var(y)))
@@ -43,8 +42,7 @@ run_susie_sim <-  function(N=20,
     
     sim_data <- sim_dat(N=N,
                         h=h)
-    
-    print('hei')
+     
     y <- sim_data$y
     X <- sim_data$X
     true_pos <- sim_data$true_pos
@@ -62,6 +60,7 @@ run_susie_sim <-  function(N=20,
         res [[idx]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets[[1]])  ) )
         
         idx <- idx+1
+        print(res)
       }
       
     }
@@ -86,12 +85,17 @@ compute_metric <-function( res_sim){
   
   
   obs_cs_size <- rep( NA,length(unique(res_sim$n_effect)))
+  idx=1
   for ( i in unique(res_sim$n_effect)){
-    obs_cs_size[i] <- mean( res_sim[which(res_sim$n_effect == (i )),4] )  
+   
+    obs_cs_size[ idx] <- mean( res_sim[which(res_sim$n_effect == (i )),4] )  
+    idx= idx+1
   } 
-  obs_cov <- rep( NA, 10)
-  for ( i in 1:10){
-    obs_cov[i] <- sum( res_sim[which(res_sim[,3] == (i )),1] )/sum( res_sim[which(res_sim[,3] == (i )),2] )
+  obs_cov <- rep( NA,length(unique(res_sim$n_effect)))
+  idx=1
+  for ( i in unique(res_sim$n_effect)){
+    obs_cov[idx] <- sum( res_sim[which(res_sim[,3] == (i )),1] )/sum( res_sim[which(res_sim[,3] == (i )),2] )
+    idx= idx+1
   } 
   
   out <- data.frame(L=unique(res_sim$n_effect),  obs_cs_size, obs_cov) 

@@ -10,4 +10,4 @@ editor_options:
 
 *Add links to the analyses and other project notes here.*
 
-+ [Example susie analysis](susie_example.Rmd)
++ [Example susie analysis](susie_example.html)

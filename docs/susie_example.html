@@ -432,15 +432,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwilliamdenaultsusiesmallsampletree8327818881f0c8641fbed28aad24a848b2898286targetblank8327818a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwilliamdenaultsusiesmallsampletree1523b3387e29a741725ba7fc8d79deb97c68eaa8targetblank1523b33a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/william-denault/susie_small_sample/tree/8327818881f0c8641fbed28aad24a848b2898286" target="_blank">8327818</a>
+<a href="https://github.com/william-denault/susie_small_sample/tree/1523b3387e29a741725ba7fc8d79deb97c68eaa8" target="_blank">1523b33</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomwilliamdenaultsusiesmallsampletree8327818881f0c8641fbed28aad24a848b2898286targetblank8327818a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomwilliamdenaultsusiesmallsampletree1523b3387e29a741725ba7fc8d79deb97c68eaa8targetblank1523b33a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -450,7 +450,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/william-denault/susie_small_sample/tree/8327818881f0c8641fbed28aad24a848b2898286" target="_blank">8327818</a>.
+<a href="https://github.com/william-denault/susie_small_sample/tree/1523b3387e29a741725ba7fc8d79deb97c68eaa8" target="_blank">1523b33</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -464,9 +464,7 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Untracked files:
-    Untracked:  analysis/susie_example.Rmd~
-
+working directory clean
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -516,6 +514,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/william-denault/susie_small_sample/blob/1523b3387e29a741725ba7fc8d79deb97c68eaa8/analysis/susie_example.Rmd" target="_blank">1523b33</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2024-04-02
+</td>
+<td>
+workflowr::wflow_publish("susie_example.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/william-denault/susie_small_sample/f331686785875dd7c75f2229de5ae78248b4f298/docs/susie_example.html" target="_blank">f331686</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2024-04-02
+</td>
+<td>
+Ran workflowr::wflow_publish("susie_example.Rmd").
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/william-denault/susie_small_sample/blob/8327818881f0c8641fbed28aad24a848b2898286/analysis/susie_example.Rmd" target="_blank">8327818</a>
 </td>
 <td>
@@ -541,9 +573,11 @@ Markdown and workflowr for documenting our work.</p>
 <pre class="r"><code>library(susieR)</code></pre>
 <p>Set the seed for reproducibility.</p>
 <pre class="r"><code>set.seed(1)</code></pre>
-<p>Run susie:</p>
+<p>Run susie on an example fine-mapping data set.:</p>
 <pre class="r"><code>data(N3finemapping)
-fit &lt;- susie(N3finemapping$X,N3finemapping$Y[,1],verbose = TRUE)
+X &lt;- N3finemapping$X
+y &lt;- N3finemapping$Y[,1]
+fit &lt;- susie(X,y,verbose = TRUE)
 # HINT: For an X with many columns, please consider installingthe Rfast package for more efficient credible set (CS)calculations.
 # [1] &quot;objective:-1380.57530328907&quot;
 # [1] &quot;objective:-1377.486460021&quot;
@@ -554,9 +588,47 @@ fit &lt;- susie(N3finemapping$X,N3finemapping$Y[,1],verbose = TRUE)
 # [1] &quot;objective:-1370.10904823236&quot;
 # [1] &quot;objective:-1370.10903101503&quot;
 # [1] &quot;objective:-1370.10886956328&quot;</code></pre>
-<p>Plot the results:</p>
-<pre class="r"><code>susie_plot(fit,y = &quot;PIP&quot;,b = N3finemapping$true_coef[,1])</code></pre>
-<p><img src="figure/susie_example.Rmd/susie-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>Generate a PIP plot summarizing the results of the susie
+analysis:</p>
+<pre class="r"><code>susie_plot(fit,y = &quot;PIP&quot;)</code></pre>
+<p><img src="figure/susie_example.Rmd/susie-plot-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-susie-plot-1">
+Past versions of susie-plot-1.png
+</button>
+</p>
+<div id="fig-susie-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/william-denault/susie_small_sample/blob/f331686785875dd7c75f2229de5ae78248b4f298/docs/figure/susie_example.Rmd/susie-plot-1.png" target="_blank">f331686</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2024-04-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

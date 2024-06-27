@@ -1,28 +1,8 @@
 
 
+attach(N3finemapping)
+
 sim_dat <- function(N=20, h=0.5) {
-
-  predictor = rep(0, N)
-  while(var(predictor) == 0) {
-    library(susieR)
-    data(N3finemapping)
-
-    L <- sample(1:10, size=1)
-
-    X <- N3finemapping$X
-    X <- X[sample(1:nrow(X), size=N, replace=FALSE), ]
-    true_pos <- sample(1:ncol(X), L)
-
-    if (L == 1) {
-      if (var(X[, true_pos]) == 0) next
-      y0 <- X[, true_pos]
-    } else {
-      y0 <- rowSums(X[, true_pos])
-    }
-
-    predictor <- y0
-  }
-
 
 
 
@@ -32,7 +12,7 @@ sim_dat <- function(N=20, h=0.5) {
 
   X <- X[ ,-which( apply(X,2,var)==0)]
   L <-sample(1:10, size=1)#Number of effect
-  print(L)
+
 
   predictor<- rep(0, nrow(X))
   while(var(predictor)==0){
@@ -44,7 +24,7 @@ sim_dat <- function(N=20, h=0.5) {
       predictor<- apply(X,1,sum)
     }
 
-    y <- predictor + rnorm(N, sd = sqrt(var(y0) / h - var( predictor )))
+    y <- predictor + rnorm(N, sd = sqrt(var( predictor) / h - var( predictor )))
   }
 
 

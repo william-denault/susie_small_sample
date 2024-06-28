@@ -1,7 +1,7 @@
 library(susieR
 )
 
-
+rm(list=ls())
 source("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/scripts/sim_script/small_sample_sims.R")
 for ( o in 1:10000){
   temp0 <- run_susie_sim(N=50, h=0.75, n_sim=100)

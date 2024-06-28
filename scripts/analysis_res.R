@@ -171,7 +171,7 @@ P31 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
   )+
   ylab('observed coverage')+
   xlab('Number of effect in simulation')+
-  ggtitle("n=50, h=0.25")+
+  ggtitle("n=30, h=0.25")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))
 abline( h=0.95)
@@ -194,7 +194,7 @@ P32 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
   )+
   ylab('observed coverage')+
   xlab('Number of effect in simulation')+
-  ggtitle("n=50, h=0.3")+
+  ggtitle("n=30, h=0.3")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))
 abline( h=0.95)
@@ -220,7 +220,7 @@ P33 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
   )+
   ylab('observed coverage')+
   xlab('Number of effect in simulation')+
-  ggtitle("n=50, h=0.5")+
+  ggtitle("n=30, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))
 abline( h=0.95)

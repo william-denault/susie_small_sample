@@ -1,6 +1,7 @@
 library(susieR
 )
 
+rm(list=ls())
 
 source("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/scripts/sim_script/small_sample_sims.R")
 

@@ -6,7 +6,7 @@ sim_dat <- function(N=20, h=0.5) {
 
 
 
-  X <- N3finemapping$X[sample (1:nrow(X), size=N, replace=FALSE), ]
+  X <- N3finemapping$X[sample (1:nrow(N3finemapping$X), size=N, replace=FALSE), ]
 
 
   X <- X[ ,-which( apply(X,2,var)==0)]
@@ -22,8 +22,9 @@ sim_dat <- function(N=20, h=0.5) {
     }else{
       predictor<- apply( X[,true_pos],1,sum)
     }
+    noise <-  rnorm(N)
 
-    y <- predictor + rnorm(N, sqrt(var( predictor) / h - var( predictor )))
+    y <- predictor + sqrt(var( predictor) / h - var( predictor ))*c(scale(noise))
   }
 
 

@@ -1,6 +1,6 @@
 t_lBF <- function ( betahat, sdhat, sd_prior, df){
 
-  
+
    up   <- LaplacesDemon::dstp(betahat,
                                tau = 1/(sdhat^2 + sd_prior^2),
                                nu  = df,
@@ -8,15 +8,15 @@ t_lBF <- function ( betahat, sdhat, sd_prior, df){
    down <- LaplacesDemon::dstp(betahat,
                                tau = 1/sdhat^2,
                                nu  = df,
-                               log = TRUE) 
+                               log = TRUE)
    out <- up- down
    return(out)
 }
-  
+
 
 Wake_lBF <-  function ( betahat, sdhat, sd_prior ){
- 
-    
+
+
     up   <- dnorm(betahat,
                   sd = sqrt(sdhat^2+  sd_prior^2) ,
                   log = TRUE)
@@ -26,3 +26,43 @@ Wake_lBF <-  function ( betahat, sdhat, sd_prior ){
   out <- up- down
   return(out)
 }
+
+
+
+
+betehat <- rnorm(100)
+sdhat <- runif(100,min=0.3, max=1)
+df=50
+sd_prior=0.5
+lBF <- t_lBF(betehat, sdhat, sd_prior, df)
+Wake_lBF <- Wake_lBF(betehat, sdhat, sd_prior)
+plot(Wake_lBF, lBF)
+
+
+
+(c(out$lbf_variable))
+plot(t_lBF(out$mu, out$mu2, sqrt(out$V),df=30))
+
+
+alpha<- exp(lBF - max(lBF ) ) /sum( exp(lBF - max(lBF ) ))
+cov_lev=0.95
+temp        <- alpha
+
+# check if temp has only 0 (i.e.  not yet updated)
+#  if(sum(temp==0)==length(temp)){
+temp_cumsum        <- cumsum( temp[order(temp, decreasing =TRUE)])
+max_indx_cs        <- min(which( temp_cumsum >cov_lev ))
+corrected_cs        <- order(temp, decreasing = TRUE)[1:max_indx_cs ]
+
+
+alpha<- exp(Wake_lBF - max(Wake_lBF) ) /sum( exp(Wake_lBF - max(Wake_lBF) ))
+cov_lev=0.95
+temp        <- alpha
+
+# check if temp has only 0 (i.e.  not yet updated)
+#  if(sum(temp==0)==length(temp)){
+temp_cumsum_Wake       <- cumsum( temp[order(temp, decreasing =TRUE)])
+max_indx_cs        <- min(which( temp_cumsum >cov_lev ))
+corrected_cs_Wake        <- order(temp, decreasing = TRUE)[1:max_indx_cs ]
+plot(temp_cumsum)
+points(temp_cumsum_Wake, col="red")

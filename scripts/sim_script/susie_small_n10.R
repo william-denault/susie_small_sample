@@ -8,8 +8,7 @@ for ( o in 1:10000){
 
   temp0 <- run_susie_sim(N=10, h=0.25, n_sim=100)
 
-  if(file.exists("small_
-sample_susie10_h25.RData")){
+  if(file.exists("small_sample_susie10_h25.RData")){
     load("small_sample_susie10_h25.RData")
     if(!is.null(temp)){
       temp <- rbind (temp, temp0)

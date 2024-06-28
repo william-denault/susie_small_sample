@@ -1,3 +1,6 @@
+
+
+##### 10 ----
 load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie10_h25.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
@@ -73,6 +76,7 @@ P13
 
 
 
+##### 20 ----
 
 
 load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie20_h25.RData")
@@ -148,9 +152,9 @@ abline( h=0.95)
 P23
 
 
+##### 30 ----
 
-
-load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie50_h25.RData")
+load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie30_h25.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -173,7 +177,7 @@ P31 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
 abline( h=0.95)
 P31
 
-load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie50_h30.RData")
+load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie30_h30.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -199,7 +203,7 @@ P32
 
 
 
-load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie50_h50.RData")
+load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie30_h50.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -224,7 +228,91 @@ P33
 
 library(gridExtra)
 
-grid.arrange(P11, P21, P31,
-             P12, P22, P32,
-             P13, P23, P33, ncol=3)
+#### 50 ----
+
+
+
+load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie50_h25.RData")
+obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+plot( obs_cov)
+
+
+df <- data.frame(obs_cov =obs_cov,
+                 L= 1:10)
+
+library(ggplot2)
+P41 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+  geom_point(
+  )+
+  ylab('observed coverage')+
+  xlab('Number of effect in simulation')+
+  ggtitle("n=50, h=0.25")+
+  geom_hline(yintercept = 0.95)+
+  ylim( c(0,1))
+abline( h=0.95)
+P41
+
+load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie50_h30.RData")
+obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+plot( obs_cov)
+
+
+df <- data.frame(obs_cov =obs_cov,
+                 L= 1:10)
+
+library(ggplot2)
+P42 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+  geom_point(
+  )+
+  ylab('observed coverage')+
+  xlab('Number of effect in simulation')+
+  ggtitle("n=50, h=0.3")+
+  geom_hline(yintercept = 0.95)+
+  ylim( c(0,1))
+abline( h=0.95)
+P42
+
+
+
+
+load("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/small_sample_susie50_h50.RData")
+obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+plot( obs_cov)
+
+
+df <- data.frame(obs_cov =obs_cov,
+                 L= 1:10)
+
+library(ggplot2)
+P43 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+  geom_point(
+  )+
+  ylab('observed coverage')+
+  xlab('Number of effect in simulation')+
+  ggtitle("n=50, h=0.5")+
+  geom_hline(yintercept = 0.95)+
+  ylim( c(0,1))
+abline( h=0.95)
+P43
+
+library(gridExtra)
+
+
+
+
+
+
+grid.arrange(P11, P21, P31,P41,
+             P12, P22, P32,P42,
+             P13, P23, P33,P43,
+             ncol=4)
 

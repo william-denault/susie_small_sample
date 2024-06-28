@@ -6,10 +6,10 @@ source("C:/Document/Serieux/Travail/Data_analysis_and_papers/susie_small_sample/
 
 for ( o in 1:10000){
 
+  temp0 <- run_susie_sim(N=10, h=0.25, n_sim=100)
 
-  temp0 <- run_susie_sim(N=10, h=0.25, n_sim=10000)
-
-  if(file.exists("small_sample_susie10_h25.RData")){
+  if(file.exists("small_
+sample_susie10_h25.RData")){
     load("small_sample_susie10_h25.RData")
     if(!is.null(temp)){
       temp <- rbind (temp, temp0)
@@ -26,7 +26,7 @@ for ( o in 1:10000){
   save(temp, file="small_sample_susie10_h25.RData")
 
 
-  temp0 <- run_susie_sim(N=10, h=0.50, n_sim=10000)
+  temp0 <- run_susie_sim(N=10, h=0.50, n_sim=100)
 
   if(file.exists("small_sample_susie10_h50.RData")){
     load("small_sample_susie10_h50.RData")

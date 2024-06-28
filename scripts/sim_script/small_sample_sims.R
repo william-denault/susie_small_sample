@@ -6,11 +6,10 @@ sim_dat <- function(N=20, h=0.5) {
 
 
 
-  X <- N3finemapping$X[sample (1:nrow(N3finemapping$X), size=N, replace=FALSE), ]
+  X <- N3finemapping$X[sample (1:nrow(X), size=N, replace=FALSE), ]
 
 
-
-  #X <- X[ ,-which( apply(X,2,var)==0)]
+  X <- X[ ,-which( apply(X,2,var)==0)]
   L <-sample(1:10, size=1)#Number of effect
 
 
@@ -24,10 +23,8 @@ sim_dat <- function(N=20, h=0.5) {
       predictor<- apply( X[,true_pos],1,sum)
     }
 
-    y <- predictor + rnorm(N, sd = sqrt(var( predictor) / h - var( predictor )))
+    y <- predictor + rnorm(N, sqrt(var( predictor) / h - var( predictor )))
   }
-
-
 
 
 

@@ -226,4 +226,5 @@ library(gridExtra)
 
 grid.arrange(P11, P21, P31,
              P12, P22, P32,
-             P31, P23, P33, ncol=3)
+             P13, P23, P33, ncol=3)
+

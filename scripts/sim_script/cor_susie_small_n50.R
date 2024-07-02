@@ -5,7 +5,7 @@ library(susieR
 rm(list=ls())
 source("./scripts/sim_script/cor_sample_sim.R")
 for ( o in 1:10000){
-  temp0 <- run_susie_sim(N=50, h=0.75, n_sim=100)
+  temp0 <- run_susie_sim(N=50, h=0.25, n_sim=100)
 
   if(file.exists("./simulations/cor_small_sample_susie50_h25.RData")){
     load("./simulations/cor_small_sample_susie50_h25.RData")
@@ -23,7 +23,7 @@ for ( o in 1:10000){
 
 
 
-  temp0 <- run_susie_sim(N=50, h=0.60, n_sim=100)
+  temp0 <- run_susie_sim(N=50, h=0.50, n_sim=100)
 
   if(file.exists("./simulations/cor_small_sample_susie50_h50.RData")){
     load("./simulations/cor_small_sample_susie50_h50.RData")
@@ -40,7 +40,7 @@ for ( o in 1:10000){
 
 
 
-  temp0 <- run_susie_sim(N=50, h=0.50, n_sim=100)
+  temp0 <- run_susie_sim(N=50, h=0.30, n_sim=100)
 
 
   if(file.exists("./simulations/cor_small_sample_susie50_h30.RData")){

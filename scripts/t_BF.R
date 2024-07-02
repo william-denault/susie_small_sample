@@ -30,18 +30,15 @@ Wake_lBF <-  function ( betahat, sdhat, sd_prior ){
 
 
 
-betehat <- rnorm(100)
-sdhat <- runif(100,min=0.3, max=1)
-df=50
+betehat <- rnorm(1000)
+sdhat <- runif(1000,min=0.3, max=0.5)
+df=20
 sd_prior=0.5
 lBF <- t_lBF(betehat, sdhat, sd_prior, df)
 Wake_lBF <- Wake_lBF(betehat, sdhat, sd_prior)
-plot(Wake_lBF, lBF)
+plot( Wake_lBF ,  lBF )
 
 
-
-(c(out$lbf_variable))
-plot(t_lBF(out$mu, out$mu2, sqrt(out$V),df=30))
 
 
 alpha<- exp(lBF - max(lBF ) ) /sum( exp(lBF - max(lBF ) ))
@@ -66,3 +63,4 @@ max_indx_cs        <- min(which( temp_cumsum >cov_lev ))
 corrected_cs_Wake        <- order(temp, decreasing = TRUE)[1:max_indx_cs ]
 plot(temp_cumsum)
 points(temp_cumsum_Wake, col="red")
+abline(h=0.95)

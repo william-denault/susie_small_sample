@@ -1,7 +1,7 @@
 
 
 ##### 10 ----
-load("./simulations/small_sample_susie10_h25.RData")
+load("./simulations/cor_small_sample_susie10_h25.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -24,7 +24,7 @@ P11 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
 abline( h=0.95)
 P11
 
-load("./simulations/small_sample_susie10_h30.RData")
+load("./simulations/cor_small_sample_susie10_h30.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -50,7 +50,7 @@ P12
 
 
 
-load("./simulations/small_sample_susie10_h50.RData")
+load("./simulations/cor_small_sample_susie10_h50.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -79,7 +79,7 @@ P13
 ##### 20 ----
 
 
-load("./simulations/small_sample_susie20_h25.RData")
+load("./simulations/cor_small_sample_susie20_h25.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -102,7 +102,7 @@ P21 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
 abline( h=0.95)
 P21
 
-load("./simulations/small_sample_susie20_h30.RData")
+load("./simulations/cor_small_sample_susie20_h30.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -128,7 +128,7 @@ P22
 
 
 
-load("./simulations/small_sample_susie20_h50.RData")
+load("./simulations/cor_small_sample_susie20_h50.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -154,7 +154,7 @@ P23
 
 ##### 30 ----
 
-load("./simulations/small_sample_susie30_h25.RData")
+load("./simulations/cor_small_sample_susie30_h25.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -177,7 +177,7 @@ P31 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
 abline( h=0.95)
 P31
 
-load("./simulations/small_sample_susie30_h30.RData")
+load("./simulations/cor_small_sample_susie30_h30.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -203,7 +203,7 @@ P32
 
 
 
-load("./simulations/small_sample_susie30_h50.RData")
+load("./simulations/cor_small_sample_susie30_h50.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -232,7 +232,7 @@ library(gridExtra)
 
 
 
-load("./simulations/small_sample_susie50_h25.RData")
+load("./simulations/cor_small_sample_susie50_h25.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -255,7 +255,7 @@ P41 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
 abline( h=0.95)
 P41
 
-load("./simulations/small_sample_susie50_h30.RData")
+load("./simulations/cor_small_sample_susie50_h30.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
@@ -281,7 +281,7 @@ P42
 
 
 
-load("./simulations/small_sample_susie50_h50.RData")
+load("./simulations/cor_small_sample_susie50_h50.RData")
 obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )

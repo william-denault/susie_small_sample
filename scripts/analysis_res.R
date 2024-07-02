@@ -9,11 +9,21 @@ for ( i in 1:10){
 plot( obs_cov)
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+
+load("./simulations/cor_small_sample_susie10_h25.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
 
 library(ggplot2)
-P11 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P11 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -32,11 +42,20 @@ for ( i in 1:10){
 plot( obs_cov)
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+load("./simulations/cor_small_sample_susie10_h30.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
 
 library(ggplot2)
-P12 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P12 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -57,12 +76,19 @@ for ( i in 1:10){
 }
 plot( obs_cov)
 
+load("./simulations/cor_small_sample_susie10_h50.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
 
 library(ggplot2)
-P13 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P13 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -86,12 +112,19 @@ for ( i in 1:10){
 }
 plot( obs_cov)
 
+load("./simulations/cor_small_sample_susie20_h25.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
 
 library(ggplot2)
-P21 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P21 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -110,11 +143,19 @@ for ( i in 1:10){
 plot( obs_cov)
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+load("./simulations/cor_small_sample_susie20_h30.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
 
 library(ggplot2)
-P22 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P22 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -136,11 +177,20 @@ for ( i in 1:10){
 plot( obs_cov)
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+
+load("./simulations/cor_small_sample_susie20_h50.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
 
 library(ggplot2)
-P23 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P23 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -159,14 +209,22 @@ obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
-plot( obs_cov)
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+load("./simulations/cor_small_sample_susie30_h25.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
 
 library(ggplot2)
-P31 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P31 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -185,11 +243,20 @@ for ( i in 1:10){
 plot( obs_cov)
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+load("./simulations/cor_small_sample_susie30_h30.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
 
 library(ggplot2)
-P32 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P32 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -208,14 +275,20 @@ obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
-plot( obs_cov)
+load("./simulations/cor_small_sample_susie30_h50.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
 
 library(ggplot2)
-P33 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P33 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -237,14 +310,20 @@ obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
-plot( obs_cov)
+load("./simulations/cor_small_sample_susie50_h25.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
 
 library(ggplot2)
-P41 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P41 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -260,14 +339,20 @@ obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
-plot( obs_cov)
+load("./simulations/cor_small_sample_susie50_h30.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
 
 library(ggplot2)
-P42 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P42 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+
@@ -286,14 +371,20 @@ obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
-plot( obs_cov)
+load("./simulations/cor_small_sample_susie50_h50.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
 
 
-df <- data.frame(obs_cov =obs_cov,
-                 L= 1:10)
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
 
 library(ggplot2)
-P43 <- ggplot( df, aes(y=obs_cov, x=as.factor(L)))+
+P43 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab('observed coverage')+

@@ -43,7 +43,7 @@ for ( o in 1:100000){
   save(temp, file="./simulations/small_sample_susie30_h50.RData")
 
   temp0 <- run_susie_sim(N=30, h=0.3, n_sim=100)
-  if(file.exists("small_sample_susie30_h30.RData")){
+  if(file.exists("./simulations/small_sample_susie30_h30.RData")){
     load("./simulations/small_sample_susie30_h30.RData")
     if(!is.null(temp)){
       temp <- rbind (temp, temp0)

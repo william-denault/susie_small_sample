@@ -10,4 +10,4 @@
 #SBATCH --array=1-4
 
 module load R/4.1.0
-Rscript /home/wdenault/susie_small_sample/script/sim_script/susie_small_n$SLURM_ARRAY_TASK_ID.R
+Rscript /home/wdenault/susie_small_sample/scripts/sim_script/susie_small_n$SLURM_ARRAY_TASK_ID.R

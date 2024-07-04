@@ -48,7 +48,7 @@ run_susie_sim <-  function(N=20,
     X <- sim_data$X
     true_pos <- sim_data$true_pos
     if (var (y)>0.00001){
-      out <-  susie(X,y, L=1 )
+      out <- susieR::susie(X,y, L=10 )
       out$sets
       if(!is.null(out$sets$cs)){
 

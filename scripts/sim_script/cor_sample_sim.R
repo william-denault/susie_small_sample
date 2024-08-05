@@ -8,8 +8,10 @@ sim_dat <- function(N=20, h=0.5) {
 
   X <- N3finemapping$X[sample (1:nrow(N3finemapping$X), size=N, replace=FALSE), ]
 
+  if (length(which( apply(X,2,var)==0))>0){
+    X <- X[ ,-which( apply(X,2,var)==0)]
+  }
 
-  X <- X[ ,-which( apply(X,2,var)==0)]
   L <-sample(1:10, size=1)#Number of effect
 
 

@@ -7,7 +7,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4
 #SBATCH --mem-per-cpu=5000
-#SBATCH --array=1-4
+#SBATCH --array=5-6
 
 module load R/4.1.0
-Rscript /home/wdenault/susie_small_sample/scripts/sim_script/cor_susie_small_n$SLURM_ARRAY_TASK_ID.R
+Rscript /home/wdenault/susie_small_sample/scripts/sim_script/cor_susie/cor_susie_small_n$SLURM_ARRAY_TASK_ID.R

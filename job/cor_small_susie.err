@@ -4,21 +4,7 @@ Registered S3 methods overwritten by 'susieRsmall':
   predict.susie       susieR
   print.summary.susie susieR
   summary.susie       susieR
-Registered S3 methods overwritten by 'susieRsmall':
-  method              from  
-  coef.susie          susieR
-  predict.susie       susieR
-  print.summary.susie susieR
-  summary.susie       susieR
-Registered S3 methods overwritten by 'susieRsmall':
-  method              from  
-  coef.susie          susieR
-  predict.susie       susieR
-  print.summary.susie susieR
-  summary.susie       susieR
-Registered S3 methods overwritten by 'susieRsmall':
-  method              from  
-  coef.susie          susieR
-  predict.susie       susieR
-  print.summary.susie susieR
-  summary.susie       susieR
+Error: unexpected symbol in:
+"  if(file.exists("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie100_h30.RData")){
+    load("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie100_h30.RData").RData"
+Execution halted

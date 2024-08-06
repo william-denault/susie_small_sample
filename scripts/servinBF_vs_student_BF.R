@@ -91,8 +91,8 @@ plot(lol[,1],lol[,2], xlab="Servin & Stephens log BF  ", ylab="log BF",
 points(lol[,1],lol[,3], pch=19, col="green")
 abline(a=0,b=1)
 lm(lol[,1]~lol[,2])
-legend("topleft", legend=c("Student log BF", "Wake log BF"),
-       col=c("blue", "green"), pch=19)
+legend("topleft", legend=c("Student log BF", "Wakefeild log BF"),
+       col=c("blue", "green"), pch=19,bty = "n")
 #### n= 50
 lol <- comp_bf_ran(n=50 )
 plot(lol[,1],lol[,2], xlab="Servin & Stephens log BF ", ylab="log BF",

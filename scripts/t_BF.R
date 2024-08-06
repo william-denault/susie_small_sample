@@ -32,13 +32,13 @@ Wake_lBF <-  function ( betahat, sdhat, sd_prior ){
 
 betehat <- rnorm(1000)
 sdhat <- runif(1000,min=0.3, max=0.5)
-df=20
+df=200
 sd_prior=0.5
 lBF <- t_lBF(betehat, sdhat, sd_prior, df)
 Wake_lBF <- Wake_lBF(betehat, sdhat, sd_prior)
 plot( Wake_lBF ,  lBF )
 
-
+abline(a=0,b=1)
 
 
 alpha<- exp(lBF - max(lBF ) ) /sum( exp(lBF - max(lBF ) ))

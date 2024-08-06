@@ -1,6 +1,6 @@
 
 
-comp_bf <-function(n=100,beta=1, nsimu=1000){
+comp_bf_ran <-function(n=100 , nsimu=10000){
 
   tl<- list()
   for( i in 1: nsimu){
@@ -65,6 +65,7 @@ comp_bf <-function(n=100,beta=1, nsimu=1000){
     }
 
 
+    beta <- runif(1,min=0, max=1)
 
     g  = rnorm(n)
     y= beta*g+rnorm(length(g))
@@ -74,7 +75,7 @@ comp_bf <-function(n=100,beta=1, nsimu=1000){
     sigmad=1
     fit <- summary(  lm(y~g))
 
-    student_BF <- t_lBF(fit$coefficients[2,1],fit$coefficients[2,2],1,100)
+    student_BF <- t_lBF(fit$coefficients[2,1],fit$coefficients[2,2],1,n-1)
     Wake       <- Wake_lBF(fit$coefficients[2,1],fit$coefficients[2,2],1)
     tl[[i]] <- c(Servin_BF,student_BF,Wake )
   }
@@ -82,82 +83,43 @@ comp_bf <-function(n=100,beta=1, nsimu=1000){
 }
 
 
-par(mfrow=c(4,3))
-#### n= 50 beta=0.1
-lol <- comp_bf(n=50,beta=0.1)
-plot(lol[,1],lol[,2], xlab="Servin log BF  ", ylab="Student log BF",
-     main="n=50,beta=0.1", pch=19, col="blue")
+par(mfrow=c(4,1))
+#### n= 30
+lol <- comp_bf_ran(n=30 )
+plot(lol[,1],lol[,2], xlab="Servin & Stephens log BF  ", ylab="log BF",
+     main="n=30 ", pch=19, col="blue")
 points(lol[,1],lol[,3], pch=19, col="green")
 abline(a=0,b=1)
+lm(lol[,1]~lol[,2])
+legend("topleft", legend=c("Student log BF", "Wake log BF"),
+       col=c("blue", "green"), pch=19)
+#### n= 50
+lol <- comp_bf_ran(n=50 )
+plot(lol[,1],lol[,2], xlab="Servin & Stephens log BF ", ylab="log BF",
+     main=" n=50", pch=19, col="blue")
+points(lol[,1],lol[,3], pch=19, col="green")
+abline(a=0,b=1)
+
+
+lm(lol[,1]~lol[,2])
+lm(lol[,1]~lol[,3])
+#### n= 100
+lol <- comp_bf_ran(n=100 )
+plot(lol[,1],lol[,2], xlab="Servin & Stephens log BF ", ylab="log BF",
+     main=" n=100 ", pch=19, col="blue")
+points(lol[,1],lol[,3], pch=19, col="green")
+abline(a=0,b=1)
+
 lm(lol[,1]~lol[,2])
 
-#### n= 50 beta=0.5
-lol <- comp_bf(n=50,beta=0.5)
-plot(lol[,1],lol[,2], xlab="Servin log BF  ", ylab="Student log BF",
-     main="n=50,beta=0.5", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
-lm(lol[,1]~lol[,2])
-#### n= 50 beta=1
-lol <- comp_bf(n=50,beta=1)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=50,beta=1", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
-#### n= 100 beta=0.1
-lol <- comp_bf(n=100,beta=0.1)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=100,beta=0.1", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
-#### n= 100 beta=0.5
-lol <- comp_bf(n=100,beta=0.5)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=100,beta=0.5", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
-#### n= 100 beta=1
-lol <- comp_bf(n=100,beta=1)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=100,beta=0.1", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
+lm(lol[,1]~lol[,3])
 
 
 #### n= 500 beta=0.1
-lol <- comp_bf(n=500,beta=0.1)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=500,beta=0.5", pch=19, col="blue")
+lol <- comp_bf_ran(n=500 )
+plot(lol[,1],lol[,2], xlab="Servin & Stephens log BF ", ylab="log BF",
+     main=" n=500 ", pch=19, col="blue")
 points(lol[,1],lol[,3], pch=19, col="green")
 abline(a=0,b=1)
-#### n= 500 beta=0.5
-lol <- comp_bf(n=500,beta=0.5)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=500,beta=0.5", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
-#### n= 500 beta=1
-lol <- comp_bf(n=500,beta=1)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=500,beta=1", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
-#### n= 1000 beta=0.1
-lol <- comp_bf(n=1000,beta=0.1)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=1000,beta=0.1", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
-#### n= 1000 beta=0.5
-lol <- comp_bf(n=1000,beta=0.5)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=1000,beta=0.5", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
-#### n= 1000 beta=1
-lol <- comp_bf(n=1000,beta=1)
-plot(lol[,1],lol[,2], xlab="Servin log BF ", ylab="Student log BF",
-     main=" n=1000,beta=1", pch=19, col="blue")
-points(lol[,1],lol[,3], pch=19, col="green")
-abline(a=0,b=1)
+
 

@@ -2,8 +2,7 @@
 
 ### Coverage ----
 
-
- library(cowplot)
+library(cowplot)
 ##### 30 ----
 
 load("~/susie_small_sample/simulations/small_sample_susie30_h25.RData")
@@ -101,6 +100,41 @@ P33 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
 abline( h=0.95)
 P33
+
+
+
+
+
+
+
+load("~/susie_small_sample/simulations/small_sample_susie30_h75.RData")
+obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+load("~/susie_small_sample/simulations/cor_small_sample_susie30_h75.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
+
+library(ggplot2)
+P34 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(expression(h^2 == 75*"%"))+
+  xlab("")+
+
+  geom_hline(yintercept = 0.95)+
+  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+abline( h=0.95)
+P34
 
 library(gridExtra)
 
@@ -205,6 +239,35 @@ P43
 
 
 
+load("~/susie_small_sample/simulations/small_sample_susie50_h75.RData")
+obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+load("~/susie_small_sample/simulations/cor_small_sample_susie50_h75.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
+
+library(ggplot2)
+P44 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=50, h=0.5")+
+  geom_hline(yintercept = 0.95)+
+  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+abline( h=0.95)
+P44
+
 
 
 
@@ -302,6 +365,35 @@ P53
 
 
 
+load("~/susie_small_sample/simulations/small_sample_susie75_h75.RData")
+obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+load("~/susie_small_sample/simulations/cor_small_sample_susie75_h75.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
+
+library(ggplot2)
+P54 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=75, h=0.5")+
+  geom_hline(yintercept = 0.95)+
+  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+abline( h=0.95)
+P54
+
 
 
 
@@ -395,31 +487,55 @@ P63 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
 abline( h=0.95)
 P63
 
-xlab(' ')
+
+
+
+load("~/susie_small_sample/simulations/small_sample_susie100_h75.RData")
+obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+load("~/susie_small_sample/simulations/cor_small_sample_susie100_h75.RData")
+cor_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+
+
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
+
+library(ggplot2)
+P64 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=100, h=0.5")+
+  geom_hline(yintercept = 0.95)+
+  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+abline( h=0.95)
+P64
 
 library(gridExtra)
-
-
-
-
-
-
-
-
-
-library(gridExtra)
-
 
 
 
 
 P1<- grid.arrange(  P31,P41,P51,P61,
-                    P32,P42,P52,P62,
+                  #  P32,P42,P52,P62,
                     P33,P43,P53,P63,
+                    P34,P44,P54,P64,
+                    ncol=4)
+
+P1_ext<- grid.arrange(  P31,P41,P51,P61,
+                       P32,P42,P52,P62,
+                    P33,P43,P53,P63,
+                    P34,P44,P54,P64,
                     ncol=4)
 ### CS size ----
-
-
 
 
 ##### 30 ----
@@ -513,12 +629,43 @@ P33 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
   theme_cowplot()+theme(legend.position = "none")
 P33
 
+
+
+
+
+
+
+load("~/susie_small_sample/simulations/small_sample_susie30_h75.RData")
+obs_size <- rep( NA, 10)
+for ( i in 1:10){
+  obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
+}
+load("~/susie_small_sample/simulations/cor_small_sample_susie30_h75.RData")
+cor_obs_size <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
+}
+
+
+df <- data.frame(obs_size =c(obs_size, cor_obs_size),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
+
+library(ggplot2)
+P34 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=30, h=0.5")+
+  theme_cowplot()+theme(legend.position = "none")
+P34
 library(gridExtra)
 
 #### 50 ----
 
 
-
 load("~/susie_small_sample/simulations/small_sample_susie50_h25.RData")
 obs_size <- rep( NA, 10)
 for ( i in 1:10){
@@ -542,93 +689,7 @@ P41 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle( expression(n == 40) ) +theme_cowplot()+theme(legend.position = "none")
-P41
-
-load("~/susie_small_sample/simulations/small_sample_susie50_h30.RData")
-obs_size <- rep( NA, 10)
-for ( i in 1:10){
-  obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
-}
-load("~/susie_small_sample/simulations/cor_small_sample_susie50_h30.RData")
-cor_obs_size <- rep( NA, 10)
-for ( i in 1:10){
-  cor_obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
-}
-
-
-df <- data.frame(obs_size =c(obs_size, cor_obs_size),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
-
-
-library(ggplot2)
-P42 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
-  geom_point(
-  )+
-  ylab(' ')+
-  xlab(' ')+
-  #ggtitle("n=50, h=0.3")+theme_cowplot()+theme(legend.position = "none")
-  P42
-
-
-
-
-load("~/susie_small_sample/simulations/small_sample_susie50_h50.RData")
-obs_size <- rep( NA, 10)
-for ( i in 1:10){
-  obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
-}
-load("~/susie_small_sample/simulations/cor_small_sample_susie50_h50.RData")
-cor_obs_size <- rep( NA, 10)
-for ( i in 1:10){
-  cor_obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
-}
-
-
-df <- data.frame(obs_size =c(obs_size, cor_obs_size),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
-
-
-library(ggplot2)
-P43 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
-  geom_point(
-  )+
-  ylab(' ')+
-  xlab(' ')+
-  #ggtitle("n=50, h=0.5")+theme_cowplot()+theme(legend.position = "none")
-  P43
-
-library(gridExtra)
-
-
-
-
-load("~/susie_small_sample/simulations/small_sample_susie50_h25.RData")
-obs_size <- rep( NA, 10)
-for ( i in 1:10){
-  obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
-}
-load("~/susie_small_sample/simulations/cor_small_sample_susie50_h25.RData")
-cor_obs_size <- rep( NA, 10)
-for ( i in 1:10){
-  cor_obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
-}
-
-
-df <- data.frame(obs_size =c(obs_size, cor_obs_size),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
-
-
-library(ggplot2)
-P41 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
-  geom_point(
-  )+
-  ylab(' ')+
-  xlab(' ')+
-  ggtitle( expression(n == 50) )++theme_cowplot()+theme(legend.position = "none")
+  ggtitle( expression(n == 50) )+ theme_cowplot()+theme(legend.position = "none")
 P41
 
 load("~/susie_small_sample/simulations/small_sample_susie50_h30.RData")
@@ -687,6 +748,37 @@ P43 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
   #ggtitle("n=50, h=0.5")+
   theme_cowplot()+theme(legend.position = "none")
 P43
+
+
+
+load("~/susie_small_sample/simulations/small_sample_susie50_h75.RData")
+obs_size <- rep( NA, 10)
+for ( i in 1:10){
+  obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
+}
+load("~/susie_small_sample/simulations/cor_small_sample_susie50_h75.RData")
+cor_obs_size <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
+}
+
+
+df <- data.frame(obs_size =c(obs_size, cor_obs_size),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
+
+library(ggplot2)
+P44 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=50, h=0.5")+
+  theme_cowplot()+theme(legend.position = "none")
+P44
+library(gridExtra)
+
 
 
 load("~/susie_small_sample/simulations/small_sample_susie75_h25.RData")
@@ -776,6 +868,35 @@ P53
 
 
 
+load("~/susie_small_sample/simulations/small_sample_susie75_h75.RData")
+obs_size <- rep( NA, 10)
+for ( i in 1:10){
+  obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
+}
+load("~/susie_small_sample/simulations/cor_small_sample_susie75_h75.RData")
+cor_obs_size <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
+}
+
+
+df <- data.frame(obs_size =c(obs_size, cor_obs_size),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
+
+library(ggplot2)
+P54 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=75, h=0.5")+
+  theme_cowplot()+theme(legend.position = "none")
+P54
+
+
+
 load("~/susie_small_sample/simulations/small_sample_susie100_h25.RData")
 obs_size <- rep( NA, 10)
 for ( i in 1:10){
@@ -862,10 +983,46 @@ P63
 
 
 
-P2 <- grid.arrange(  P31,P41,P51, P61,
-               P32,P42,P52, P62,
-               P33,P43,P53, P63,
-               ncol=4)
 
+load("~/susie_small_sample/simulations/small_sample_susie100_h75.RData")
+obs_size <- rep( NA, 10)
+for ( i in 1:10){
+  obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
+}
+load("~/susie_small_sample/simulations/cor_small_sample_susie100_h75.RData")
+cor_obs_size <- rep( NA, 10)
+for ( i in 1:10){
+  cor_obs_size[i] <-  mean( temp[which(temp[,3] == (i )),4] )
+}
+
+
+df <- data.frame(obs_size =c(obs_size, cor_obs_size),
+                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
+                 L= rep(1:10,2))
+
+
+library(ggplot2)
+P64 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=100, h=0.5")+
+  theme_cowplot()+theme(legend.position = "none")
+P64
+
+
+
+P2 <- grid.arrange(  P31,P41,P51, P61,
+                    # P32,P42,P52, P62,
+                     P33,P43,P53, P63,
+                     P34,P44,P54, P64,
+                     ncol=4)
+P2_ext <- grid.arrange(  P31,P41,P51, P61,
+                      P32,P42,P52, P62,
+                     P33,P43,P53, P63,
+                     P34,P44,P54, P64,
+                     ncol=4)
 
 grid.arrange(P1,P2, ncol=2)
+grid.arrange(P1_ext,P2_ext, ncol=2)

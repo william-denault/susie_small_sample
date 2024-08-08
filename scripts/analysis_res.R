@@ -616,4 +616,8 @@ grid.arrange(P11, P21, P31,P41,P51,P61,
              P12, P22, P32,P42,P52,P62,
              P13, P23, P33,P43,P53,P63,
              ncol=6)
+grid.arrange(  P31,P41,P51,P61,
+               P32,P42,P52,P62,
+               P33,P43,P53,P63,
+             ncol=4)
 

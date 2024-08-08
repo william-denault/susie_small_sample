@@ -1,6 +1,6 @@
 
 
-comp_bf_ran <-function(n=100 , nsimu=10000){
+comp_bf_ran <-function(n=100 , nsimu=10000,s0=1){
 
   tl<- list()
   for( i in 1: nsimu){
@@ -70,12 +70,12 @@ comp_bf_ran <-function(n=100 , nsimu=10000){
     g  = rnorm(n)
     y= beta*g+rnorm(length(g))
 
-    Servin_BF <- logBF(g,y,1,1)*log(10)
+    Servin_BF <- logBF(g,y,sigmaa = s0,1)*log(10)
     sigmaa=1
     sigmad=1
     fit <- summary(  lm(y~g))
 
-    student_BF <- t_lBF(fit$coefficients[2,1],fit$coefficients[2,2],1,n-1)
+    student_BF <- t_lBF(fit$coefficients[2,1],fit$coefficients[2,2],sd_prior = s0,n-1)
     Wake       <- Wake_lBF(fit$coefficients[2,1],fit$coefficients[2,2],1)
     tl[[i]] <- c(Servin_BF,student_BF,Wake )
   }

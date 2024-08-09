@@ -1,7 +1,7 @@
 library(CARMA)
 library(susieR)
 attach(N3finemapping)
-
+library(Rfast)
 sim_dat <- function(N=20, h=0.5) {
 
 

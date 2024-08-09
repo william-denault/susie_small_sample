@@ -54,7 +54,7 @@ for ( o in 1:10000){
     temp <- temp0
   }
 
-  save(temp, file="/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie100_h30fixed.RData")
+  save(temp, file="/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie100_h30fixedbat.RData")
 
 
 

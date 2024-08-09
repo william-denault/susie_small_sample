@@ -142,7 +142,7 @@ for ( o in 1:1000){
   y= beta*g+rnorm(length(g))
 
   fit <- summary(  lm(y~g))
-  seq(0.1,2,by=0.0001) -> s0_seq
+  seq(0.1,2,by=0.001) -> s0_seq
 
   for (i in 1:length(s0_seq)){
     t_SS  <- c(t_SS, logBF(g,y,sigmaa =   s0_seq[i],1)*log(10))
@@ -171,3 +171,8 @@ abline(a=0,b=1)
 summary(lm(max_SS~  max_t))
 which(max_SS< max_t)
 plot(  residuals(lm(max_SS~  max_t)),pch=19)
+
+
+
+plot(  exp(max_SS),exp(max_t),xlim=c(0,100000),ylim=c(0,100000), col="red",pch=19)
+abline(a=0,b=1)

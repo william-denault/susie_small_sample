@@ -1,5 +1,5 @@
 library(CARMA)
-
+library(Rfast)
 library(susieR)
 attach(N3finemapping)
 

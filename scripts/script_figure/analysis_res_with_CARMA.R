@@ -14,11 +14,14 @@ cor_obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
-
-
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA10_h25.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -26,7 +29,7 @@ P11 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   xlab(  expression(n == 10)  )+
- ylab(expression(h^2 == 25*"%"))+
+  ylab(expression(h^2 == 25*"%"))+
   #ggtitle("n=10, h=0.25")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
@@ -48,17 +51,21 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
-
+load("~/susie_small_sample/simulations/small_sample_CARMA10_h30.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 library(ggplot2)
 P12 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab(' ')+
- xlab(' ')+
+  xlab(' ')+
   #ggtitle("n=10, h=0.3")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
@@ -81,17 +88,22 @@ for ( i in 1:10){
   cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
 
+load("~/susie_small_sample/simulations/small_sample_CARMA10_h50.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
 
 library(ggplot2)
 P13 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab(' ')+
- xlab(' ')+
+  xlab(' ')+
   #ggtitle("n=10, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
@@ -105,10 +117,15 @@ for ( i in 1:10){
   cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
 
+load("~/susie_small_sample/simulations/small_sample_CARMA10_h75.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
 
 library(ggplot2)
 P14 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -140,16 +157,22 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA20_h25.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
+
 
 library(ggplot2)
 P21 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab(' ')+
- xlab(' ')+
+  xlab(' ')+
   #ggtitle("n=20, h=0.25")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
@@ -170,17 +193,21 @@ for ( i in 1:10){
   cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
 
-
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA20_h30.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 library(ggplot2)
 P22 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab(' ')+
- xlab(' ')+
+  xlab(' ')+
   #ggtitle("n=20, h=0.3")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
@@ -205,17 +232,22 @@ for ( i in 1:10){
   cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
 
+load("~/susie_small_sample/simulations/small_sample_CARMA20_h50.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
 
 library(ggplot2)
 P23 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab(' ')+
- xlab(' ')+
+  xlab(' ')+
   #ggtitle("n=20, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
@@ -225,6 +257,12 @@ P23
 
 
 
+load("~/susie_small_sample/simulations/small_sample_susie20_h75.RData")
+obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+plot( obs_cov)
 
 load("~/susie_small_sample/simulations/cor_small_sample_susie20_h75.RData")
 cor_obs_cov <- rep( NA, 10)
@@ -233,9 +271,15 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA20_h75.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
+
 
 library(ggplot2)
 P24 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -266,9 +310,15 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+
+load("~/susie_small_sample/simulations/small_sample_CARMA30_h25.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -299,9 +349,15 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+
+load("~/susie_small_sample/simulations/small_sample_CARMA30_h30.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -331,9 +387,15 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA30_h50.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
+
 
 
 library(ggplot2)
@@ -366,9 +428,16 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA30_h75.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
+
+
 
 
 library(ggplot2)
@@ -401,9 +470,16 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+
+load("~/susie_small_sample/simulations/small_sample_CARMA50_h25.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
+
 
 
 library(ggplot2)
@@ -432,9 +508,14 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA50_h30.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -462,11 +543,14 @@ cor_obs_cov <- rep( NA, 10)
 for ( i in 1:10){
   cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
-
-
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA50_h50.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -497,11 +581,14 @@ for ( i in 1:10){
   cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
 
-
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
-
+load("~/susie_small_sample/simulations/small_sample_CARMA50_h75.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 library(ggplot2)
 P44 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -531,9 +618,14 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA75_h25.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -560,10 +652,14 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
-
+load("~/susie_small_sample/simulations/small_sample_CARMA75_h30.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 library(ggplot2)
 P52 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -592,10 +688,14 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
-
+load("~/susie_small_sample/simulations/small_sample_CARMA75_h50.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 library(ggplot2)
 P53 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -624,9 +724,15 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA75_h75.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
+
 
 
 library(ggplot2)
@@ -659,9 +765,14 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA100_h25.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -688,9 +799,14 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA100_h30.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -717,9 +833,14 @@ for ( i in 1:10){
 }
 
 
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA100_h50.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -748,10 +869,14 @@ for ( i in 1:10){
   cor_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
 }
 
-
-df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov),
-                 BF = factor(rep(c("Wakefeild", "Student" ), each = length(1:10))),
-                 L= rep(1:10,2))
+load("~/susie_small_sample/simulations/small_sample_CARMA100_h75.RData")
+CARMA_obs_cov <- rep( NA, 10)
+for ( i in 1:10){
+  CARMA_obs_cov[i] <- sum( temp[which(temp[,3] == (i )),1] )/sum( temp[which(temp[,3] == (i )),2] )
+}
+df <- data.frame(obs_cov =c(obs_cov, cor_obs_cov,CARMA_obs_cov),
+                 BF = factor(rep(c("Wakefeild", "Student","CARMA" ), each = length(1:10))),
+                 L= rep(1:10,3))
 
 
 library(ggplot2)
@@ -790,8 +915,8 @@ grid.arrange(P11, P21, P31,P41,P51,P61,
              P14, P24, P34,P44,P54,P64,
              ncol=6)
 P1<- grid.arrange(  P31,P41,P51,P61,
-               P32,P42,P52,P62,
-               P33,P43,P53,P63,
-               P14, P24, P34,P44,P54,P64,
-             ncol=4)
+                    P32,P42,P52,P62,
+                    P33,P43,P53,P63,
+                    P34,P44,P54,P64,
+                    ncol=4)
 

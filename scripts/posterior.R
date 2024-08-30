@@ -4,7 +4,7 @@ posterior_mean_SS<- function(x,y, s0_t=1){
   return( b_bar)
 }
 
-posterior_mean_SS_sum <- function(xtx,xty, s0_t=1){
+posterior_mean_SS_suff <- function(xtx,xty, s0_t=1){
   omega <- (( 1/s0_t^2)+xtx)^-1
   b_bar<- omega%*%(xty)
   return( b_bar)
@@ -22,7 +22,7 @@ posterior_var_SS <- function (x,y, s0_t=1){
 }
 
 
-posterior_var_SS_sum <- function (xtx,xty, n,s0_t=1){
+posterior_var_SS_suff <- function (xtx,xty, n,s0_t=1){
   omega <- (( 1/s0_t^2)+xtx)^-1
   b_bar<- omega%*%(xty)
   post_var_up <- 0.5*(yty  -  b_bar *(omega ^(-1))*b_bar)
@@ -47,9 +47,9 @@ summary(lm(y~x))$coefficient[2,1]
 
 
 posterior_mean_SS(x,y)
-posterior_mean_SS_sum (xtx,xty)
+posterior_mean_SS_suff (xtx,xty)
 posterior_var_SS(x,y)
-posterior_var_SS_sum (xtx,xty,n)
+posterior_var_SS_suff (xtx,xty,n)
 
 
 

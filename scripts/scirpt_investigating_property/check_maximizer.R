@@ -80,7 +80,7 @@ t_lbf <- function ( betahat, sdhat, sd_prior, df){
                               tau = 1/(1/sdhat^2 + 1/sd_prior^2), #1/(sdhat^2 + sd_prior^2),#
                               nu  = df,
                               log = TRUE)
-  out <-down-up +log(sqrt(1/(1/sdhat^2 + 1/sd_prior^2)))#-log(sqrt( sdhat^2))
+  out <-down-up #-log(sqrt( sdhat^2))
   return(out)
 
 }
@@ -123,7 +123,7 @@ abline(v=s0_seq[which.max(t_Wake)],col="darkgreen")
 
 
 
-set.seed(1 )
+set.seed(1234)
 n=50
 beta=runif(1,min=0.2, max=1.5)
 t_SS<- c()

@@ -1,11 +1,11 @@
-﻿# These data were extracted from Supplementary Table 1 of:
+# These data were extracted from Supplementary Table 1 of:
 # Huang et al (2017). Fine-mapping inflammatory bowel disease loci to
 # single-variant resolution. Nature 547, 173–178 (2017).
 # doi:10.1038/nature22969
 # Note that original base-pair positions were based on GRCh37/hg19.
 # Conversion to GRCh38/hg38 was performed using the UCSC "liftOver"
 # tool: https://genome.ucsc.edu/cgi-bin/hgLiftOver
-# HD,chr,signal,region_start_hg19,region_end_hg19,region_len_hg19,region_start_hg38,region_end_hg38
+HD,chr,signal,region_start_hg19,region_end_hg19,region_len_hg19,region_start_hg38,region_end_hg38
 1,1,1,2356887,2835671,478784,2425448,2919106
 2,1,1,7688180,8256130,567950,7628120,8196070
 4,1,1,20098249,20303899,205650,19771756,19977406

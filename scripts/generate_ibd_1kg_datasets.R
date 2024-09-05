@@ -1,9 +1,70 @@
-# Notes:
+# TO DO: Explain what this script is for, and how to use it.
 #
-# https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/release/20181203_biallelic_SNV/
-# https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/hd_genotype_chip/omni_samples.20141118.panel
+# The file 20130606_g1k.ped containing the population labels was
+# downloaded from here:
 #
-regions <- read.csv("../data/ibd_finemap_huang2017.csv",header = FALSE,
+#   https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/
+#   20130606_sample_info/
+#
+# See Supplementary Table 1 from the Nature paper
+# (doi:10.1038/nature15393) for an explanation of the population
+# labels.
+#
+# The genotype data were downloaded from here:
+#
+#   https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/
+#   1000_genomes_project/release/20181203_biallelic_SNV/
+#
+# Then PLINK command like this were used to convert the VCF files
+# to PLINK "pgen" files:
+#
+#   plink2 --vcf ALL.chr1.shapeit2_integrated_v1a.GRCh38.20181129.phased.vcf.gz \
+#     --make-bed --keep-allele-order --out 1kg_chr1
+#   
+
+# Load the 1kg population labels.
+ped <- read.table("../data/1kg/20130606_g1k.ped",sep = "\t",header = TRUE,
+                  stringsAsFactors = FALSE)
+ped <- transform(ped,Population = factor(Population))
+
+# Keep only the individuals that are (a) of European ancestry and (b)
+# have no (known) relationships to other individuals.
+ped <- subset(ped,
+              is.element(Population,c("CEU","GBR","FIN","IBS","TSI")) &
+              !duplicated(Family.ID) &
+              Siblings == "0" &
+              Second.Order == "0" &
+              Third.Order == "0")
+
+# Load the IBD fine-mapping regions.
+regions <- read.csv("../data/ibd_finemap_huang2017.csv",header = TRUE,
                     comment.char = "#",stringsAsFactors = FALSE)
-names(regions) <- c("HD","chr","signal","region_start_hg19","region_end_hg19",
-                    "region_len_hg19","region_start_hg38","region_end_hg38")
+
+setwd("../data/1kg")
+
+# Save the IDs of the individuals to keep.
+write.table(ped["Individual.ID"],"ids.txt",row.names = FALSE,
+            col.names = FALSE,quote = FALSE)
+
+# Repeat for each fine-mapping region.
+n <- nrow(regions)
+for (i in 1:n) {
+  id    <- regions[i,"HD"]
+  chr   <- regions[i,"chr"]
+  start <- regions[i,"region_start_hg38"]
+  end   <- regions[i,"region_end_hg38"]
+
+  # Extract the desired samples and SNPs.
+  command_str <- sprintf(paste("./plink2 --bfile 1kg_chr%d --make-bed",
+                               "--keep ids.txt --chr %d --from-bp %d",
+                               "--to-bp %d --snps-only --out ibd_%d"),
+                         chr,chr,start,end,id)
+  system(command_str)
+
+  # Convert the genotype data to a matrix in an .rds file.
+  command_str <- sprintf("./plink2 --bfile ibd_%d --export A --out ibd_%d",
+                         id,id)
+  system(command_str)
+  
+  stop()
+}

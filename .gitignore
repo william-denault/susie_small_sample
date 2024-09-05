@@ -9,3 +9,9 @@ analysis/*png
 analysis/*html
 analysis/*_cache
 analysis/site_libs
+data/1kg/*.vcf.gz
+data/1kg/*.pgen
+data/1kg/*.log
+data/1kg/*.bim
+data/1kg/*.fam
+data/1kg/*.bed

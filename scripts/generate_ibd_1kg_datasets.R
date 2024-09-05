@@ -21,11 +21,37 @@
 #   plink2 --vcf ALL.chr1.shapeit2_integrated_v1a.GRCh38.20181129.phased.vcf.gz \
 #     --make-bed --keep-allele-order --out 1kg_chr1
 #   
+library(data.table)
+
+# Read an n x p genotype matrix from a .raw file, where n is the
+# number of samples and p is the number of genetic markers (SNPs). See
+# http://www.cog-genomics.org/plink2/formats#raw for more information
+# about this file format.
+read_geno_raw <- function (filename) {
+  geno <- fread(filename,sep = "\t",header = TRUE,stringsAsFactors = FALSE,
+                showProgress = FALSE)
+  class(geno)    <- "data.frame"
+  ids            <- geno$IID
+  geno           <- geno[-(1:6)]
+  geno           <- as.matrix(geno)
+  storage.mode(geno) <- "double"
+  rownames(geno) <- ids
+  colnames(geno) <- NULL
+  return(geno)
+}
 
 # Load the 1kg population labels.
 ped <- read.table("../data/1kg/20130606_g1k.ped",sep = "\t",header = TRUE,
                   stringsAsFactors = FALSE)
 ped <- transform(ped,Population = factor(Population))
+
+# Load the genotype ids.
+fam <- read.table("../data/1kg/1kg_chr1.fam",sep = "\t",header = FALSE,
+                  stringsAsFactors = FALSE)
+ids <- fam[,2]
+
+# Keep only the individuals for which we have genotype data.
+ped <- subset(ped,is.element(Individual.ID,ids))
 
 # Keep only the individuals that are (a) of European ancestry and (b)
 # have no (known) relationships to other individuals.
@@ -61,10 +87,14 @@ for (i in 1:n) {
                          chr,chr,start,end,id)
   system(command_str)
 
-  # Convert the genotype data to a matrix in an .rds file.
+  # Convert the genotype data to a matrix in an .rds file. 
   command_str <- sprintf("./plink2 --bfile ibd_%d --export A --out ibd_%d",
                          id,id)
   system(command_str)
-  
-  stop()
+  bim  <- read.table(sprintf("ibd_%d.bim",id),sep = "\t",header = FALSE,
+                     stringsAsFactors = FALSE)
+  geno <- read_geno_raw(sprintf("ibd_%d.raw",id))
+  geno <- 2 - geno
+  colnames(geno) <- sprintf("chr%d_%d_%s_%s",bim[,1],bim[,4],bim[,5],bim[,6])
+  saveRDS(geno,sprintf("ibd_%d.rds",id))
 }

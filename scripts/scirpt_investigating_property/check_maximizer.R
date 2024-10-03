@@ -45,16 +45,6 @@ t_lBF <- function ( betahat, sdhat, sd_prior, df){
   return(out)
 }
 
-
-t_tes_BF <- function( betahat, sdhat, sd_prior, df){
-
-
-  up   <- dt(betahat,  2*df-2, log=TRUE)
-  down <-  dt(betahat/sqrt(1/(sdhat^2 + sd_prior^2)), 2*df-2, log=TRUE)
-  out <-  (down/( (sqrt(1/(sdhat^2 + sd_prior^2)))))/up
-  return(log(out))
-}
-
 Wake_lBF <-  function ( betahat, sdhat, sd_prior ){
 
 
@@ -69,31 +59,12 @@ Wake_lBF <-  function ( betahat, sdhat, sd_prior ){
 }
 
 
-
-
-t_lbf <- function ( betahat, sdhat, sd_prior, df){
-  up   <- LaplacesDemon::dstp(betahat/sdhat,
-                              tau = 1,
-                              nu  =df,
-                              log = TRUE)
-  down <- LaplacesDemon::dstp(betahat/sdhat ,
-                              tau = 1/(1/sdhat^2 + 1/sd_prior^2), #1/(sdhat^2 + sd_prior^2),#
-                              nu  = df,
-                              log = TRUE)
-  out <-down-up #-log(sqrt( sdhat^2))
-  return(out)
-
-}
-
-
-
 set.seed(1234)
 n=50
 beta=runif(1,min=0.2, max=1.5)
 t_SS<- c()
 t_student <- c()
 t_Wake <-c()
-t_tes  <- c()
 #check 0.2, 1, 2 , 5  10
 g  = rnorm(n)
 y= beta*g+rnorm(length(g))
@@ -105,7 +76,6 @@ for (i in 1:length(s0_seq)){
   t_SS  <- c(t_SS, logBF(g,y,sigmaa =   s0_seq[i],1)*log(10))
   t_student  <- c(t_student ,t_lBF(fit$coefficients[2,1],fit$coefficients[2,2],s0_seq[i],length(g) ))
   t_Wake  <- c(t_Wake , Wake_lBF(fit$coefficients[2,1],fit$coefficients[2,2],s0_seq[i]))
-
 }
 
 par(mfrow=c(1,1))
@@ -123,13 +93,12 @@ abline(v=s0_seq[which.max(t_Wake)],col="darkgreen")
 
 
 
-set.seed(1234)
-n=50
+set.seed(1 )
+n=500
 beta=runif(1,min=0.2, max=1.5)
 t_SS<- c()
 t_student <- c()
 t_Wake <-c()
- t_tes <- c()
 #check 0.2, 1, 2 , 5  10
 g  = rnorm(n)
 y= beta*g+rnorm(length(g))
@@ -141,22 +110,17 @@ for (i in 1:length(s0_seq)){
   t_SS  <- c(t_SS, logBF(g,y,sigmaa =   s0_seq[i],1)*log(10))
   t_student  <- c(t_student ,t_lBF(fit$coefficients[2,1],fit$coefficients[2,2],s0_seq[i],length(g) ))
   t_Wake  <- c(t_Wake , Wake_lBF(fit$coefficients[2,1],fit$coefficients[2,2],s0_seq[i]))
-  t_tes  <- c(t_tes,t_lbf(fit$coefficients[2,1],fit$coefficients[2,2],s0_seq[i],length(g) ))
 }
 
 par(mfrow=c(1,1))
 plot(s0_seq,t_Wake , type="l",col="darkgreen" , xlab="sigma_a", ylab="logBF", main="Bayes factor vs prior, n=500  ")
 lines(s0_seq,t_student, col="blue")
 lines(s0_seq, t_SS ,col="red" )
-lines(s0_seq, t_tes ,col="purple" )
 legend("topright", legend=c("Wakefeild","Student","Servin_Stephens"), col=c("darkgreen","blue","red"), lty=1:1, cex=0.8)
 
 abline(v=s0_seq[which.max(t_SS)] ,col="red")
 abline(v=s0_seq[which.max(t_student)],col="blue")
 abline(v=s0_seq[which.max(t_Wake)],col="darkgreen")
-
-
-library(BayesFactor)
 
 n=100
 max_s0_SS<-c()
@@ -165,9 +129,7 @@ max_s0_Wake<-c()
 max_SS<-c()
 max_t<-c()
 max_Wake<-c()
-max_t_test <-  c( )
-t_test <-c()
-for ( o in 1:200){
+for ( o in 1:1000){
 
 
   n=sample(size=1,50:200)
@@ -175,29 +137,18 @@ for ( o in 1:200){
   t_SS<- c()
   t_student <- c()
   t_Wake <-c()
-  tm_test <- c()
-
   #check 0.2, 1, 2 , 5  10
   g  = rnorm(n)
   y= beta*g+rnorm(length(g))
 
   fit <- summary(  lm(y~g))
-  seq(0.1,2,by=0.001) -> s0_seq
+  seq(0.1,2,by=0.0001) -> s0_seq
 
   for (i in 1:length(s0_seq)){
     t_SS  <- c(t_SS, logBF(g,y,sigmaa =   s0_seq[i],1)*log(10))
     t_student  <- c(t_student ,t_lBF(fit$coefficients[2,1],fit$coefficients[2,2],s0_seq[i],length(g) ))
     t_Wake  <- c(t_Wake , Wake_lBF(fit$coefficients[2,1],fit$coefficients[2,2],s0_seq[i]))
-    tm_test  <- c(tm_test,t_lbf(fit$coefficients[2,1],fit$coefficients[2,2],s0_seq[i],length(g) ))
   }
-  data <- data.frame(y = y, x = g)
-
-  result <- regressionBF(y ~ x, data = data, rscaleCont = "ultrawide")
-
-
-
-
-
 
 
   max_SS<-c(max_SS, t_SS[which.max(t_SS)])
@@ -206,53 +157,17 @@ for ( o in 1:200){
   max_s0_SS<-c(max_s0_SS, s0_seq[which.max(t_SS)])
   max_s0_t<-c(max_s0_t, s0_seq[which.max(t_student)])
   max_s0_Wake<-c(max_s0_Wake, s0_seq[which.max(t_Wake)])
-  max_t_test<-c(max_t_test, tm_test[which.max(tm_test)])
-  t_test <-  c(t_test, result@bayesFactor[1]
-  )
   print(o)
 }
-t_test<- do.call(c, t_test)
 
-plot(  max_s0_SS, max_s0_t,pch=19, col="red")
-points(  max_s0_SS, max_s0_Wake,pch=19,col="blue")
-points(  max_s0_SS, max_s0_Wake,pch=19,col="blue")
 
+ plot(  max_s0_SS, max_s0_t,pch=19, col="red")
+ points(  max_s0_SS, max_s0_Wake,pch=19,col="blue")
 abline(a=0,b=1)
 
-plot(  max_SS, max_t,pch=19, col="red",
-       xlab = "log Servin Stepehens BF",
-       ylab="log BF")
+plot(  max_SS, max_t,pch=19, col="red")
 points(  max_SS, max_Wake,pch=19,col="blue")
-points(  max_SS, t_test,pch=19,col="darkgreen")
-points(  max_SS, max_t_test,pch=19,col="purple")
-
-
-
-
-
-
-legend("topleft", legend = c("Denault",
-                             "Wakefeild",
-                             "JZS") ,
-       col = c("red",
-               "blue",
-               "darkgreen"),
-       lwd=2)
 abline(a=0,b=1)
 summary(lm(max_SS~  max_t))
 which(max_SS< max_t)
 plot(  residuals(lm(max_SS~  max_t)),pch=19)
-
-plot(  residuals(lm(max_SS~  max_t_test)),pch=19)
-
-
-
-
-
-plot(  exp(max_SS),exp(max_t),xlim=c(0,100000),ylim=c(0,100000), col="red",pch=19)
-
-points(exp(max_SS), exp(t_test),pch=19,col="darkgreen")
-
-
-plot( max_t, t_test,pch=19,col="darkgreen")
-abline(a=0,b=1)

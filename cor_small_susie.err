@@ -1,0 +1,50 @@
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.6.2
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.6.2
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.6.2
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.6.2
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.6.2
+Run ?workflowr for help getting started
+Registered S3 methods overwritten by 'susieRsmall':
+  method              from  
+  coef.susie          susieR
+  predict.susie       susieR
+  print.summary.susie susieR
+  summary.susie       susieR
+Registered S3 methods overwritten by 'susieRsmall':
+  method              from  
+  coef.susie          susieR
+  predict.susie       susieR
+  print.summary.susie susieR
+  summary.susie       susieR
+Registered S3 methods overwritten by 'susieRsmall':
+  method              from  
+  coef.susie          susieR
+  predict.susie       susieR
+  print.summary.susie susieR
+  summary.susie       susieR
+Registered S3 methods overwritten by 'susieRsmall':
+  method              from  
+  coef.susie          susieR
+  predict.susie       susieR
+  print.summary.susie susieR
+  summary.susie       susieR
+Registered S3 methods overwritten by 'susieRsmall':
+  method              from  
+  coef.susie          susieR
+  predict.susie       susieR
+  print.summary.susie susieR
+  summary.susie       susieR
+slurmstepd-midway2-0437: error: *** JOB 41499428 ON midway2-0437 CANCELLED AT 2024-08-26T04:19:27 ***
+slurmstepd-midway2-0437: error: *** JOB 41547646 ON midway2-0437 CANCELLED AT 2024-08-26T04:19:27 ***
+slurmstepd-midway2-0437: error: *** JOB 41547645 ON midway2-0437 CANCELLED AT 2024-08-26T04:19:27 ***
+slurmstepd-midway2-0437: error: *** JOB 41547644 ON midway2-0437 CANCELLED AT 2024-08-26T04:19:27 ***
+slurmstepd-midway2-0437: error: *** JOB 41547643 ON midway2-0437 CANCELLED AT 2024-08-26T04:19:27 ***

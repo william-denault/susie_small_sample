@@ -4,7 +4,21 @@ Registered S3 methods overwritten by 'susieRsmall':
   predict.susie       susieR
   print.summary.susie susieR
   summary.susie       susieR
-Error: unexpected symbol in:
-"  if(file.exists("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie100_h30.RData")){
-    load("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie100_h30.RData").RData"
-Execution halted
+slurmstepd-midway2-0035: error: *** JOB 42897174 ON midway2-0035 CANCELLED AT 2024-10-01T08:15:27 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0326: error: *** JOB 42897287 ON midway2-0326 CANCELLED AT 2024-10-01T08:35:57 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0227: error: *** JOB 42897285 ON midway2-0227 CANCELLED AT 2024-10-01T08:35:57 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0035: error: *** JOB 42899424 ON midway2-0035 CANCELLED AT 2024-10-01T12:30:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0222: error: *** JOB 42899423 ON midway2-0222 CANCELLED AT 2024-10-01T12:30:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0222: error: *** JOB 42899432 ON midway2-0222 CANCELLED AT 2024-10-01T12:32:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0311: error: *** JOB 42899433 ON midway2-0311 CANCELLED AT 2024-10-01T12:32:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0333: error: *** JOB 42899434 ON midway2-0333 CANCELLED AT 2024-10-01T12:32:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0241: error: *** JOB 42899435 ON midway2-0241 CANCELLED AT 2024-10-01T12:32:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0351: error: *** JOB 42899436 ON midway2-0351 CANCELLED AT 2024-10-01T12:32:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0383: error: *** JOB 42899438 ON midway2-0383 CANCELLED AT 2024-10-01T12:32:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0383: error: *** JOB 42899431 ON midway2-0383 CANCELLED AT 2024-10-01T12:32:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0144: error: *** JOB 42899439 ON midway2-0144 CANCELLED AT 2024-10-01T12:32:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0144: error: *** JOB 42899440 ON midway2-0144 CANCELLED AT 2024-10-01T12:32:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0335: error: *** JOB 42899444 ON midway2-0335 CANCELLED AT 2024-10-01T12:34:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0335: error: *** JOB 42899445 ON midway2-0335 CANCELLED AT 2024-10-01T12:34:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0043: error: *** JOB 42899437 ON midway2-0043 CANCELLED AT 2024-10-01T12:36:11 DUE TO TIME LIMIT ***
+slurmstepd-midway2-0030: error: *** JOB 42897175 ON midway2-0030 CANCELLED AT 2024-10-01T17:32:46 DUE TO TIME LIMIT ***

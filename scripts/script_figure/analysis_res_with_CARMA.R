@@ -30,7 +30,7 @@ P11 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   )+
   xlab(  expression(n == 10)  )+
   ylab(expression(h^2 == 25*"%"))+
-  #ggtitle("n=10, h=0.25")+
+  ggtitle(  expression(n == 10)  )+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
 abline( h=0.95)
@@ -173,7 +173,7 @@ P21 <- ggplot( df, aes(y=obs_cov, x=as.factor(L), col=BF))+
   )+
   ylab(' ')+
   xlab(' ')+
-  #ggtitle("n=20, h=0.25")+
+  ggtitle(  expression(n == 20)  )+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
 abline( h=0.95)

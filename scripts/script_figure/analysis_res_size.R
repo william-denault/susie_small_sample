@@ -1,5 +1,6 @@
 
-
+library(ggplot2)
+library(cowplot)
 ##### 10 ----
 load("~/susie_small_sample/simulations/small_sample_susie10_h25.RData")
 obs_size<- rep( NA, 10)
@@ -149,7 +150,7 @@ P21 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
   )+
  ylab(' ')+
   xlab(' ')+
-  #ggtitle("n=20, h=0.25")+theme_cowplot()+theme(legend.position = "none")
+   ggtitle("n=20 ")+theme_cowplot()+theme(legend.position = "none")
 P21
 
 load("~/susie_small_sample/simulations/small_sample_susie20_h30.RData")
@@ -176,7 +177,7 @@ P22 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
   geom_point(
   )+
  ylab(' ')+
-  xlab(' ')+
+  xlab(' ')+ theme_cowplot()+theme(legend.position = "none")
   #ggtitle("n=20, h=0.3")+theme_cowplot()+theme(legend.position = "none")
 P22
 
@@ -208,7 +209,7 @@ P23 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
   geom_point(
   )+
  ylab(' ')+
-  xlab(' ')+
+  xlab(' ')+ theme_cowplot()+theme(legend.position = "none")
   #ggtitle("n=20, h=0.5")+theme_cowplot()+theme(legend.position = "none")
 P23
 
@@ -228,7 +229,7 @@ P24 <- ggplot( df, aes(y=obs_size, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab(' ')+
-  xlab(' ')+
+  xlab(' ')+ theme_cowplot()+theme(legend.position = "none")
   #ggtitle("n=20, h=0.75")+theme_cowplot()+theme(legend.position = "none")
   P24
 
@@ -708,7 +709,7 @@ P64
 grid.arrange(P11, P21, P31,P41,P51, P61,
              P12, P22, P32,P42,P52, P62,
              P13, P23, P33,P43,P53, P63,
-             P134, P24, P34,P44,P54, P64,
+             P14, P24, P34,P44,P54, P64,
              ncol=6)
 grid.arrange(  P31,P41,P51, P61,
                P32,P42,P52, P62,

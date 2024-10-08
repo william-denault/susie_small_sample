@@ -62,13 +62,14 @@ run_CARMA_sim <-  function(N=20,
 
 
     z.list<- list(my_zscores)
-    ld.list<- list(as.matrix(cor(X)))
+    ld.list<- list(as.matrix(cor(X)^2))
     lambda.list<-list()
     lambda.list[[1]]<-1
-    CARMA.results<-CARMA(z.list=z.list,
-                         lambda.list=lambda.list,
-                         ld.list=ld.list,
-                         effect.size.prior = "Spike-slab")
+    CARMA.results<- CARMA(z.list=z.list,
+                                        lambda.list=lambda.list,
+                                        ld.list=ld.list,
+                                        effect.size.prior = "Cauchy",
+                                        outlier.switch = "F",Max.Model.Dim=10)
 
 
 

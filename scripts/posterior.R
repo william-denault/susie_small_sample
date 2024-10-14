@@ -103,7 +103,7 @@ df_plot <- data.frame(x = X, density_t = density_t, density_normal = density_nor
 ggplot(df_plot, aes(x = X)) +
   geom_line(aes(y = density_t, color = "t-distribution")) +
   geom_line(aes(y = density_normal, color = "normal distribution"), linetype = "dashed") +
-  labs(title = "3-Parameter t-Distribution and Normal Distribution Density Plot",
+  labs(title = "Posterior SER using Gaussian vs SS model",
        x = "x",
        y = "Density") +
   scale_color_manual(name = "Distribution", values = c("t-distribution" = "blue", "normal distribution" = "red")) +

@@ -18,7 +18,7 @@ vcf_data <- read.vcfR(file_path)
 vcf_meta <- getFIX(vcf_data)  # Extract fixed data (like CHROM, POS, etc.)
 vcf_genotypes <- extract.gt(vcf_data)  # Extract genotypes
 
-for( j in 1:ncol( ge_MAT)){
+for( j in 1:nrow( ge_MAT)){
 
 
   # Filter by chromosome and position range
@@ -32,7 +32,7 @@ for( j in 1:ncol( ge_MAT)){
 
   filtered_genotypes <- filtered_genotypes[, which(colnames(filtered_genotypes)%in% colnames(ge_MAT))]
   filtered_genotypes = filtered_genotypes[ , order(colnames(filtered_genotypes))]
-
+if( nrow(filtered_genotypes)>0){
   # Function to transform genotypes
   transform_genotype <- function(genotype) {
     if (genotype == "0/0") {
@@ -67,11 +67,13 @@ for( j in 1:ncol( ge_MAT)){
             res_susie_small_perm = res_susie_small_perm)
 
 
- save(out,file=
-      paste0( "/project2/mstephens/wdenault/genome_wide_analysis_results/susie_small/",
-            info[j,1],
-          ".RData")
-    )
+  save(out,file=
+         paste0( "/project2/mstephens/wdenault/genome_wide_analysis_results/susie_small/",
+                 info[j,1],
+                 ".RData")
+  )
+
+}
 
 }
 

@@ -13,4 +13,9 @@ for( i in 1: length(lf)){
 }
 
 
-tl
+tl=do.call(rbind,tl)
+apply(tl, 2 ,sum)
+
+
+
+tl[which(tl[,1]>0),]

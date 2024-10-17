@@ -25,7 +25,7 @@ calculate_error <- function(est_cov, n = 10) {
 # Load and process all datasets
 h2_values <- c(25, 30, 50, 75)
 n_values <- c(10, 20, 30, 50, 75, 100)
-bf_labels <- c("SER_Gaus", "SER_SS", "CARMA")
+bf_labels <- c("SER_Gaus", "SER_SS" )
 
 data_list <- list()
 
@@ -34,14 +34,14 @@ for (n in n_values) {
 
     susie_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
     cor_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/cor_small_sample_susie", n, "_h", h2, ".RData"))
-    carma_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/small_sample_CARMA", n, "_h", h2, ".RData"))
+  #  carma_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/small_sample_CARMA", n, "_h", h2, ".RData"))
 
     # Combine data into a single data frame for this combination of n and h2
     df <- data.frame(
-      obs_cov = c(susie_data$obs_cov, cor_data$obs_cov, carma_data$obs_cov),
-      cs_size = c(susie_data$cs_size, cor_data$cs_size, carma_data$cs_size),
+      obs_cov = c(susie_data$obs_cov, cor_data$obs_cov ),
+      cs_size = c(susie_data$cs_size, cor_data$cs_size ),
       BF = factor(rep(bf_labels, each = length(1:10))),
-      L = rep(1:10, 3),
+      L = rep(1:10, 2),
       n = n,
       h2 = h2
     )
@@ -736,7 +736,7 @@ P64_cs  <- ggplot( combined_data[which(combined_data$n==100 & combined_data$h2==
 abline( h=0.95)
 P64_cs
 
-
+library(gridExtra)
 grid.arrange(P11_cs , P21_cs , P31_cs ,P41_cs ,P51_cs ,P61_cs ,
              P12_cs , P22_cs , P32_cs ,P42_cs ,P52_cs ,P62_cs ,
              P13_cs , P23_cs , P33_cs ,P43_cs ,P53_cs ,P63_cs ,

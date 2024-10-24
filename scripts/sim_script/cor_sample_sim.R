@@ -53,7 +53,7 @@ run_susie_sim <-  function(N=20,
     X <- sim_data$X
     true_pos <- sim_data$true_pos
     if (var (y)>0.00001){
-      out <-  susieRsmall::susie(X,y, L=10 )
+      out <-  susieRsmall::susie(X,y, L=length(true_pos) )
       out$sets
       if(!is.null(out$sets$cs)){
 
@@ -63,10 +63,15 @@ run_susie_sim <-  function(N=20,
         n_cs   <-    length(  out$sets$cs  )
         n_effect <- length(true_pos)
 
-        res [[idx]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets[[1]])  ) )
+        res [[i ]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets$cs[[1]])  ),0 , mean(out$sets$purity[,2]))
 
-        idx <- idx+1
+
         print(res)
+      }else{
+
+        n_effect <- length(true_pos)
+        res [[i ]] <- c( 0 ,   0,n_effect, NaN,1, 0 )
+
       }
 
     }
@@ -79,33 +84,8 @@ run_susie_sim <-  function(N=20,
   }
 
   temp <- do.call (rbind ,res)
-  colnames(temp) <- c("n_true_cs", "n_cs", "n_effect", "mean_cs_size")
+  colnames(temp) <- c("n_true_cs", "n_cs", "n_effect", "mean_cs_size", "is.dummy", "purity")
   temp <- data.frame(temp)
   # Return results
   return(temp )
 }
-
-
-compute_metric <-function( res_sim){
-
-
-
-  obs_cs_size <- rep( NA,length(unique(res_sim$n_effect)))
-  idx=1
-  for ( i in unique(res_sim$n_effect)){
-
-    obs_cs_size[ idx] <- mean( res_sim[which(res_sim$n_effect == (i )),4] )
-    idx= idx+1
-  }
-  obs_cov <- rep( NA,length(unique(res_sim$n_effect)))
-  idx=1
-  for ( i in unique(res_sim$n_effect)){
-    obs_cov[idx] <- sum( res_sim[which(res_sim[,3] == (i )),1] )/sum( res_sim[which(res_sim[,3] == (i )),2] )
-    idx= idx+1
-  }
-
-  out <- data.frame(L=unique(res_sim$n_effect),  obs_cs_size, obs_cov)
-
-  return(out )
-}
-

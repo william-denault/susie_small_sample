@@ -53,7 +53,7 @@ run_susie_sim <-  function(N=20,
     X <- sim_data$X
     true_pos <- sim_data$true_pos
     if (var (y)>0.00001){
-      out <- susieR::susie(X,y, L=10 )
+      out <-  susieRsmall::susie(X,y, L=length(true_pos))
       out$sets
       if(!is.null(out$sets$cs)){
 
@@ -63,28 +63,32 @@ run_susie_sim <-  function(N=20,
         n_cs   <-    length(  out$sets$cs  )
         n_effect <- length(true_pos)
 
-        res [[idx]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets[[1]])  ) )
+        res [[i ]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets$cs[[1]])  ),0 , mean(out$sets$purity[,2]))
 
-        idx <- idx+1
+
         print(res)
+      }else{
+
+        n_effect <- length(true_pos)
+        res [[i ]] <- c( 0 ,   0,n_effect, NaN,1, 0 )
+
       }
 
     }
 
   }
 
- if(length(res)==0){
-   warning("Susie only reports dummy CS, increase n_sim or change h")
-   return(NULL)
- }
+  if(length(res)==0){
+    warning("Susie only reports dummy CS, increase n_sim or change h")
+    return(NULL)
+  }
 
   temp <- do.call (rbind ,res)
-  colnames(temp) <- c("n_true_cs", "n_cs", "n_effect", "mean_cs_size")
+  colnames(temp) <- c("n_true_cs", "n_cs", "n_effect", "mean_cs_size", "is.dummy", "purity")
   temp <- data.frame(temp)
   # Return results
   return(temp )
 }
-
 
 compute_metric <-function( res_sim){
 

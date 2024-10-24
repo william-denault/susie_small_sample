@@ -1,4 +1,17 @@
 #' FINEMAP I/O
+#'
+#'
+run_cmd <- function(cmd_str, shell_exec="/bin/bash", fout='', ferr='', quit_on_error=TRUE, ...) {
+  if (ferr!=FALSE) {
+    write("Running shell command:", stderr())
+    write(cmd_str, stderr())
+  }
+  out <- system2(shell_exec, args = c("-c", shQuote(cmd_str)), stdout = fout, stderr=ferr, ...)
+  if (out != 0 && quit_on_error && fout != TRUE && ferr != TRUE)
+    stop(paste(strsplit(cmd_str, " +")[[1]][1], "command failed (returned a non-zero exit status)"))
+  return(out)
+}
+
 write_finemap_sumstats_v1.4 <- function(bhat, se, allele_freq, LD_file, n, k, prefix) {
   cfg = list(z=paste0(prefix,".z"),
              ld=LD_file,
@@ -34,14 +47,16 @@ write_finemap_sumstats_v1.4 <- function(bhat, se, allele_freq, LD_file, n, k, pr
 
 run_finemap_v1.4 <- function(bhat, se, allele_freq, LD_file, n, k, method,args = "", prefix="data")
 {
+
+  system("tar zxvf finemap_v1.4.2_x86_64.tgz")
   cfg = write_finemap_sumstats_v1.4(bhat, se, allele_freq, LD_file, n, k, prefix)
   if(method == 'sss'){
-    cmd = paste("finemap_v1.4 --sss --log", "--in-files", cfg$meta, args)
+    cmd = paste("./finemap_v1.4.2_x86_64/finemap_v1.4.2_x86_64 --sss --log", "--in-files", cfg$meta, args)
   }else{
-    cmd = paste("finemap_v1.4 --cond --log", "--in-files", cfg$meta, args)
+    cmd = paste("./finemap_v1.4.2_x86_64/finemap_v1.4.2_x86_64 --cond --log", "--in-files", cfg$meta, args)
   }
 
-  out <- dscrutils::run_cmd(cmd, timeout=900, quit_on_error=FALSE)
+  out <- run_cmd(cmd, timeout=900, quit_on_error=FALSE)
   if (out != 0) {
     return(list(snp=NULL, config=NULL, set=NULL, ncausal=NULL))
   }
@@ -130,3 +145,81 @@ finemap_mvar_v1.4 <- function(bhat, se, allele_freq, LD_file, n, k, method, args
   else
     return(lapply(1:ncol(bhat), function(r) single_core(r)))
 }
+
+
+# Required libraries
+library(susieR)
+library(parallel)
+
+# Function to simulate data
+sim_dat <- function(N=20, h=0.5) {
+  lf = list.files("/home/wdenault/susie_small_sample/data/1kg/rds/")
+  id = sample(1:length(lf), size=1)
+  X <- readRDS(paste0("/home/wdenault/susie_small_sample/data/1kg/rds/", lf[id]))
+  X <- X[sample(1:nrow(X), size=N, replace=FALSE), ]
+
+  if (length(which(apply(X,2,var) == 0)) > 0) {
+    X <- X[, -which(apply(X,2,var) == 0)]
+  }
+
+  L <- sample(1:10, size=1)  # Number of effects
+  predictor <- rep(0, nrow(X))
+
+  while (var(predictor) == 0) {
+    true_pos <- sample(1:ncol(X), L)  # Causal columns/SNPs
+
+    if (L == 1) {
+      predictor <- X[,true_pos]
+    } else {
+      predictor <- apply(X[,true_pos], 1, sum)
+    }
+
+    noise <- rnorm(N)
+    y <- predictor + sqrt(var(predictor) / h - var(predictor)) * c(scale(noise))
+  }
+
+  return(list(X = X, y = y, true_pos = true_pos))
+}
+
+# Function to compute marginal beta and SE
+compute_marginal_beta_se <- function(X, y) {
+  bhat <- apply(X, 2, function(x) coef(lm(y ~ x))[2])
+  se <- apply(X, 2, function(x) summary(lm(y ~ x))$coefficients[2,2])
+  return(list(bhat = bhat, se = se))
+}
+
+# Function to compute LD matrix
+compute_LD <- function(X) {
+  return(cor(X))
+}
+
+# Running FINEMAP
+run_finemap_sim <- function(N=20, h=0.5, n_sim=1000) {
+  for (i in 1:n_sim) {
+    sim_data <- sim_dat(N=N, h=h)
+    X <- sim_data$X
+    y <- sim_data$y
+    true_pos <- sim_data$true_pos
+
+    if (var(y) > 0.00001) {
+      marg_stats <- compute_marginal_beta_se(X, y)
+      bhat <- marg_stats$bhat
+      se <- marg_stats$se
+      LD <- compute_LD(X)
+      allele_freq <- colMeans(X) / 2  # Estimating MAF from X
+      n <- N
+
+      # Call the FINEMAP function (ensure FINEMAP executable is available and in the path)
+      finemap_res <- run_finemap_v1.4(bhat, se, allele_freq, LD_file=LD, n=n, k=10, method="sss", prefix=paste0("sim_", i))
+
+      # Output results (you can store them or perform additional analysis)
+      print(finemap_res)
+      return(finemap_res)
+    }
+  }
+}
+
+# Run the simulation
+res = run_finemap_sim(N=100, h=0.5, n_sim=10)
+
+res

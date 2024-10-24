@@ -7,7 +7,7 @@ source("/home/wdenault/susie_small_sample/scripts/sim_script/CARMA_sample_sim_sp
 for ( o in 1:20000){
 
 
-  temp0 <- run_CARMA_sim(N=50, h=0.75, n_sim=100)
+  temp0 <- run_CARMA_sim(N=50, h=0.75, n_sim=10 )
 
   if(file.exists("/home/wdenault/susie_small_sample/simulations/small_sample_CARMA_spike_slab50_h75.RData")){
     load("/home/wdenault/susie_small_sample/simulations/small_sample_CARMA_spike_slab50_h75.RData")

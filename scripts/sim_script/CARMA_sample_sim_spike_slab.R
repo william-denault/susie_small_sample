@@ -61,7 +61,7 @@ run_CARMA_sim <-  function(N=20,
 
 
     z.list<- list(my_zscores)
-    ld.list<- list(as.matrix(cor(X))^2)
+    ld.list<- list(as.matrix(cor(X)) )
     lambda.list<-list()
     lambda.list[[1]]<-1
     CARMA.results<-CARMA(z.list=z.list,

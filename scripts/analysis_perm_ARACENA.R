@@ -51,10 +51,22 @@ tl=do.call(rbind,tl)
 res= tl
 
 save(res, file="permutation_Aracena.RData")
-table (tl[,1], tl[,2])
+table (res[,1], res[,4])
+
+res= data.frame(res)
+
+median (res$SuSiE_cs_size[which(res$SuSiE >0)])
+median (res$SuSiE_cs_purity[which(res$SuSiE >0)])
+
+median (res$SuSiE_SS_cs_size[which(res$SuSiE_SS >0)])
+
+
+mean (res$SuSiE_cs_purity[which(res$SuSiE >0)])
+mean (res$SuSiE_SS_cs_purity[which(res$SuSiE_SS >0)])
 
 
 
+mean (res$SuSiE_cs_size[which(res$SuSiE >0 & res$SuSiE_SS >0)])
 
 108/1018
 3/390

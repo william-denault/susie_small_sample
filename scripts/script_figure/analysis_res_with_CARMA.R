@@ -25,7 +25,7 @@ calculate_error <- function(est_cov, n = 10) {
 # Load and process all datasets
 h2_values <- c(25, 30, 50, 75)
 n_values <- c(10, 20, 30, 50, 75, 100)
-bf_labels <- c("SER_Gaus", "SER_SS", "CARMA")
+bf_labels <- c("SER_Gaus", "SER_SS", "CARMA", "CARMAP_spike")
 
 data_list <- list()
 
@@ -35,19 +35,20 @@ for (n in n_values) {
     susie_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
     cor_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/cor_small_sample_susie", n, "_h", h2, ".RData"))
     carma_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/small_sample_CARMA", n, "_h", h2, ".RData"))
+    carma_data_spike <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/small_sample_CARMA_spike_slab", n, "_h", h2, ".RData"))
 
     # Combine data into a single data frame for this combination of n and h2
     df <- data.frame(
-      obs_cov = c(susie_data$obs_cov, cor_data$obs_cov, carma_data$obs_cov),
-      cs_size = c(susie_data$cs_size, cor_data$cs_size, carma_data$cs_size),
+      obs_cov = c(susie_data$obs_cov, cor_data$obs_cov, carma_data$obs_cov, carma_data_spike$obs_cov),
+      cs_size = c(susie_data$cs_size, cor_data$cs_size, carma_data$cs_size, carma_data_spike$obs_cov),
       BF = factor(rep(bf_labels, each = length(1:10))),
-      L = rep(1:10, 3),
+      L = rep(1:10, 4),
       n = n,
       h2 = h2
     )
 
     my_n = rep(NA, nrow(df))
-    for ( i in 1:3){
+    for ( i in 1:4){
       for ( l in 1:10){
         if(i ==i){
           load(paste0("~/susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
@@ -64,6 +65,12 @@ for (n in n_values) {
         }
         if(i==3){
           load(paste0("~/susie_small_sample/simulations/small_sample_CARMA", n, "_h", h2, ".RData"))
+          if(length(table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ])>0){
+            my_n[which(df $BF =="SER_SS" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
+          }
+        }
+        if(i==4){
+          load(paste0("~/susie_small_sample/simulations/small_sample_CARMA_spike_slab", n, "_h", h2, ".RData"))
           if(length(table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ])>0){
             my_n[which(df $BF =="SER_SS" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
           }

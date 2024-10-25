@@ -1,7 +1,7 @@
 library(vcfR)
 
 
-window=1000000
+window=200000
 library(data.table)
 ge_MAT=fread("/project2/mstephens/wdenault/EU_AF_ancestry_flu/full_data/RNAseq_NI.expression.txt.gz")
 

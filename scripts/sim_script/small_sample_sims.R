@@ -2,9 +2,14 @@
 library(susieR)
 attach(N3finemapping)
 
-sim_dat <- function(N=20, h=0.5) {
+sim_dat <- function(N=20, h=0.5, L=NULL) {
 
 
+
+  if(is.null(L)){
+    L <-sample(1:10, size=1)#Number of effect
+
+  }
 
   lf = list.files("/home/wdenault/susie_small_sample/data/1kg/rds/")
   id = sample( 1:length(lf), size=1)
@@ -15,7 +20,6 @@ sim_dat <- function(N=20, h=0.5) {
     X <- X[ ,-which( apply(X,2,var)==0)]
   }
 
-  L <-sample(1:10, size=1)#Number of effect
 
 
   predictor<- rep(0, nrow(X))
@@ -40,20 +44,28 @@ sim_dat <- function(N=20, h=0.5) {
 
 run_susie_sim <-  function(N=20,
                            h=0.5,
-                           n_sim=10000){
+                           n_sim=10000,
+                           L_sim=NULL,
+                           L_susie=NULL){
 
   res <- list( )
   idx =1
+  if(is.null(L_susie)){
+    L_susie=10
+  }
+
+
   for ( i  in (length(res)+1):n_sim){
 
     sim_data <- sim_dat(N=N,
-                        h=h)
+                        h=h,
+                        L =L_sim)
 
     y <- sim_data$y
     X <- sim_data$X
     true_pos <- sim_data$true_pos
     if (var (y)>0.00001){
-      out <-  susieRsmall::susie(X,y, L=length(true_pos))
+      out <-  susieR::susie(X,y, L= L_susie)
       out$sets
       if(!is.null(out$sets$cs)){
 
@@ -63,7 +75,7 @@ run_susie_sim <-  function(N=20,
         n_cs   <-    length(  out$sets$cs  )
         n_effect <- length(true_pos)
 
-        res [[i ]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets$cs[[1]])  ),0 , mean(out$sets$purity[,2]))
+        res [[i ]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets$cs )  ),0 , mean(out$sets$purity[,2]))
 
 
         print(res)

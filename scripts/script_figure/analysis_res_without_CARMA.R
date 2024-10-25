@@ -5,6 +5,7 @@ library(dplyr)
 # Function to load data and calculate observed coverage
 load_and_calculate_cov_and_cs <- function(path, num_reps = 10) {
   load(path)
+  temp= temp[- which(temp$is.dummy==1),]
   obs_cov <- sapply(1:num_reps, function(i) {
     sum(temp[which(temp[,3] == i), 1]) / sum(temp[which(temp[,3] == i), 2])
   })
@@ -47,7 +48,7 @@ for (n in n_values) {
     )
 
     my_n = rep(NA, nrow(df))
-    for ( i in 1:3){
+    for ( i in 1:2){
       for ( l in 1:10){
         if(i ==i){
           load(paste0("~/susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
@@ -62,12 +63,7 @@ for (n in n_values) {
             my_n[which(df $BF =="SER_SS" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
           }
         }
-        if(i==3){
-          load(paste0("~/susie_small_sample/simulations/small_sample_CARMA", n, "_h", h2, ".RData"))
-          if(length(table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ])>0){
-            my_n[which(df $BF =="SER_SS" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
-          }
-        }
+
       }
 
 

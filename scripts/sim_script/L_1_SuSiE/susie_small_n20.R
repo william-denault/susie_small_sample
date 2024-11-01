@@ -8,7 +8,7 @@ for ( o in 1:10000){
 
 
 
-  temp0 <- run_susie_sim(N=75, h=0.30, n_sim=1000 , L_sim = 1, L_susie = 1)
+  temp0 <- run_susie_sim(N=75, h=0.30, n_sim=100 , L_sim = 1, L_susie = 1)
 
   if(file.exists("/home/wdenault/susie_small_sample/simulations/L_1_small_sample_susie75_h30.RData")){
     load("/home/wdenault/susie_small_sample/simulations/L_1_small_sample_susie75_h30.RData")

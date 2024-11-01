@@ -27,4 +27,4 @@ for ( o in 1:100000){
   }
 
   save(temp, file="/home/wdenault/susie_small_sample/simulations/small_sample_susie20_h50.RData")
-
+}

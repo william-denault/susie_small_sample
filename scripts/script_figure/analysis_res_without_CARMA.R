@@ -15,7 +15,12 @@ load_and_calculate_cov_and_cs <- function(path, num_reps = 10) {
     median(temp[which(temp[,3] == i), 4])
   })
 
-  return(list(obs_cov = obs_cov, cs_size = cs_size))
+  power <- sapply(1:num_reps,  function(i) {
+    sum(temp$n_true_cs[which( temp$is.dummy==0 & temp$n_effect==i )])/ sum(temp$n_effect[which( temp$n_effect==i )])
+  })
+
+
+  return(list(obs_cov = obs_cov, cs_size = cs_size, power= power))
 }
 
 # Function to calculate error bars for each observation
@@ -41,6 +46,7 @@ for (n in n_values) {
     df <- data.frame(
       obs_cov = c(susie_data$obs_cov, cor_data$obs_cov ),
       cs_size = c(susie_data$cs_size, cor_data$cs_size ),
+      power= c(susie_data$power, cor_data$power),
       BF = factor(rep(bf_labels, each = length(1:10))),
       L = rep(1:10, 2),
       n = n,
@@ -432,7 +438,7 @@ P64 <- ggplot( combined_data[which(combined_data$n==100 & combined_data$h2==75),
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
 
 P64
-
+library(gridExtra)
 
 grid.arrange(P11, P21, P31,P41,P51,P61,
              P12, P22, P32,P42,P52,P62,
@@ -750,3 +756,6 @@ ggplot(combined_data[which(combined_data$L==1),], aes( x= BF , y=obs_cov,
   ggtitle("Observed coverage for L=1")
 
 
+ggplot(combined_data, aes(y =power, x = as.factor(L), col = BF)) +
+  geom_point(position = position_dodge, size = 2) +
+  facet_grid(h2 ~ n, labeller = custom_labeller, switch = "y")

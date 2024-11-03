@@ -20,7 +20,12 @@ load_and_calculate_cov_and_cs <- function(path, num_reps = 1 ) {
     median(temp[which(temp[,3] == i), 4])
   })
 
-  return(list(obs_cov = obs_cov, cs_size = cs_size))
+  power <- sapply(1:num_reps,  function(i) {
+    sum(temp$n_true_cs[which( temp$is.dummy==0 & temp$n_effect==i )])/ sum(temp$n_effect[which( temp$n_effect==i )])
+  })
+
+
+  return(list(obs_cov = obs_cov, cs_size = cs_size, power= power))
 }
 
 # Function to calculate error bars for each observation
@@ -46,6 +51,7 @@ for (n in n_values) {
     df <- data.frame(
       obs_cov = c(susie_data$obs_cov, cor_data$obs_cov ),
       cs_size = c(susie_data$cs_size, cor_data$cs_size ),
+      power= c(susie_data$power, cor_data$power),
       BF = factor(  bf_labels  ),
       L = rep(1, 2),
       n = rep(n,2),
@@ -89,11 +95,17 @@ combined_data <- bind_rows(data_list)
 
 
 
-ggplot(combined_data , aes( x= BF , y=obs_cov,
+P_cov = ggplot(combined_data , aes( x= BF , y=obs_cov,
                                                        color= BF ))+
   facet_grid(h2~n)+
   geom_point()+ theme_minimal()+
   geom_hline(yintercept = 0.95)+
   ggtitle("Observed coverage for SER ")
+print(P_cov)
 
-
+P_power= ggplot(combined_data , aes( x= BF , y=power,
+                            color= BF ))+
+  facet_grid(h2~n)+
+  geom_point()+ theme_minimal()+
+  ggtitle("Power coverage for SER ")
+print(P_power)

@@ -158,7 +158,7 @@ P11 <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==25),]
   ggtitle(  expression(n == 10)  )+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P11
 library(ggplot2)
 P12 <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==30),],
@@ -170,7 +170,7 @@ P12 <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==30),]
   ylab(expression(h^2 == 30*"%"))+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P12
 
 library(ggplot2)
@@ -183,7 +183,7 @@ P13 <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==50),]
   ylab(expression(h^2 == 50*"%"))+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P13
 library(ggplot2)
 P14 <- ggplot(combined_data[which(combined_data$n==10 & combined_data$h2==75),],  aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -194,7 +194,7 @@ P14 <- ggplot(combined_data[which(combined_data$n==10 & combined_data$h2==75),],
   ylab(expression(h^2 == 75*"%"))+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P14
 library(ggplot2)
 P21 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),],
@@ -206,7 +206,7 @@ P21 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),]
   ggtitle(  expression(n == 20)  )+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P21
 library(ggplot2)
 P22 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==30),], aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -217,7 +217,7 @@ P22 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==30),]
   #ggtitle("n=20, h=0.3")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P22
 library(ggplot2)
 P23 <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==50),],  aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -228,7 +228,7 @@ P23 <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==50),
   #ggtitle("n=20, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P23
 library(ggplot2)
 P24 <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==75),],  aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -239,7 +239,7 @@ P24 <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==75),
   #ggtitle("n=20, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P24
 library(ggplot2)
 P31 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),],  aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -251,7 +251,7 @@ P31 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),
   ylab(' ')+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P31
 library(ggplot2)
 P32 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==30),],
@@ -263,7 +263,7 @@ P32 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==30),
   ylab(' ')+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P32
 library(ggplot2)
 P33 <- ggplot( combined_data[which(combined_data$n==30 & combined_data$h2==50),],
@@ -275,7 +275,7 @@ P33 <- ggplot( combined_data[which(combined_data$n==30 & combined_data$h2==50),]
   ylab(' ')+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P33
 library(ggplot2)
 P34 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==75),],
@@ -287,7 +287,7 @@ P34 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==75),
   ylab(' ')+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P34
 library(ggplot2)
 P41 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),],
@@ -301,7 +301,7 @@ P41 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),
 
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P41
 P42 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==30),],
                 aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -312,7 +312,7 @@ P42 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==30),
   #ggtitle("n=50, h=0.3")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P42
 P43 <-  ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==50),],
                  aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -323,7 +323,7 @@ P43 <-  ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==50)
   #ggtitle("n=50, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P43
 
 library(ggplot2)
@@ -336,7 +336,7 @@ P44 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==75),
   #ggtitle("n=50, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P44
 library(ggplot2)
 P51 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==25),],
@@ -348,7 +348,7 @@ P51 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==25),
   ggtitle(  expression(n == 75)  )+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P51
 library(ggplot2)
 P52 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==30),],
@@ -360,7 +360,7 @@ P52 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==30),
   #ggtitle("n=75, h=0.3")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P52
 
 library(ggplot2)
@@ -373,7 +373,7 @@ P53 <- ggplot( combined_data[which(combined_data$n==75 & combined_data$h2==50),]
   #ggtitle("n=75, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P53
 library(ggplot2)
 P54 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==75),],  aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -384,7 +384,7 @@ P54 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==75),
   #ggtitle("n=75, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P54
 
 library(ggplot2)
@@ -396,7 +396,7 @@ P61 <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2==25)
   ggtitle(  expression(n == 100)  )+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P61
 library(ggplot2)
 P62 <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2==30),],  aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -407,7 +407,7 @@ P62 <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2==30)
   #ggtitle("n=100, h=0.3")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P62
 library(ggplot2)
 P63 <- ggplot(combined_data[which(combined_data$n==100 & combined_data$h2==50),], aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -418,7 +418,7 @@ P63 <- ggplot(combined_data[which(combined_data$n==100 & combined_data$h2==50),]
   #ggtitle("n=100, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P63
 
 library(ggplot2)
@@ -430,7 +430,7 @@ P64 <- ggplot( combined_data[which(combined_data$n==100 & combined_data$h2==75),
   #ggtitle("n=100, h=0.5")+
   geom_hline(yintercept = 0.95)+
   ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P64
 
 
@@ -457,7 +457,7 @@ P11_cs <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==25
   ggtitle(  expression(n == 10)  )+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P11_cs
 library(ggplot2)
 P12_cs  <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==30),],
@@ -469,7 +469,7 @@ P12_cs  <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==3
   ylab(expression(h^2 == 30*"%"))+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P12_cs
 
 library(ggplot2)
@@ -482,7 +482,7 @@ P13_cs  <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==5
   ylab(expression(h^2 == 50*"%"))+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P13_cs
 library(ggplot2)
 P14_cs  <- ggplot(combined_data[which(combined_data$n==10 & combined_data$h2==75),],  aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -493,7 +493,7 @@ P14_cs  <- ggplot(combined_data[which(combined_data$n==10 & combined_data$h2==75
   ylab(expression(h^2 == 75*"%"))+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P14_cs
 library(ggplot2)
 P21_cs  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),],
@@ -505,7 +505,7 @@ P21_cs  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==2
   ggtitle(  expression(n == 20)  )+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P21_cs
 library(ggplot2)
 P22_cs  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==30),], aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -516,7 +516,7 @@ P22_cs  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==3
   #ggtitle("n=20, h=0.3")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P22_cs
 library(ggplot2)
 P23_cs  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==50),],  aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -527,7 +527,7 @@ P23_cs  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==
   #ggtitle("n=20, h=0.5")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P23_cs
 library(ggplot2)
 P24_cs  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==75),],  aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -538,7 +538,7 @@ P24_cs  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==
   #ggtitle("n=20, h=0.5")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P24_cs
 library(ggplot2)
 P31_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),],  aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -550,7 +550,7 @@ P31_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==
   ylab(' ')+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P31_cs
 library(ggplot2)
 P32_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==30),],
@@ -562,7 +562,7 @@ P32_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==
   ylab(' ')+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P32_cs
 library(ggplot2)
 P33_cs  <- ggplot( combined_data[which(combined_data$n==30 & combined_data$h2==50),],
@@ -574,7 +574,7 @@ P33_cs  <- ggplot( combined_data[which(combined_data$n==30 & combined_data$h2==5
   ylab(' ')+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P33_cs
 library(ggplot2)
 P34_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==75),],
@@ -586,7 +586,7 @@ P34_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==
   ylab(' ')+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P34_cs
 library(ggplot2)
 P41_cs  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),],
@@ -600,7 +600,7 @@ P41_cs  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==
 
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P41_cs
 P42_cs  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==30),],
                     aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -611,7 +611,7 @@ P42_cs  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==
   #ggtitle("n=50, h=0.3")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P42_cs
 P43_cs  <-  ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==50),],
                      aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -622,7 +622,7 @@ P43_cs  <-  ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2=
   #ggtitle("n=50, h=0.5")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P43_cs
 
 library(ggplot2)
@@ -635,7 +635,7 @@ P44_cs  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==
   #ggtitle("n=50, h=0.5")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P44_cs
 library(ggplot2)
 P51_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==25),],
@@ -647,7 +647,7 @@ P51_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==
   ggtitle(  expression(n == 75)  )+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P51_cs
 library(ggplot2)
 P52_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==30),],
@@ -659,7 +659,7 @@ P52_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==
   #ggtitle("n=75, h=0.3")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P52_cs
 
 library(ggplot2)
@@ -672,7 +672,7 @@ P53_cs  <- ggplot( combined_data[which(combined_data$n==75 & combined_data$h2==5
   #ggtitle("n=75, h=0.5")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P53_cs
 library(ggplot2)
 P54_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==75),],  aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -683,7 +683,7 @@ P54_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==
   #ggtitle("n=75, h=0.5")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P54_cs
 
 library(ggplot2)
@@ -695,7 +695,7 @@ P61_cs  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2=
   ggtitle(  expression(n == 100)  )+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P61_cs
 library(ggplot2)
 P62_cs  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2==30),],  aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -706,7 +706,7 @@ P62_cs  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2=
   #ggtitle("n=100, h=0.3")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P62_cs
 library(ggplot2)
 P63_cs  <- ggplot(combined_data[which(combined_data$n==100 & combined_data$h2==50),], aes(y=cs_size, x=as.factor(L), col=BF))+
@@ -717,7 +717,7 @@ P63_cs  <- ggplot(combined_data[which(combined_data$n==100 & combined_data$h2==5
   #ggtitle("n=100, h=0.5")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P63_cs
 
 library(ggplot2)
@@ -729,7 +729,7 @@ P64_cs  <- ggplot( combined_data[which(combined_data$n==100 & combined_data$h2==
   #ggtitle("n=100, h=0.5")+
 
   theme_cowplot()+theme(legend.position = "none")
-abline( h=0.95)
+
 P64_cs
 
 library(gridExtra)

@@ -31,7 +31,7 @@ calculate_error <- function(est_cov, n = 10) {
 # Load and process all datasets
 h2_values <- c(25, 30, 50, 75)
 n_values <- c(10, 20, 30, 50, 75, 100)
-bf_labels <- c("SER_Gaus", "SER_SS" )
+bf_labels <- c("SER Gaus", "SER SS" )
 
 data_list <- list()
 
@@ -59,14 +59,14 @@ for (n in n_values) {
         if(i ==i){
           load(paste0("~/susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
           if(length(table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ])>0){
-            my_n[which(df $BF =="SER_Gaus" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
+            my_n[which(df $BF =="SER Gaus" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
           }
 
         }
         if(i ==2){
           load(paste0("~/susie_small_sample/simulations/cor_small_sample_susie", n, "_h", h2, ".RData"))
           if(length(table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ])>0){
-            my_n[which(df $BF =="SER_SS" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
+            my_n[which(df $BF =="SER SS" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
           }
         }
 
@@ -86,12 +86,14 @@ for (n in n_values) {
 
 # Combine all data into a single dataframe
 combined_data <- bind_rows(data_list)
+save(combined_data, file="/home/wdenault/susie_small_sample/simulations/summary_L10.RData")
+
 
 # Proper custom labeller for LaTeX-style labels
 custom_labeller <- labeller(
   n = label_both,
   h2 = function(h2) {
-    paste0("h^2 = ", h2, "%")
+    paste0("h2 = ", h2, "%")
   }
 )
 
@@ -159,11 +161,11 @@ library(ggplot2)
 P11 <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==25),], aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
-  xlab(  expression(n == 10)  )+
+   xlab(   "" )+
   ylab(expression(h^2 == 25*"%"))+
   ggtitle(  expression(n == 10)  )+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P11
 library(ggplot2)
@@ -175,7 +177,7 @@ P12 <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==30),]
   xlab(' ')+
   ylab(expression(h^2 == 30*"%"))+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P12
 
@@ -188,7 +190,7 @@ P13 <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==50),]
   xlab(' ')+
   ylab(expression(h^2 == 50*"%"))+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P13
 library(ggplot2)
@@ -199,7 +201,7 @@ P14 <- ggplot(combined_data[which(combined_data$n==10 & combined_data$h2==75),],
   xlab(' ')+
   ylab(expression(h^2 == 75*"%"))+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P14
 library(ggplot2)
@@ -211,7 +213,7 @@ P21 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),]
   xlab(' ')+
   ggtitle(  expression(n == 20)  )+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P21
 library(ggplot2)
@@ -222,7 +224,7 @@ P22 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==30),]
   xlab(' ')+
   #ggtitle("n=20, h=0.3")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P22
 library(ggplot2)
@@ -233,7 +235,7 @@ P23 <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==50),
   xlab(' ')+
   #ggtitle("n=20, h=0.5")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P23
 library(ggplot2)
@@ -244,7 +246,7 @@ P24 <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==75),
   xlab(' ')+
   #ggtitle("n=20, h=0.5")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P24
 library(ggplot2)
@@ -256,7 +258,7 @@ P31 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),
   xlab("")+
   ylab(' ')+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P31
 library(ggplot2)
@@ -268,7 +270,7 @@ P32 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==30),
   xlab("")+
   ylab(' ')+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P32
 library(ggplot2)
@@ -280,7 +282,7 @@ P33 <- ggplot( combined_data[which(combined_data$n==30 & combined_data$h2==50),]
   xlab("")+
   ylab(' ')+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P33
 library(ggplot2)
@@ -292,7 +294,7 @@ P34 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==75),
   xlab("")+
   ylab(' ')+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P34
 library(ggplot2)
@@ -306,7 +308,7 @@ P41 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),
 
 
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P41
 P42 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==30),],
@@ -317,7 +319,7 @@ P42 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==30),
   xlab(' ')+
   #ggtitle("n=50, h=0.3")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P42
 P43 <-  ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==50),],
@@ -328,7 +330,7 @@ P43 <-  ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==50)
   xlab(' ')+
   #ggtitle("n=50, h=0.5")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P43
 
@@ -341,7 +343,7 @@ P44 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==75),
   xlab(' ')+
   #ggtitle("n=50, h=0.5")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P44
 library(ggplot2)
@@ -353,7 +355,7 @@ P51 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==25),
   xlab(' ')+
   ggtitle(  expression(n == 75)  )+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P51
 library(ggplot2)
@@ -365,7 +367,7 @@ P52 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==30),
   xlab(' ')+
   #ggtitle("n=75, h=0.3")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P52
 
@@ -378,7 +380,7 @@ P53 <- ggplot( combined_data[which(combined_data$n==75 & combined_data$h2==50),]
   xlab(' ')+
   #ggtitle("n=75, h=0.5")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P53
 library(ggplot2)
@@ -389,7 +391,7 @@ P54 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==75),
   xlab(' ')+
   #ggtitle("n=75, h=0.5")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P54
 
@@ -401,7 +403,7 @@ P61 <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2==25)
   xlab(' ')+
   ggtitle(  expression(n == 100)  )+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P61
 library(ggplot2)
@@ -412,7 +414,7 @@ P62 <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2==30)
   xlab(' ')+
   #ggtitle("n=100, h=0.3")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P62
 library(ggplot2)
@@ -423,7 +425,7 @@ P63 <- ggplot(combined_data[which(combined_data$n==100 & combined_data$h2==50),]
   xlab(' ')+
   #ggtitle("n=100, h=0.5")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P63
 
@@ -435,16 +437,23 @@ P64 <- ggplot( combined_data[which(combined_data$n==100 & combined_data$h2==75),
   xlab(' ')+
   #ggtitle("n=100, h=0.5")+
   geom_hline(yintercept = 0.95)+
-  ylim( c(0.4,1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P64
 library(gridExtra)
 
-grid.arrange(P11, P21, P31,P41,P51,P61,
+P_coverage = grid.arrange(P11, P21, P31,P41,P51,P61,
              P12, P22, P32,P42,P52,P62,
              P13, P23, P33,P43,P53,P63,
              P14, P24, P34,P44,P54,P64,
              ncol=6)
+
+P_coverage
+ggsave("/home/wdenault/susie_small_sample/plots/P_coverage_L10.pdf",
+       plot = P_coverage,
+       width = 320,
+       height = 210,
+       units = "mm")
 
 
 
@@ -739,23 +748,51 @@ P64_cs  <- ggplot( combined_data[which(combined_data$n==100 & combined_data$h2==
 P64_cs
 
 library(gridExtra)
-grid.arrange(P11_cs , P21_cs , P31_cs ,P41_cs ,P51_cs ,P61_cs ,
+P_cs_size = grid.arrange(P11_cs , P21_cs , P31_cs ,P41_cs ,P51_cs ,P61_cs ,
              P12_cs , P22_cs , P32_cs ,P42_cs ,P52_cs ,P62_cs ,
              P13_cs , P23_cs , P33_cs ,P43_cs ,P53_cs ,P63_cs ,
              P14_cs , P24_cs , P34_cs ,P44_cs ,P54_cs ,P64_cs ,
              ncol=6)
 
 
+P_cs_size
+ggsave("/home/wdenault/susie_small_sample/plots/P_cs_size_L10.pdf",
+       plot = P_cs_size ,
+       width = 320,
+       height = 210,
+       units = "mm")
 
 
-ggplot(combined_data[which(combined_data$L==1),], aes( x= BF , y=obs_cov,
+
+P_L1_cov_L10 = ggplot(combined_data[which(combined_data$L==1),], aes( x= BF , y=obs_cov,
                                                        color= BF ))+
-  facet_grid(h2~n)+
+  facet_grid(h2~n,labeller = custom_labeller)+
   geom_point()+ theme_minimal()+
+  theme(legend.position="none")+
   geom_hline(yintercept = 0.95)+
-  ggtitle("Observed coverage for L=1")
+  ylab("Observed coverage")+
+  xlab("")+
+  ggtitle("Observed coverage for L=1 \n estimated L")
+
+ggsave("/home/wdenault/susie_small_sample/plots/P_L_1_cov_L10.pdf",
+       plot = P_L1_cov_L10 ,
+       width = 320,
+       height = 210,
+       units = "mm")
+combined_data$L = as.factor(combined_data$L)
 
 
-ggplot(combined_data, aes(y =power, x = as.factor(L), col = BF)) +
+P_power <- ggplot(combined_data, aes(y = power, x = L, col = BF)) +
   geom_point(position = position_dodge, size = 2) +
-  facet_grid(h2 ~ n, labeller = custom_labeller, switch = "y")
+  facet_grid(h2 ~ n, labeller = custom_labeller, switch = "y") +
+  theme(legend.title = element_blank(),
+    panel.grid.major = element_line(color = "grey", size = 0.5),
+    panel.grid.minor = element_line(color = "lightgrey", size = 0.25)
+  )
+P_power
+ggsave("/home/wdenault/susie_small_sample/plots/P_power.pdf",
+       plot = P_power ,
+       width = 320,
+       height = 210,
+       units = "mm")
+

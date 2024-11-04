@@ -36,7 +36,7 @@ calculate_error <- function(est_cov, n = 10) {
 # Load and process all datasets
 h2_values <- c(25, 30, 50, 75)
 n_values <- c(10, 20, 30, 50, 75, 100)
-bf_labels <- c("SER_Gaus", "SER_SS" )
+bf_labels <- c("SER Gaus", "SER SS" )
 
 data_list <- list()
 
@@ -64,14 +64,14 @@ for (n in n_values) {
         if(i ==i){
           load(paste0("~/susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
           if(length(table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ])>0){
-            my_n[which(df $BF =="SER_Gaus" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
+            my_n[which(df $BF =="SER Gaus" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
           }
 
         }
         if(i ==2){
           load(paste0("~/susie_small_sample/simulations/cor_small_sample_susie", n, "_h", h2, ".RData"))
           if(length(table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ])>0){
-            my_n[which(df $BF =="SER_SS" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
+            my_n[which(df $BF =="SER SS" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
           }
         }
 
@@ -90,22 +90,40 @@ for (n in n_values) {
 }
 
 # Combine all data into a single dataframe
-combined_data <- bind_rows(data_list)
+combined_data_L1 <- bind_rows(data_list)
+
+save(combined_data_L1 , file="/home/wdenault/susie_small_sample/simulations/summary_L1.RData")
 
 
-
-
-P_cov = ggplot(combined_data , aes( x= BF , y=obs_cov,
+P_L1_cov_L1 = ggplot(combined_data_L1  , aes( x= BF , y=obs_cov,
                                                        color= BF ))+
   facet_grid(h2~n)+
   geom_point()+ theme_minimal()+
   geom_hline(yintercept = 0.95)+
-  ggtitle("Observed coverage for SER ")
+  ggtitle("Observed coverage for SER (L=1 fixed) ")
 print(P_cov)
 
-P_power= ggplot(combined_data , aes( x= BF , y=power,
-                            color= BF ))+
-  facet_grid(h2~n)+
+
+# Proper custom labeller for LaTeX-style labels
+custom_labeller <- labeller(
+  n = label_both,
+  h2 = function(h2) {
+    paste0("h2 = ", h2, "%")
+  }
+)
+
+
+P_L1_cov_L1 =ggplot(combined_data_L1 , aes( x= BF , y=obs_cov,
+                                                       color= BF ))+
+  facet_grid(h2~n,labeller = custom_labeller)+
   geom_point()+ theme_minimal()+
-  ggtitle("Power coverage for SER ")
-print(P_power)
+  theme(legend.position="none")+
+  geom_hline(yintercept = 0.95)+
+  ylab("Observed coverage")+
+  xlab("")+ ggtitle("Observed coverage for SER (L=1 fixed) ")
+
+ggsave("/home/wdenault/susie_small_sample/plots/P_L_1_cov_L1.pdf",
+       plot = P_L1_cov_L1 ,
+       width = 320,
+       height = 210,
+       units = "mm")

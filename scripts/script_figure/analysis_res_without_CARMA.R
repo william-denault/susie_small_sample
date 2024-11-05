@@ -5,6 +5,9 @@ library(dplyr)
 # Function to load data and calculate observed coverage
 load_and_calculate_cov_and_cs <- function(path, num_reps = 10) {
   load(path)
+
+
+  temp0=temp
   temp= temp[- which(temp$is.dummy==1),]
   obs_cov <- sapply(1:num_reps, function(i) {
     sum(temp[which(temp[,3] == i), 1]) / sum(temp[which(temp[,3] == i), 2])
@@ -16,7 +19,7 @@ load_and_calculate_cov_and_cs <- function(path, num_reps = 10) {
   })
 
   power <- sapply(1:num_reps,  function(i) {
-    sum(temp$n_true_cs[which( temp$is.dummy==0 & temp$n_effect==i )])/ sum(temp$n_effect[which( temp$n_effect==i )])
+    sum(temp0$n_true_cs[which(temp0$n_effect==i )])/ sum(temp0$n_effect[which( temp0$n_effect==i )])
   })
 
 

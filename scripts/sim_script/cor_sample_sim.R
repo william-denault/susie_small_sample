@@ -46,7 +46,8 @@ run_susie_sim <-  function(N=20,
                            h=0.5,
                            n_sim=10000,
                            L_sim=NULL,
-                           L_susie=NULL){
+                           L_susie=NULL,
+                           save_pip=TRUE){
 
   res <- list( )
   idx =1
@@ -77,6 +78,25 @@ run_susie_sim <-  function(N=20,
 
         res [[i ]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets$cs )  ),0 , mean(out$sets$purity[,2]))
 
+
+        if(save_pip){
+          if( file.exists(paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".RData" ) )){
+            load(paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".RData" ))
+
+
+            true_entry= 0*out$pip
+            true_entry[true_pos]=1
+            temp0= cbind(  true_entry, out$pip)
+            temp = rbind(temp0)
+            save(temp ,file=paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".RData" ) )
+          }else{
+            true_entry= 0*out$pip
+            true_entry[true_pos]=1
+            temp0= cbind(  true_entry, out$pip)
+            temp = (temp0)
+            save(temp ,file=paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".RData" ) )
+          }
+        }
 
         print(res)
       }else{

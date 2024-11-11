@@ -87,7 +87,7 @@ run_susie_sim <-  function(N=20,
             true_entry= 0*out$pip
             true_entry[true_pos]=1
             temp0= cbind(  true_entry, out$pip)
-            temp = rbind(temp0)
+            temp = rbind(temp , temp0)
             save(temp ,file=paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".RData" ) )
           }else{
             true_entry= 0*out$pip

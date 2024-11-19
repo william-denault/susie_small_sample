@@ -41,9 +41,9 @@ data_list <- list()
 for (n in n_values) {
   for (h2 in h2_values) {
 
-    susie_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
-    cor_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/cor_small_sample_susie", n, "_h", h2, ".RData"))
-  #  carma_data <- load_and_calculate_cov_and_cs(paste0("~/susie_small_sample/simulations/small_sample_CARMA", n, "_h", h2, ".RData"))
+    susie_data <- load_and_calculate_cov_and_cs(paste0("../susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
+    cor_data <- load_and_calculate_cov_and_cs(paste0("../susie_small_sample/simulations/cor_small_sample_susie", n, "_h", h2, ".RData"))
+  #  carma_data <- load_and_calculate_cov_and_cs(paste0("../susie_small_sample/simulations/small_sample_CARMA", n, "_h", h2, ".RData"))
 
     # Combine data into a single data frame for this combination of n and h2
     df <- data.frame(
@@ -60,14 +60,14 @@ for (n in n_values) {
     for ( i in 1:2){
       for ( l in 1:10){
         if(i ==i){
-          load(paste0("~/susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
+          load(paste0("../susie_small_sample/simulations/small_sample_susie", n, "_h", h2, ".RData"))
           if(length(table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ])>0){
             my_n[which(df $BF =="SER Gaus" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
           }
 
         }
         if(i ==2){
-          load(paste0("~/susie_small_sample/simulations/cor_small_sample_susie", n, "_h", h2, ".RData"))
+          load(paste0("../susie_small_sample/simulations/cor_small_sample_susie", n, "_h", h2, ".RData"))
           if(length(table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ])>0){
             my_n[which(df $BF =="SER SS" & df$L==l )]=table(temp$n_effect)[which(as.numeric( names(table(temp$n_effect)) ) ==l ) ]
           }
@@ -89,7 +89,7 @@ for (n in n_values) {
 
 # Combine all data into a single dataframe
 combined_data <- bind_rows(data_list)
-save(combined_data, file="/home/wdenault/susie_small_sample/simulations/summary_L10.RData")
+save(combined_data, file="../susie_small_sample/simulations/summary_L10.RData")
 
 
 # Proper custom labeller for LaTeX-style labels
@@ -452,7 +452,7 @@ P_coverage = grid.arrange(P11, P21, P31,P41,P51,P61,
              ncol=6)
 
 P_coverage
-ggsave("/home/wdenault/susie_small_sample/plots/P_coverage_L10.pdf",
+ggsave("../susie_small_sample/plots/P_coverage_L10.pdf",
        plot = P_coverage,
        width = 320,
        height = 210,
@@ -759,7 +759,7 @@ P_cs_size = grid.arrange(P11_cs , P21_cs , P31_cs ,P41_cs ,P51_cs ,P61_cs ,
 
 
 P_cs_size
-ggsave("/home/wdenault/susie_small_sample/plots/P_cs_size_L10.pdf",
+ggsave("../susie_small_sample/plots/P_cs_size_L10.pdf",
        plot = P_cs_size ,
        width = 320,
        height = 210,
@@ -777,7 +777,7 @@ P_L1_cov_L10 = ggplot(combined_data[which(combined_data$L==1),], aes( x= BF , y=
   xlab("")+
   ggtitle("Observed coverage for L=1 \n estimated L")
 
-ggsave("/home/wdenault/susie_small_sample/plots/P_L_1_cov_L10.pdf",
+ggsave("../susie_small_sample/plots/P_L_1_cov_L10.pdf",
        plot = P_L1_cov_L10 ,
        width = 320,
        height = 210,
@@ -793,7 +793,7 @@ P_power <- ggplot(combined_data, aes(y = power, x = L, col = BF)) +
     panel.grid.minor = element_line(color = "lightgrey", size = 0.25)
   )
 P_power
-ggsave("/home/wdenault/susie_small_sample/plots/P_power.pdf",
+ggsave("../susie_small_sample/plots/P_power.pdf",
        plot = P_power ,
        width = 320,
        height = 210,

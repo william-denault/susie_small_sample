@@ -16,3 +16,4 @@ data/1kg/*.bim
 data/1kg/*.fam
 data/1kg/*.bed
 data/1kg/bed
+.csv

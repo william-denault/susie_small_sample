@@ -1,7 +1,7 @@
 
 library(susieR)
 attach(N3finemapping)
-
+library(data.table)
 sim_dat <- function(N=20, h=0.5, L=NULL) {
 
 
@@ -80,21 +80,29 @@ run_susie_sim <-  function(N=20,
 
 
         if(save_pip){
-          if( file.exists(paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".RData" ) )){
-            load(paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".RData" ))
 
+          tempfile=paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".csv" )
+          if( file.exists(paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".csv") )){
+
+            temp =read.csv(paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".csv" ) )
 
             true_entry= 0*out$pip
             true_entry[true_pos]=1
             temp0= cbind(  true_entry, out$pip)
+            if (ncol(temp) != ncol(temp0)) {
+              stop("Column mismatch between temp and temp0")
+            }
+            colnames(temp0)= colnames(temp)
             temp = rbind(temp , temp0)
-            save(temp ,file=paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".RData" ) )
+            fwrite(temp, file=tempfile, quote=FALSE, row.names=FALSE, col.names=TRUE, sep=",")
+
           }else{
             true_entry= 0*out$pip
             true_entry[true_pos]=1
             temp0= cbind(  true_entry, out$pip)
             temp = (temp0)
-            save(temp ,file=paste0("/home/wdenault/susie_small_sample/simulations/pip_corsusie_n",N,"_h",h,".RData" ) )
+            fwrite(temp, file=tempfile, quote=FALSE, row.names=FALSE, col.names=TRUE, sep=",")
+
           }
         }
 

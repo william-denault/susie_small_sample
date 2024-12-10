@@ -101,7 +101,7 @@ P_L1_cov_L1 = ggplot(combined_data_L1  , aes( x= BF , y=obs_cov,
   geom_point()+ theme_minimal()+
   geom_hline(yintercept = 0.95)+
   ggtitle("Observed coverage for SER (L=1 fixed) ")
-print(P_cov)
+print(P_L1_cov_L1)
 
 
 # Proper custom labeller for LaTeX-style labels
@@ -111,6 +111,7 @@ custom_labeller <- labeller(
     paste0("h2 = ", h2, "%")
   }
 )
+
 
 
 P_L1_cov_L1 =ggplot(combined_data_L1 , aes( x= BF , y=obs_cov,
@@ -127,3 +128,35 @@ ggsave("../susie_small_sample/plots/P_L_1_cov_L1.pdf",
        width = 320,
        height = 210,
        units = "mm")
+
+
+
+load( "../susie_small_sample/simulations/summary_L10.RData")
+
+combined_data$L_type= "Estimated"
+combined_data_L1$L_type= "Fixed"
+df_l1_plot = rbind(combined_data , combined_data_L1)
+df_l1_plot= df_l1_plot[ which(df_l1_plot$L==1),]
+
+P_L1 <- ggplot(df_l1_plot,
+               aes(x = BF,
+                   y = obs_cov,
+                   color = BF,
+                   shape = L_type)) +
+  facet_grid(h2 ~ n, labeller = custom_labeller) +
+  geom_point(position = position_dodge(width = 0.5), size = 2) + # Add position_dodge to avoid overlap
+  theme_minimal() +
+  theme() +
+  geom_hline(yintercept = 0.95) +
+  ylab("Observed coverage") +
+  xlab("") +
+  ggtitle("Observed coverage for different SER (L=1)") +
+  labs(color = NULL, shape = NULL) # Remove legend titles
+
+P_L1
+ggsave("../susie_small_sample/plots/P_L_1_cov.pdf",
+       plot =P_L1  ,
+       width = 320,
+       height = 210,
+       units = "mm")
+

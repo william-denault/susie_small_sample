@@ -1062,3 +1062,304 @@ ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_purity_1_
        height = 210,
        units = "mm")
 
+
+library(ggplot2)
+P11_power <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==25),], aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  xlab(  expression(n == 10)  )+
+  ylab(expression(h^2 == 25*"%"))+
+  ggtitle(  expression(n == 10)  )+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P11_power
+library(ggplot2)
+P12_power  <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==30),],
+                      aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  ylab(expression(h^2 == 30*"%"))+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P12_power
+
+library(ggplot2)
+P13_power  <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==50),],
+                      aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  ylab(expression(h^2 == 50*"%"))+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P13_power
+library(ggplot2)
+P14_power  <- ggplot(combined_data[which(combined_data$n==10 & combined_data$h2==75),],  aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  ylab(expression(h^2 == 75*"%"))+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P14_power
+library(ggplot2)
+P21_power  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),],
+                      aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(expression(h^2 == 25*"%"))+
+  xlab(' ')+
+  ggtitle(  expression(n == 20)  )+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P21_power
+library(ggplot2)
+P22_power  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==30),], aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(expression(h^2 == 30*"%"))+
+  xlab(' ')+
+  #ggtitle("n=20, h=0.3")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P22_power
+library(ggplot2)
+P23_power  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==50),],  aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(expression(h^2 == 50*"%"))+
+  xlab(' ')+
+  #ggtitle("n=20, h=0.5")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P23_power
+library(ggplot2)
+P24_power  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==75),],  aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(expression(h^2 == 75*"%"))+
+  xlab(' ')+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P24_power
+library(ggplot2)
+P31_power  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),],  aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ggtitle(  expression(n == 30)  )+
+  #ylab(expression(h^2 == 25*"%"))+
+  xlab("")+
+  ylab(' ')+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P31_power
+library(ggplot2)
+P32_power  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==30),],
+                       aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  #ylab(expression(h^2 == 30*"%"))+
+  xlab("")+
+  ylab(' ')+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P32_power
+library(ggplot2)
+P33_power  <- ggplot( combined_data[which(combined_data$n==30 & combined_data$h2==50),],
+                      aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+
+  xlab("")+
+  ylab(' ')+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P33_power
+library(ggplot2)
+P34_power  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==75),],
+                       aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  # ylab(expression(h^2 == 75*"%"))+
+  xlab("")+
+  ylab(' ')+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P34_power
+library(ggplot2)
+P41_power  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),],
+                       aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  ggtitle(  expression(n == 50)  )+
+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P41_power
+P42_power  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==30),],
+                       aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=50, h=0.3")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P42_power
+P43_power  <-  ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==50),],
+                        aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=50, h=0.5")+
+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P43_power
+
+library(ggplot2)
+P44_power  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==75),],
+                       aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=50, h=0.5")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P44_power
+library(ggplot2)
+P51_power  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==25),],
+                       aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  ggtitle(  expression(n == 75)  )+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P51_power
+library(ggplot2)
+P52_power  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==30),],
+                       aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=75, h=0.3")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P52_power
+
+library(ggplot2)
+P53_power  <- ggplot( combined_data[which(combined_data$n==75 & combined_data$h2==50),],
+                      aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=75, h=0.5")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P53_power
+library(ggplot2)
+P54_power  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==75),],  aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=75, h=0.5")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P54_power
+
+library(ggplot2)
+P61_power  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2==25),],  aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  ggtitle(  expression(n == 100)  )+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P61_power
+library(ggplot2)
+P62_power  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2==30),],  aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=100, h=0.3")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P62_power
+library(ggplot2)
+P63_power  <- ggplot(combined_data[which(combined_data$n==100 & combined_data$h2==50),], aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=100, h=0.5")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P63_power
+
+library(ggplot2)
+P64_power  <- ggplot( combined_data[which(combined_data$n==100 & combined_data$h2==75),], aes(y=power, x=as.factor(L), col=BF))+
+  geom_point(
+  )+
+  ylab(' ')+
+  xlab(' ')+
+  #ggtitle("n=100, h=0.5")+
+  scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+
+P64_power
+
+library(gridExtra)
+P_power = grid.arrange(  P21_power , P31_power ,P41_power ,P51_power ,P61_power ,
+                         P22_power , P32_power ,P42_power ,P52_power ,P62_power ,
+                         P23_power , P33_power ,P43_power ,P53_power ,P63_power ,
+                         P24_power , P34_power ,P44_power ,P54_power ,P64_power ,
+                         ncol=5)
+
+
+
+
+ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_power_1_3.pdf",
+       plot =
+         P_power ,
+       width = 320,
+       height = 210,
+       units = "mm")
+

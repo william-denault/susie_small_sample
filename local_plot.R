@@ -22,7 +22,7 @@ load_and_calculate_cov_and_cs <- function(path, num_reps = 10) {
     sum(temp0$n_true_cs[which(temp0$n_effect==i )])/ sum(temp0$n_effect[which( temp0$n_effect==i )])
   })
   purity<- sapply(1:num_reps,  function(i) {
-    mean(temp$purity[which(temp$n_effect==i )])
+    median(temp$purity[which(temp$n_effect==i )])
   })
 
   return(list(obs_cov = obs_cov, cs_size = cs_size, power= power,purity=purity))
@@ -821,7 +821,7 @@ P11_purity <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2
   xlab(  expression(n == 10)  )+
   ylab(expression(h^2 == 25*"%"))+
   ggtitle(  expression(n == 10)  )+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P11_purity
@@ -833,7 +833,7 @@ P12_purity  <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h
   ylab(' ')+
   xlab(' ')+
   ylab(expression(h^2 == 30*"%"))+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P12_purity
@@ -846,7 +846,7 @@ P13_purity  <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h
   ylab(' ')+
   xlab(' ')+
   ylab(expression(h^2 == 50*"%"))+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P13_purity
@@ -857,7 +857,7 @@ P14_purity  <- ggplot(combined_data[which(combined_data$n==10 & combined_data$h2
   ylab(' ')+
   xlab(' ')+
   ylab(expression(h^2 == 75*"%"))+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P14_purity
@@ -869,7 +869,7 @@ P21_purity  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h
   ylab(' ')+
   xlab(' ')+
   ggtitle(  expression(n == 20)  )+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P21_purity
@@ -880,7 +880,7 @@ P22_purity  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=20, h=0.3")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P22_purity
@@ -891,7 +891,7 @@ P23_purity  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=20, h=0.5")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P23_purity
@@ -901,8 +901,7 @@ P24_purity  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$
   )+
   ylab(' ')+
   xlab(' ')+
-  #ggtitle("n=20, h=0.5")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P24_purity
@@ -914,7 +913,7 @@ P31_purity  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$
   #ylab(expression(h^2 == 25*"%"))+
   xlab("")+
   ylab(' ')+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P31_purity
@@ -926,7 +925,7 @@ P32_purity  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$
   #ylab(expression(h^2 == 30*"%"))+
   xlab("")+
   ylab(' ')+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P32_purity
@@ -938,7 +937,7 @@ P33_purity  <- ggplot( combined_data[which(combined_data$n==30 & combined_data$h
 
   xlab("")+
   ylab(' ')+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P33_purity
@@ -950,7 +949,7 @@ P34_purity  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$
   # ylab(expression(h^2 == 75*"%"))+
   xlab("")+
   ylab(' ')+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P34_purity
@@ -963,7 +962,7 @@ P41_purity  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$
   xlab(' ')+
   ggtitle(  expression(n == 50)  )+
 
-
+  ylim(0.9, 1) +
 
   theme_cowplot()+theme(legend.position = "none")
 
@@ -975,7 +974,7 @@ P42_purity  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=50, h=0.3")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P42_purity
@@ -986,7 +985,7 @@ P43_purity  <-  ggplot(  combined_data[which(combined_data$n==50 & combined_data
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=50, h=0.5")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P43_purity
@@ -999,7 +998,7 @@ P44_purity  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=50, h=0.5")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P44_purity
@@ -1011,7 +1010,7 @@ P51_purity  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$
   ylab(' ')+
   xlab(' ')+
   ggtitle(  expression(n == 75)  )+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P51_purity
@@ -1023,7 +1022,7 @@ P52_purity  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=75, h=0.3")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P52_purity
@@ -1036,7 +1035,7 @@ P53_purity  <- ggplot( combined_data[which(combined_data$n==75 & combined_data$h
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=75, h=0.5")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P53_purity
@@ -1047,7 +1046,7 @@ P54_purity  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=75, h=0.5")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P54_purity
@@ -1059,7 +1058,7 @@ P61_purity  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data
   ylab(' ')+
   xlab(' ')+
   ggtitle(  expression(n == 100)  )+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P61_purity
@@ -1070,7 +1069,7 @@ P62_purity  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=100, h=0.3")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P62_purity
@@ -1081,7 +1080,7 @@ P63_purity  <- ggplot(combined_data[which(combined_data$n==100 & combined_data$h
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=100, h=0.5")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P63_purity
@@ -1093,7 +1092,7 @@ P64_purity  <- ggplot( combined_data[which(combined_data$n==100 & combined_data$
   ylab(' ')+
   xlab(' ')+
   #ggtitle("n=100, h=0.5")+
-
+  ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
 P64_purity

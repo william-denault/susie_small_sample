@@ -7,7 +7,7 @@ library(dplyr)
 # Function to calculate ROC
 simple_roc <- function(labs, scores) {
   labs <- labs[order(scores, decreasing = TRUE)]
-  data.frame(TPR = cumsum(labs) / sum(labs), FPR = cumsum(!labs) / sum(!labs), labs)
+  data.frame(Power = cumsum(labs) / sum(labs), FDR = cumsum(!labs) / sum(!labs), labs)
 }
 
 #### n=10 ----
@@ -19,24 +19,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P11 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -51,24 +51,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P12 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -79,7 +79,6 @@ P12
 
 
 
-#### Pb here ----
 
 h2=5
 
@@ -87,30 +86,29 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P13 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
 
 P13
-
 
 
 
@@ -120,24 +118,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P14 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -157,24 +155,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P21 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -189,24 +187,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P22 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -217,7 +215,6 @@ P22
 
 
 
-#### PB here ----
 
 h2=5
 
@@ -225,24 +222,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P23 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -258,24 +255,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P24 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -299,24 +296,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P31 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -331,24 +328,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P32 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -367,24 +364,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P33 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -400,24 +397,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P34 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -437,24 +434,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P41 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -469,24 +466,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P42 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -505,24 +502,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P43 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -538,24 +535,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P44 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -576,24 +573,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P51 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -608,24 +605,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P52 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -636,32 +633,30 @@ P52
 
 
 
-### PB hezree ----
-
 h2=5
 
 pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_susie_n", n, "_h0.", h2, ".csv"))
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P53 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -677,24 +672,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P54 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -716,24 +711,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P61 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -741,31 +736,30 @@ P61 <- ggplot() +
 P61
 
 
-#### Pb here
 h2=3
 
 pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_susie_n", n, "_h0.", h2, ".csv"))
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P62 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -784,24 +778,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P63 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -817,24 +811,24 @@ pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sampl
 labs_g <- pip_obs_g[, 1]
 score_g <- pip_obs_g[, 2]
 roc_g <- simple_roc(labs_g, score_g)
-colnames(roc_g)[1:2]= c("TPR", "FPR")
+colnames(roc_g)[1:2]= c("Power", "FDR")
 # Load data for SER SS
 pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
 labs_ss <- pip_obs_ss[, 1]
 score_ss <- pip_obs_ss[, 2]
 roc_ss <- simple_roc(labs_ss, score_ss)
-colnames(roc_ss)[1:2]= c("TPR", "FPR")
+colnames(roc_ss)[1:2]= c("Power", "FDR")
 # Create a ggplot for the current combination of n and h2
 P64 <- ggplot() +
-  geom_line(data = roc_g, aes(x =  FPR, y =  TPR), color = "blue", linewidth = 1, linetype = "solid") +
-  geom_line(data = roc_ss, aes(x =  FPR, y =  TPR), color = "red", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_g, aes(x =  FDR, y =  Power), color = "#F8766D", linewidth = 1, linetype = "solid") +
+  geom_line(data = roc_ss, aes(x =  FDR, y =  Power), color = "#00BFC4", linewidth = 1, linetype = "solid") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +
   xlim(0, 0.2) +
   ylim(0,.6) +
   labs(
     title = paste0("n = ", n, ", h2 = ", ifelse(h2 == 3 | h2 == 5, h2 * 10, h2), "%"),
-    x = "FPR",
-    y = "TPR"
+    x = "FDR",
+    y = "Power"
   ) +
   theme_minimal()
 
@@ -853,7 +847,7 @@ P_power = grid.arrange(P11, P21, P31,P41,P51,P61,
                           ncol=6)
 
 
-ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_power.pdf",
+ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_power.png",
        plot =
          P_power  ,
        width = 320,

@@ -20,13 +20,13 @@ plot_list <- list()
 for (h2 in h2_values) {
   for (n in n_values) {
     # Load data for SER Gaus
-    pip_obs_g <- fread(paste0("../susie_small_sample/simulations/pip_susie_n", n, "_h0.", h2, ".csv"))
+    pip_obs_g <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_susie_n", n, "_h0.", h2, ".csv"))
     labs_g <- pip_obs_g[, 1]
     score_g <- pip_obs_g[, 2]
     roc_g <- simple_roc(labs_g, score_g)
     colnames(roc_g)[1:2]= c("TPR", "FPR")
     # Load data for SER SS
-    pip_obs_ss <- fread(paste0("../susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
+    pip_obs_ss <- fread(paste0("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/pip_corsusie_n", n, "_h0.", h2, ".csv"))
     labs_ss <- pip_obs_ss[, 1]
     score_ss <- pip_obs_ss[, 2]
     roc_ss <- simple_roc(labs_ss, score_ss)

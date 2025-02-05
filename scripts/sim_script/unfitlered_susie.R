@@ -11,7 +11,9 @@ sim_dat <- function(N=20, h=0.5, L=NULL) {
 
   }
 
-  X= N3finemapping$X
+  lf = list.files("/project2/mstephens/wdenault/susie_small_sample/data/1kg/rds/")
+  id = sample( 1:length(lf), size=1)
+  X <- readRDS(paste0("/project2/mstephens/wdenault/susie_small_sample/data/1kg/rds/" ,lf[id]))
   X <-   X[sample (1:nrow(  X), size=N, replace=FALSE), ]
   if (length(which( apply(X,2,var)==0))>0){
     X <- X[ ,-which( apply(X,2,var)==0)]
@@ -65,7 +67,8 @@ run_susie_sim <-  function(N=20,
     if (var (y)>0.00001){
       out <-  susieR::susie(X,y, L= L_susie,
                             min_abs_corr = 0,
-                            check_null_threshold = -1000)
+                            check_null_threshold = -1000,
+                            estimate_prior_method = "EM")
       out$sets
       if(!is.null(out$sets$cs)){
 
@@ -75,7 +78,7 @@ run_susie_sim <-  function(N=20,
         n_cs   <-    length(  out$sets$cs  )
         n_effect <- length(true_pos)
 
-        res [[i ]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets$cs )  ),0 , mean(out$sets$purity[,2]),out$sigma2)
+        res [[i ]] <- c( n_true_cs ,   n_cs,n_effect, mean (lengths(out$sets$cs )  ),0 , mean(out$sets$purity[,2]),out$sigma2, out$V )
 
 
 
@@ -84,7 +87,7 @@ run_susie_sim <-  function(N=20,
       }else{
 
         n_effect <- length(true_pos)
-        res [[i ]] <- c( 0 ,   0,n_effect, NaN,1, 0 )
+        res [[i ]] <- c( 0 ,   0,n_effect, NaN,1, 0 ,0,rep(0,10))
 
       }
 
@@ -104,7 +107,7 @@ run_susie_sim <-  function(N=20,
   }
 
   temp <- do.call (rbind ,res)
-  colnames(temp) <- c("n_true_cs", "n_cs", "n_effect", "mean_cs_size", "is.dummy", "purity","sigma")
+  colnames(temp) <- c("n_true_cs", "n_cs", "n_effect", "mean_cs_size", "is.dummy", "purity","sigma", paste("sigma0",1:10, sep="_"))
   temp <- data.frame(temp)
   # Return results
   return(temp )

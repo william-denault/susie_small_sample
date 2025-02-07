@@ -92,7 +92,7 @@ for (n in n_values) {
 # Combine all data into a single dataframe
 combined_data_L1 <- bind_rows(data_list)
 
-save(combined_data_L1 , file="../susie_small_sample/simulations/summary_L1.RData")
+#save(combined_data_L1 , file="../susie_small_sample/simulations/summary_L1.RData")
 
 
 P_L1_cov_L1 = ggplot(combined_data_L1  , aes( x= BF , y=obs_cov,

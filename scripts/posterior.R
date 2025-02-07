@@ -106,6 +106,7 @@ ggplot(df_plot, aes(x = X)) +
   labs(title = "Posterior SER using Gaussian vs SS model",
        x = "x",
        y = "Density") +
+  xlim(c(-0.5,4))+
   scale_color_manual(name = "Distribution", values = c("t-distribution" = "blue", "normal distribution" = "red")) +
   theme_minimal()
 

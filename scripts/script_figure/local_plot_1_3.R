@@ -425,7 +425,7 @@ P11_cs <- ggplot( combined_data[which(combined_data$n==10 & combined_data$h2==25
   xlab(  expression(n == 10)  )+
   ylab(expression(h^2 == 25*"%"))+
   ggtitle(  expression(n == 10)  )+
-
+#ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P11_cs
@@ -473,7 +473,7 @@ P21_cs  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==2
   ylab(expression(h^2 == 25*"%"))+
   xlab(' ')+
   ggtitle(  expression(n == 20)  )+
-
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P21_cs
@@ -485,6 +485,7 @@ P22_cs  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==3
   xlab(' ')+
   #ggtitle("n=20, h=0.3")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P22_cs
@@ -496,6 +497,7 @@ P23_cs  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==
   xlab(' ')+
   #ggtitle("n=20, h=0.5")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P23_cs
@@ -507,6 +509,7 @@ P24_cs  <- ggplot(  combined_data[which(combined_data$n==20 & combined_data$h2==
   xlab(' ')+
   #ggtitle("n=20, h=0.5")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P24_cs
@@ -519,6 +522,7 @@ P31_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==
   xlab("")+
   ylab(' ')+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P31_cs
@@ -531,6 +535,7 @@ P32_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==
   xlab("")+
   ylab(' ')+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P32_cs
@@ -543,6 +548,7 @@ P33_cs  <- ggplot( combined_data[which(combined_data$n==30 & combined_data$h2==5
   xlab("")+
   ylab(' ')+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P33_cs
@@ -555,6 +561,7 @@ P34_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==
   xlab("")+
   ylab(' ')+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P34_cs
@@ -568,6 +575,7 @@ P41_cs  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==
   ggtitle(  expression(n == 50)  )+
 
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
 
   theme_cowplot()+theme(legend.position = "none")
 
@@ -580,6 +588,7 @@ P42_cs  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==
   xlab(' ')+
   #ggtitle("n=50, h=0.3")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P42_cs
@@ -591,6 +600,7 @@ P43_cs  <-  ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2=
   xlab(' ')+
   #ggtitle("n=50, h=0.5")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P43_cs
@@ -604,6 +614,7 @@ P44_cs  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==
   xlab(' ')+
   #ggtitle("n=50, h=0.5")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P44_cs
@@ -616,6 +627,7 @@ P51_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==
   xlab(' ')+
   ggtitle(  expression(n == 75)  )+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P51_cs
@@ -628,6 +640,7 @@ P52_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==
   xlab(' ')+
   #ggtitle("n=75, h=0.3")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P52_cs
@@ -641,6 +654,7 @@ P53_cs  <- ggplot( combined_data[which(combined_data$n==75 & combined_data$h2==5
   xlab(' ')+
   #ggtitle("n=75, h=0.5")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P53_cs
@@ -652,6 +666,7 @@ P54_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==
   xlab(' ')+
   #ggtitle("n=75, h=0.5")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P54_cs
@@ -664,6 +679,7 @@ P61_cs  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2=
   xlab(' ')+
   ggtitle(  expression(n == 100)  )+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P61_cs
@@ -675,6 +691,7 @@ P62_cs  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2=
   xlab(' ')+
   #ggtitle("n=100, h=0.3")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P62_cs
@@ -686,6 +703,7 @@ P63_cs  <- ggplot(combined_data[which(combined_data$n==100 & combined_data$h2==5
   xlab(' ')+
   #ggtitle("n=100, h=0.5")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P63_cs
@@ -698,6 +716,7 @@ P64_cs  <- ggplot( combined_data[which(combined_data$n==100 & combined_data$h2==
   xlab(' ')+
   #ggtitle("n=100, h=0.5")+
 
+  ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
 P64_cs

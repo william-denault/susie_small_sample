@@ -123,11 +123,11 @@ P_L1_cov_L1 =ggplot(combined_data_L1 , aes( x= BF , y=obs_cov,
   ylab("Observed coverage")+
   xlab("")+ ggtitle("Observed coverage for SER (L=1 fixed) ")
 
-ggsave("../susie_small_sample/plots/P_L_1_cov_L1.pdf",
-       plot = P_L1_cov_L1 ,
-       width = 320,
-       height = 210,
-       units = "mm")
+#ggsave("../susie_small_sample/plots/P_L_1_cov_L1.pdf",
+#       plot = P_L1_cov_L1 ,
+#       width = 320,
+       #       height = 210,
+#       units = "mm")
 
 
 
@@ -135,7 +135,14 @@ load( "../susie_small_sample/simulations/summary_L10.RData")
 
 combined_data$L_type= "Estimated"
 combined_data_L1$L_type= "Fixed"
-df_l1_plot = rbind(combined_data , combined_data_L1)
+df_l1_plot = rbind(combined_data[, c("obs_cov",
+                                     "cs_size" ,
+                                     "power"  ,
+                                     "BF",
+                                     "L" ,
+                                     "n",
+                                     "h2",
+                                     "error", "L_type")] , combined_data_L1)
 df_l1_plot= df_l1_plot[ which(df_l1_plot$L==1),]
 
 P_L1 <- ggplot(df_l1_plot,
@@ -154,9 +161,9 @@ P_L1 <- ggplot(df_l1_plot,
   labs(color = NULL, shape = NULL) # Remove legend titles
 
 P_L1
-ggsave("../susie_small_sample/plots/P_L_1_cov.pdf",
-       plot =P_L1  ,
-       width = 320,
-       height = 210,
-       units = "mm")
+#ggsave("../susie_small_sample/plots/P_L_1_cov.pdf",
+#       plot =P_L1  ,
+#       width = 320,
+#       height = 210,
+#       units = "mm")
 

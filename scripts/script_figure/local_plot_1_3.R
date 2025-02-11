@@ -1,4 +1,6 @@
 library(ggplot2)
+
+library(gridExtra)
 library(cowplot)
 load("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/summary_L1_3.RData")
 combined_data= combined_data[-which(combined_data$n==10),]
@@ -47,7 +49,10 @@ ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_coverage_
        width = 320,
        height = 210,
        units = "mm")
-
+# Generate title-only grobs
+titles <- lapply(c(20, 30, 50, 75, 100), function(n) {
+  textGrob(label = bquote(n == .(n)), gp = gpar(fontsize =16, fontface = "bold"))
+})
 
 # Create the ggplot using facet_grid with enhanced labels and layout
 plot <- ggplot(combined_data, aes(y = cs_size, x = as.factor(L), col = BF)) +
@@ -166,7 +171,7 @@ P21 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),]
   )+
   ylab(expression(h^2 == 25*"%"))+
   xlab(' ')+
-  ggtitle(  expression(n == 20)  )+
+ # ggtitle(  expression(n == 20)  )+
   geom_hline(yintercept = 0.95)+
   ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
@@ -208,7 +213,7 @@ library(ggplot2)
 P31 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),],  aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
   )+
-  ggtitle(  expression(n == 30)  )+
+  # ggtitle(  expression(n == 30)  )+
   #ylab(expression(h^2 == 25*"%"))+
   xlab("")+
   ylab(' ')+
@@ -259,7 +264,7 @@ P41 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 50)  )+
+  # ggtitle(  expression(n == 50)  )+
 
 
   geom_hline(yintercept = 0.95)+
@@ -308,7 +313,7 @@ P51 <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==25),
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 75)  )+
+  #ggtitle(  expression(n == 75)  )+
   geom_hline(yintercept = 0.95)+
   ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
@@ -356,7 +361,7 @@ P61 <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2==25)
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 100)  )+
+  # ggtitle(  expression(n == 100)  )+
   geom_hline(yintercept = 0.95)+
   ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
@@ -395,13 +400,22 @@ P64 <- ggplot( combined_data[which(combined_data$n==100 & combined_data$h2==75),
   ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
 
 P64
-library(gridExtra)
 
 P_coverage = grid.arrange(  P21, P31,P41,P51,P61,
                             P22, P32,P42,P52,P62,
                             P23, P33,P43,P53,P63,
                             P24, P34,P44,P54,P64,
                           ncol=5)
+
+P_coverage =grid.arrange(
+  arrangeGrob(grobs = titles, ncol = 5),
+  arrangeGrob(  P21, P31,P41,P51,P61,
+                P22, P32,P42,P52,P62,
+                P23, P33,P43,P53,P63,
+                P24, P34,P44,P54,P64,
+                ncol=5),
+  heights = c(0.03, 1)  # Adjust height ratio to bring titles closer
+)
 
 P_coverage
 ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_coverage_1_3.pdf",
@@ -472,7 +486,7 @@ P21_cs  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==2
   )+
   ylab(expression(h^2 == 25*"%"))+
   xlab(' ')+
-  ggtitle(  expression(n == 20)  )+
+  #ggtitle(  expression(n == 20)  )+
   ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
 
@@ -517,7 +531,7 @@ library(ggplot2)
 P31_cs  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),],  aes(y=cs_size, x=as.factor(L), col=BF))+
   geom_point(
   )+
-  ggtitle(  expression(n == 30)  )+
+  #  ggtitle(  expression(n == 30)  )+
   #ylab(expression(h^2 == 25*"%"))+
   xlab("")+
   ylab(' ')+
@@ -572,7 +586,7 @@ P41_cs  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 50)  )+
+  # ggtitle(  expression(n == 50)  )+
 
 
   ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
@@ -625,7 +639,7 @@ P51_cs  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h2==
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 75)  )+
+  # ggtitle(  expression(n == 75)  )+
 
   ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
@@ -677,7 +691,7 @@ P61_cs  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$h2=
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 100)  )+
+  #ggtitle(  expression(n == 100)  )+
 
   ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
   theme_cowplot()+theme(legend.position = "none")
@@ -730,6 +744,18 @@ P_cs_size = grid.arrange( P21_cs , P31_cs ,P41_cs ,P51_cs ,P61_cs ,
 
 
 P_cs_size
+
+P_cs_size =grid.arrange(
+  arrangeGrob(grobs = titles, ncol = 5),
+  arrangeGrob( P21_cs , P31_cs ,P41_cs ,P51_cs ,P61_cs ,
+               P22_cs , P32_cs ,P42_cs ,P52_cs ,P62_cs ,
+               P23_cs , P33_cs ,P43_cs ,P53_cs ,P63_cs ,
+               P24_cs , P34_cs ,P44_cs ,P54_cs ,P64_cs ,
+               ncol=5),
+  heights = c(0.03, 1)  # Adjust height ratio to bring titles closer
+)
+
+
 ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_cs_size_1_3.pdf",
        plot = P_cs_size ,
        width = 320,
@@ -835,7 +861,7 @@ P21_purity  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h
   )+
   ylab(expression(h^2 == 25*"%"))+
   xlab(' ')+
-  ggtitle(  expression(n == 20)  )+
+  # ggtitle(  expression(n == 20)  )+
   ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
@@ -876,7 +902,7 @@ library(ggplot2)
 P31_purity  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),],  aes(y=purity, x=as.factor(L), col=BF))+
   geom_point(
   )+
-  ggtitle(  expression(n == 30)  )+
+  # ggtitle(  expression(n == 30)  )+
   #ylab(expression(h^2 == 25*"%"))+
   xlab("")+
   ylab(' ')+
@@ -927,7 +953,7 @@ P41_purity  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 50)  )+
+  # ggtitle(  expression(n == 50)  )+
 
   ylim(0.9, 1) +
 
@@ -976,7 +1002,7 @@ P51_purity  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 75)  )+
+  # ggtitle(  expression(n == 75)  )+
   ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
@@ -1024,7 +1050,7 @@ P61_purity  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 100)  )+
+  # ggtitle(  expression(n == 100)  )+
   ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
@@ -1071,7 +1097,15 @@ P_purity = grid.arrange(  P21_purity , P31_purity ,P41_purity ,P51_purity ,P61_p
                           P24_purity , P34_purity ,P44_purity ,P54_purity ,P64_purity ,
                         ncol=5)
 
-
+P_purity =grid.arrange(
+  arrangeGrob(grobs = titles, ncol = 5),
+  arrangeGrob(  P21_purity , P31_purity ,P41_purity ,P51_purity ,P61_purity ,
+                P22_purity , P32_purity ,P42_purity ,P52_purity ,P62_purity ,
+                P23_purity , P33_purity ,P43_purity ,P53_purity ,P63_purity ,
+                P24_purity , P34_purity ,P44_purity ,P54_purity ,P64_purity ,
+                ncol=5),
+  heights = c(0.03, 1)  # Adjust height ratio to bring titles closer
+)
 
 
 ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_purity_1_3.pdf",
@@ -1136,7 +1170,7 @@ P21_power  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2
   )+
   ylab(expression(h^2 == 25*"%"))+
   xlab(' ')+
-  ggtitle(  expression(n == 20)  )+
+  #ggtitle(  expression(n == 20)  )+
   scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
   theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
 
@@ -1177,7 +1211,7 @@ library(ggplot2)
 P31_power  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),],  aes(y=power, x=as.factor(L), col=BF))+
   geom_point(
   )+
-  ggtitle(  expression(n == 30)  )+
+  # ggtitle(  expression(n == 30)  )+
   #ylab(expression(h^2 == 25*"%"))+
   xlab("")+
   ylab(' ')+
@@ -1228,7 +1262,7 @@ P41_power  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 50)  )+
+  #ggtitle(  expression(n == 50)  )+
 
   scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
 
@@ -1277,7 +1311,7 @@ P51_power  <- ggplot(  combined_data[which(combined_data$n==75 & combined_data$h
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 75)  )+
+  #ggtitle(  expression(n == 75)  )+
   scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
   theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
 
@@ -1325,7 +1359,7 @@ P61_power  <- ggplot(  combined_data[which(combined_data$n==100 & combined_data$
   )+
   ylab(' ')+
   xlab(' ')+
-  ggtitle(  expression(n == 100)  )+
+  #ggtitle(  expression(n == 100)  )+
   scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
   theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
 
@@ -1374,7 +1408,15 @@ P_power = grid.arrange(  P21_power , P31_power ,P41_power ,P51_power ,P61_power 
 
 
 
-
+P_power =grid.arrange(
+  arrangeGrob(grobs = titles, ncol = 5),
+  arrangeGrob(  P21_power , P31_power ,P41_power ,P51_power ,P61_power ,
+                P22_power , P32_power ,P42_power ,P52_power ,P62_power ,
+                P23_power , P33_power ,P43_power ,P53_power ,P63_power ,
+                P24_power , P34_power ,P44_power ,P54_power ,P64_power ,
+                ncol=5 ),
+  heights = c(0.03, 1)  # Adjust height ratio to bring titles closer
+)
 ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_power_1_3.pdf",
        plot =
          P_power ,
@@ -1382,3 +1424,4 @@ ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/P_power_1_3
        height = 210,
        units = "mm")
 
+### Power ----

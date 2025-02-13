@@ -27,6 +27,7 @@ df_plot_pred=  data.frame (y= rep( y,2),
                             )
 
 P_pred = ggplot(df_plot_pred, aes( y=y, x=x, col= col))+
+  geom_abline(slope=1, intercept=0)+
   geom_point()+
   ylab("Normalized gene expression")+
   xlab("predicted gene expression")+
@@ -168,6 +169,7 @@ pip_plot_susie_small=gg+
 
 
 load("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/summary_L1_3.RData")
+combined_data=combined_data[- which(combined_data$n==10),]
 library(ggplot2)
 P11 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),],
                aes(y=obs_cov, x=as.factor(L), col=BF))+
@@ -377,7 +379,16 @@ grid_plot <- ggdraw()+
   draw_plot(P_pred     ,
             x = .55, y = .1, width = .35, height = .35)+
   draw_plot(legend_plot  ,
-          x = .6, y = .0, width = .35, height = .1)
+          x = .6, y = .0, width = .35, height = .1)+
+  draw_label("A",fontface = "bold",
+             size = 20,
+             x = 0.01, y = 0.99, vjust = 1  ) +
+
+  draw_label("B", fontface = "bold",
+             size = 20, x = 0.52, y = 0.99, vjust = 1  ) +
+  draw_label("C",fontface = "bold",
+             size = 20,
+             x = 0.52, y = 0.48, vjust = 1  )
   plot_grid(grid_plot )
 
 

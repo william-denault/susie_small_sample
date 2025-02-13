@@ -315,11 +315,49 @@ P43  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25)
   ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none")
 
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(ggpubr)
+library(cowplot)
+library(dplyr)
+library(gridExtra)
+titles <- lapply(c(20, 30, 50 ), function(n) {
+  textGrob(label = bquote(n == .(n)), gp = gpar(fontsize =16, fontface = "bold"))
+})
+
+P_perf= grid.arrange(
+  arrangeGrob(grobs = titles, ncol = 3),
+  arrangeGrob(  P11, P12,P13 ,
+                 P21, P22,P23,
+                 P31, P32,P33,
+                 P41, P42,P43,
+                 ncol=3),
+  heights = c(0.03, 1))
 
 
 
-P_perf = grid.arrange(  P11, P21,P31 ,
-                        P21, P22,P23,
-                        P31, P32,P33,
-                        P41, P42,P43,
-                        ncol=3)
+
+
+library(cowplot)
+
+
+
+
+
+grid_plot <- ggdraw()+
+
+  draw_plot(P_perf        ,
+            x = 0.  , y = .0 , width = .5, height = 1)+
+  draw_plot(pip_plot_susie+
+              theme(legend.position = "none")         ,
+            x = .5, y = .5, width = .25, height = .5)+
+
+  draw_plot(pip_plot_susie_small +
+              theme(legend.position = "none") +
+              ylim(c(0,1)),
+            x = .75, y = .5, width = .25, height = .5)+
+  draw_plot(P_pred  +theme(legend.position = "none")    ,
+            x = .55, y = .1, width = .35, height = .35)
+
+  plot_grid(grid_plot )

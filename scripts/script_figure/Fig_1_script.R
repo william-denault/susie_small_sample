@@ -1,7 +1,7 @@
 library(susieR)
 library(cowplot)
 library(ggplot2)
-
+colors <- c( "#D41159","#1A85FF" )
 path= getwd()
 small_data <- readRDS(paste0(path,"/data/MiGA_eQTL.chr2_ENSG00000151694.univariate_data.rds"))
 
@@ -30,7 +30,11 @@ P_pred = ggplot(df_plot_pred, aes( y=y, x=x, col= col))+
   geom_point()+
   ylab("Normalized gene expression")+
   xlab("predicted gene expression")+
-  theme_cowplot()
+  theme_cowplot()+
+  theme(legend.position = "none",
+        panel.grid.major = element_line(color = "gray80"))+
+  scale_color_manual(values = colors,
+                     name = "SuSiE:", labels = c("Default SER", "Servin and Stephens SER"))
 
 ##### PRed plot  -----
 P_pred
@@ -69,8 +73,10 @@ df <- data.frame(pos = pos, p = p, b = b)
 gg <- ggplot(df, aes(x = pos, y = p)) +
   geom_point(aes(color = b != 0)) +
   scale_color_manual(values = c("black", "red")) +
-  labs(x = "variable", y = ylab) +
-  theme_minimal()
+  labs(x = "SNP", y = ylab) +
+  theme_cowplot()+
+  theme(legend.position = "none",
+        panel.grid.major = element_line(color = "gray80"))
 
 for (i in rev(1:nrow(model$alpha))) {
   if (!is.null(model$sets$cs_index) && !(i %in% model$sets$cs_index)) next
@@ -94,10 +100,14 @@ for (i in rev(1:nrow(model$alpha))) {
   color <- c(color[-1], color[1])
 }
 
-pip_plot_susie=gg+ggtitle( "SuSiE default SER ")
+pip_plot_susie=gg+
+               ggtitle( "SuSiE default SER ")+
+               theme(plot.title =element_text(size =16,  face = "plain"))
 
 
-
+color <- c("dodgerblue2", "green4", "#6A3D9A", "#FF7F00", "gold1", "skyblue2", "#FB9A99", "palegreen2", "#CAB2D6",
+           "#FDBF6F", "gray70", "khaki2", "maroon", "orchid1", "deeppink1", "blue1", "steelblue4",
+           "darkturquoise", "green1", "yellow4", "yellow3", "darkorange4", "brown")
 
 model = res_susie_small
 is_susie <- inherits(model, "susie")
@@ -125,8 +135,10 @@ df <- data.frame(pos = pos, p = p, b = b)
 gg <- ggplot(df, aes(x = pos, y = p)) +
   geom_point(aes(color = b != 0)) +
   scale_color_manual(values = c("black", "red")) +
-  labs(x = "variable", y = ylab) +
-  theme_minimal()
+  labs(x = "SNP", y = ylab) +
+  theme_cowplot()+
+  theme(legend.position = "none",
+         panel.grid.major = element_line(color = "gray80"))
 
 for (i in rev(1:nrow(model$alpha))) {
   if (!is.null(model$sets$cs_index) && !(i %in% model$sets$cs_index)) next
@@ -150,7 +162,9 @@ for (i in rev(1:nrow(model$alpha))) {
   color <- c(color[-1], color[1])
 }
 
-pip_plot_susie_small=gg+ggtitle( "SuSiE Servin Stephens SER ")
+pip_plot_susie_small=gg+
+                     ggtitle( "SuSiE Servin Stephens SER ")+
+                     theme(plot.title =element_text(size =16,  face = "plain"))
 
 
 load("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/summary_L1_3.RData")
@@ -163,7 +177,7 @@ P11 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),]
   xlab(' ')+
   # ggtitle(  expression(n == 20)  )+
   geom_hline(yintercept = 0.95)+
-  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
 P12 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),],  aes(y=obs_cov, x=as.factor(L), col=BF))+
   geom_point(
@@ -173,7 +187,7 @@ P12 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),
   xlab("")+
   ylab(' ')+
   geom_hline(yintercept = 0.95)+
-  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
 
 
@@ -188,7 +202,7 @@ P13 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),
 
 
   geom_hline(yintercept = 0.95)+
-  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none")
+  ylim( c(min(combined_data$obs_cov-0.02),1))+theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
 
 
@@ -201,7 +215,7 @@ P21   <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25)
   xlab(' ')+
   #ggtitle(  expression(n == 20)  )+
   ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
-  theme_cowplot()+theme(legend.position = "none")
+  theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
 
 
@@ -214,7 +228,7 @@ P22  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25)
   ylab(' ')+
 
   ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
-  theme_cowplot()+theme(legend.position = "none")
+  theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
 
 
@@ -229,7 +243,7 @@ P23  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25)
 
   ylim(c(min( combined_data$cs_size) ,max(combined_data$cs_size) ))+
 
-  theme_cowplot()+theme(legend.position = "none")
+  theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
 
 
@@ -243,7 +257,8 @@ P31  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),
   xlab(' ')+
   #ggtitle(  expression(n == 20)  )+
   scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
-  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )+
+  scale_color_manual(values = colors)
 
 P31
 
@@ -256,7 +271,8 @@ P32 <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25),
   xlab("")+
   ylab(' ')+
   scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
-  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )+
+  scale_color_manual(values = colors)
 
 P32
 
@@ -273,7 +289,8 @@ P33  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25)
 
   scale_y_log10(     limits = c(min(combined_data$power), 1),    breaks = c(0.01,0.05,0.1, 0.25,0.5, 1))+
 
-  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )
+  theme_cowplot()+theme(    legend.position = "none",    panel.grid.major = element_line(color = "gray80")   )+
+  scale_color_manual(values = colors)
 
 P33
 
@@ -287,7 +304,7 @@ P41  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),
   xlab(' ')+
   # ggtitle(  expression(n == 20)  )+
   ylim(0.9, 1) +
-  theme_cowplot()+theme(legend.position = "none")
+  theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
 P41
 
@@ -300,7 +317,7 @@ P42  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25)
   xlab("")+
   ylab(' ')+
   ylim(0.9, 1) +
-  theme_cowplot()+theme(legend.position = "none")
+  theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
 
 
@@ -313,7 +330,7 @@ P43  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25)
   xlab("")+
   ylab(' ')+
   ylim(0.9, 1) +
-  theme_cowplot()+theme(legend.position = "none")
+  theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
 library(ggplot2)
 library(gridExtra)
@@ -323,7 +340,7 @@ library(cowplot)
 library(dplyr)
 library(gridExtra)
 titles <- lapply(c(20, 30, 50 ), function(n) {
-  textGrob(label = bquote(n == .(n)), gp = gpar(fontsize =16, fontface = "bold"))
+  textGrob(label = bquote(N == .(n)), gp = gpar(fontsize =16, fontface = "bold"))
 })
 
 P_perf= grid.arrange(
@@ -342,7 +359,7 @@ P_perf= grid.arrange(
 library(cowplot)
 
 
-
+legend_plot <- get_legend(P_pred + theme(legend.position = "bottom"))
 
 
 grid_plot <- ggdraw()+
@@ -357,7 +374,16 @@ grid_plot <- ggdraw()+
               theme(legend.position = "none") +
               ylim(c(0,1)),
             x = .75, y = .5, width = .25, height = .5)+
-  draw_plot(P_pred  +theme(legend.position = "none")    ,
-            x = .55, y = .1, width = .35, height = .35)
-
+  draw_plot(P_pred     ,
+            x = .55, y = .1, width = .35, height = .35)+
+  draw_plot(legend_plot  ,
+          x = .6, y = .0, width = .35, height = .1)
   plot_grid(grid_plot )
+
+
+
+ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/Figure1.pdf",
+         plot = grid_plot,
+         width = 426,
+         height = 280,
+         units = "mm")

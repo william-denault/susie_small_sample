@@ -1,8 +1,13 @@
 library(susieR)
-library(cowplot)
 library(ggplot2)
+library(gridExtra)
+library(grid)
+library(ggpubr)
+library(cowplot)
+library(dplyr)
+library(gridExtra)
 colors <- c( "#D41159","#1A85FF" )
-path= getwd()
+path= "C:/Document/Serieux/Travail/Package/susie_small_sample"#getwd()
 small_data <- readRDS(paste0(path,"/data/MiGA_eQTL.chr2_ENSG00000151694.univariate_data.rds"))
 
 y= small_data$ENSG00000151694$residual_Y[[3]]
@@ -13,6 +18,8 @@ res_susie =susieR::susie(X = X,y=y,L=20   )
 res_susie_small =susieRsmall::susie(X = X,y=y,L=10, max_iter = 20 , estimate_prior_method = "EM")
 
 
+var( y -predict(res_susie_small))/var(y)
+var( y -predict(res_susie))/var(y)
 
 df_plot_pred=  data.frame (y= rep( y,2),
                            x= c( predict(res_susie_small , X),
@@ -168,7 +175,7 @@ pip_plot_susie_small=gg+
                      theme(plot.title =element_text(size =16,  face = "plain"))
 
 
-load("D:/Document/Serieux/Travail/Package/susie_small_sample/simulations/summary_L1_3.RData")
+load("C:/Document/Serieux/Travail/Package/susie_small_sample/simulations/summary_L1_3.RData")
 combined_data=combined_data[- which(combined_data$n==10),]
 library(ggplot2)
 P11 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),],
@@ -334,13 +341,6 @@ P43  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25)
   ylim(0.9, 1) +
   theme_cowplot()+theme(legend.position = "none",panel.grid.major = element_line(color = "gray80"))+scale_color_manual(values = colors)
 
-library(ggplot2)
-library(gridExtra)
-library(grid)
-library(ggpubr)
-library(cowplot)
-library(dplyr)
-library(gridExtra)
 titles <- lapply(c(20, 30, 50 ), function(n) {
   textGrob(label = bquote(N == .(n)), gp = gpar(fontsize =16, fontface = "bold"))
 })
@@ -357,44 +357,119 @@ P_perf= grid.arrange(
 
 
 
+#Miga results -----
+
+
+mat <- matrix(c(# 12232
+  0, 12, 1, 0, 0,
+  2634, 858, 9, 0, 0,
+  647, 284, 64, 0, 0,
+  140, 68, 27, 8, 0,
+  50, 33, 11, 3, 1,
+  15, 8, 5, 1, 0,
+  3, 2, 2, 0, 0,
+  4, 1, 1, 0, 0,
+  1, 1, 1, 0, 0,
+  0, 1, 0, 0, 0,
+  0, 0, 1, 0, 0,
+  1, 0, 0, 0, 0,
+  0, 1, 0, 0, 0
+), nrow = 13, byrow = TRUE)
+
+
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+df <- as.data.frame(mat)
+colnames(df) <- 0:4
+df$fSuSiE <- 0:12
+
+# Pivot longer to tidy format
+df_long <- df %>%
+  pivot_longer(cols = -fSuSiE, names_to = "SuSiE_topPC", values_to = "count") %>%
+  mutate(
+    SuSiE_topPC = as.integer(SuSiE_topPC),
+    fSuSiE = as.integer(fSuSiE)
+  ) %>%
+  filter(count > 0)
+
+# Plot
+
+
+
+
+P_Miga= ggplot(df_long, aes(y = SuSiE_topPC, x = fSuSiE, size =    (count))) +
+  geom_point(alpha = 0.9, color = "darkblue") +
+
+  # Scale size legend with better breaks (square root scale → rescale back)
+  scale_size_continuous(
+    name = "Number of genes",
+    breaks =   (c(10, 50, 100 , 1000)),
+    labels = c(10, 50, 100 , 1000),
+    range = c(1, 10)
+  ) +
+
+  # Color scale (log scale with nice gradient and rounded breaks)
+
+
+  geom_abline(slope = 1, intercept = 0, linetype = "dotted") +
+  scale_x_continuous(breaks = 0:20) +
+  scale_y_continuous(breaks = 0:20) +
+  labs(y = "SS SER", x = "Default SER") +
+  theme_cowplot()+theme( panel.grid.major = element_line(color = "gray80"))
+
+
+
+
 
 library(cowplot)
 
 
 legend_plot <- get_legend(P_pred + theme(legend.position = "bottom"))
 
+legend_plot_miga <- get_legend(P_Miga+ theme(legend.position = "bottom"))
 
 grid_plot <- ggdraw()+
 
   draw_plot(P_perf        ,
-            x = 0.  , y = .0 , width = .5, height = 1)+
+            x = 0.  , y = .0 , width = .47, height = 1)+
   draw_plot(pip_plot_susie+
               theme(legend.position = "none")         ,
-            x = .5, y = .5, width = .25, height = .5)+
+            x = .48, y = .5, width = .25, height = .5)+
 
+  draw_plot(P_pred     ,
+            x = .48, y = .1, width = .25, height = .35)+
+
+  draw_plot(legend_plot  ,
+            x = .5, y = .0, width = .25, height = .1)+
   draw_plot(pip_plot_susie_small +
               theme(legend.position = "none") +
               ylim(c(0,1)),
             x = .75, y = .5, width = .25, height = .5)+
-  draw_plot(P_pred     ,
-            x = .55, y = .1, width = .35, height = .35)+
-  draw_plot(legend_plot  ,
-          x = .6, y = .0, width = .35, height = .1)+
+
+  draw_plot(P_Miga +
+              theme(legend.position = "none")    ,
+            x = .75, y = .1, width = .25, height = .35)+
+  draw_plot(legend_plot_miga    ,
+            x = .77, y = 0, width = .25, height = .1)+
   draw_label("A",fontface = "bold",
              size = 20,
              x = 0.01, y = 0.99, vjust = 1  ) +
 
   draw_label("B", fontface = "bold",
-             size = 20, x = 0.52, y = 0.99, vjust = 1  ) +
+             size = 20, x = 0.5 , y = 0.99, vjust = 1  ) +
   draw_label("C",fontface = "bold",
              size = 20,
-             x = 0.52, y = 0.48, vjust = 1  )
+             x = 0.5 , y = 0.48, vjust = 1  )+
+draw_label("D",fontface = "bold",
+           size = 20,
+           x = 0.75 , y = 0.48, vjust = 1  )
   plot_grid(grid_plot )
 
 
 
-ggsave("D:/Document/Serieux/Travail/Package/susie_small_sample/plots/Figure1.pdf",
+ggsave("C:/Document/Serieux/Travail/Package/susie_small_sample/plots/Figure1.pdf",
          plot = grid_plot,
-         width = 426,
+         width = 500,
          height = 280,
          units = "mm")

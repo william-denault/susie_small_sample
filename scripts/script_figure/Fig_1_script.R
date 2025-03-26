@@ -408,17 +408,52 @@ P_Miga= ggplot(df_long, aes(y = SuSiE_topPC, x = fSuSiE, size =    (count))) +
     labels = c(10, 50, 100 , 1000),
     range = c(1, 10)
   ) +
-
   # Color scale (log scale with nice gradient and rounded breaks)
 
 
   geom_abline(slope = 1, intercept = 0, linetype = "dotted") +
   scale_x_continuous(breaks = 0:20) +
   scale_y_continuous(breaks = 0:20) +
-  labs(y = "SS SER", x = "Default SER") +
+  labs(y = "CSs SS SER", x = "CSs  Default SER") +
   theme_cowplot()+theme( panel.grid.major = element_line(color = "gray80"))
 
 
+
+
+
+library(ggplot2)
+library(cowplot)
+
+P_Miga = ggplot(df_long, aes(y = SuSiE_topPC, x = fSuSiE, size = count)) +
+  geom_point(alpha = 0.9, color = "darkblue") +
+
+  # Adjust size scale for bubble legend
+  scale_size_continuous(
+    name = "Number of genes",
+    breaks = c(10, 50, 100, 1000),
+    labels = c(10, 50, 100, 1000),
+    range = c(1, 10)
+  ) +
+
+  # Diagonal reference line
+  geom_abline(slope = 1, intercept = 0, linetype = "dotted") +
+
+  # Expand axis limits a bit to avoid clipping large bubbles
+  coord_cartesian(xlim = c(0, max(df_long$fSuSiE)  ),
+                  ylim = c(-0.2, max(df_long$SuSiE_topPC)  )) +
+
+  # Set axis breaks
+  scale_x_continuous(breaks = 0:20) +
+  scale_y_continuous(breaks = 0:20) +
+
+  # Axis labels
+  labs(y = "CSs SS SER", x = "CSs Default SER") +
+
+  # Styling
+  theme_cowplot() +
+  theme(panel.grid.major = element_line(color = "gray80"))
+
+print(P_Miga)
 
 
 

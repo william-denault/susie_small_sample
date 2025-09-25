@@ -7,15 +7,17 @@ library(cowplot)
 library(dplyr)
 library(gridExtra)
 colors <- c( "#D41159","#1A85FF" )
-path= "C:/Document/Serieux/Travail/Package/susie_small_sample"#getwd()
-small_data <- readRDS(paste0(path,"/data/MiGA_eQTL.chr2_ENSG00000151694.univariate_data.rds"))
+
+
+your_path  ="C:/Document/Serieux/Travail/Package/susie_small_sample/data_gao/"
+small_data <- readRDS(paste0(your_path ,"MiGA_eQTL.chr2_ENSG00000151694.univariate_data.rds"))
 
 y= small_data$ENSG00000151694$residual_Y[[3]]
 X= small_data$ENSG00000151694$residual_X[[3]]
 res_susie =susieR::susie(X = X,y=y,L=20   )
 
 
-res_susie_small =susieRsmall::susie(X = X,y=y,L=10, max_iter = 20 , estimate_prior_method = "EM")
+res_susie_small = susie(X = X,y=y,L=10,small=TRUE)
 
 
 var( y -predict(res_susie_small))/var(y)
@@ -24,16 +26,16 @@ var( y -predict(res_susie))/var(y)
 df_plot_pred=  data.frame (y= rep( y,2),
                            x= c( predict(res_susie_small , X),
                                  predict(res_susie , X)),
-                            col= factor(c(
-                                           rep( "SS SER",
-                                                length( predict(res_susie_small , X))) ,
-                                           rep( "default SER",
-                                                length( predict(res_susie  , X)))
-                                           )
-                                      )
-                            )
+                           col= factor(c(
+                             rep( "SS SER",
+                                  length( predict(res_susie_small , X))) ,
+                             rep( "default SER",
+                                  length( predict(res_susie  , X)))
+                           )
+                           )
+)
 
-P_pred = ggplot(df_plot_pred, aes( y=y, x=x, col= col))+
+P_pred = ggplot(df_plot_pred , aes( y=y, x=x, col= col))+
   geom_abline(slope=1, intercept=0)+
   geom_point()+
   ylab("Normalized gene expression")+
@@ -109,8 +111,8 @@ for (i in rev(1:nrow(model$alpha))) {
 }
 
 pip_plot_susie=gg+
-               ggtitle( "SuSiE default SER ")+
-               theme(plot.title =element_text(size =16,  face = "plain"))
+  ggtitle( "SuSiE default SER, n=75 ")+
+  theme(plot.title =element_text(size =16,  face = "plain"))
 
 
 color <- c("dodgerblue2", "green4", "#6A3D9A", "#FF7F00", "gold1", "skyblue2", "#FB9A99", "palegreen2", "#CAB2D6",
@@ -146,7 +148,7 @@ gg <- ggplot(df, aes(x = pos, y = p)) +
   labs(x = "SNP", y = ylab) +
   theme_cowplot()+
   theme(legend.position = "none",
-         panel.grid.major = element_line(color = "gray80"))
+        panel.grid.major = element_line(color = "gray80"))
 
 for (i in rev(1:nrow(model$alpha))) {
   if (!is.null(model$sets$cs_index) && !(i %in% model$sets$cs_index)) next
@@ -171,11 +173,14 @@ for (i in rev(1:nrow(model$alpha))) {
 }
 
 pip_plot_susie_small=gg+
-                     ggtitle( "SuSiE Servin Stephens SER ")+
-                     theme(plot.title =element_text(size =16,  face = "plain"))
+  ggtitle( "SuSiE Servin Stephens SER ")+
+  theme(plot.title =element_text(size =16,  face = "plain"))
 
 
-load("C:/Document/Serieux/Travail/Package/susie_small_sample/simulations/summary_L1_3.RData")
+grid.arrange(pip_plot_susie, P_pred, ncol=2)
+
+
+load(paste0(your_path  ,"summary_L1_3.RData"))
 combined_data=combined_data[- which(combined_data$n==10),]
 library(ggplot2)
 P11 <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),],
@@ -217,7 +222,7 @@ P13 <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),
 
 
 P21   <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),],
-                   aes(y=cs_size, x=as.factor(L), col=BF))+
+                 aes(y=cs_size, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab( "CS size")+
@@ -242,7 +247,7 @@ P22  <- ggplot(  combined_data[which(combined_data$n==30 & combined_data$h2==25)
 
 
 P23  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),],
-                    aes(y=cs_size, x=as.factor(L), col=BF))+
+                 aes(y=cs_size, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab(' ')+
@@ -259,7 +264,7 @@ P23  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25)
 
 
 P31  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),],
-                      aes(y=power, x=as.factor(L), col=BF))+
+                aes(y=power, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab( "Power")+
@@ -289,7 +294,7 @@ P32
 
 library(ggplot2)
 P33  <- ggplot(  combined_data[which(combined_data$n==50 & combined_data$h2==25),],
-                       aes(y=power, x=as.factor(L), col=BF))+
+                 aes(y=power, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab(' ')+
@@ -306,7 +311,7 @@ P33
 
 
 P41  <- ggplot( combined_data[which(combined_data$n==20 & combined_data$h2==25),],
-                       aes(y=purity, x=as.factor(L), col=BF))+
+                aes(y=purity, x=as.factor(L), col=BF))+
   geom_point(
   )+
   ylab("Purity")+
@@ -348,10 +353,10 @@ titles <- lapply(c(20, 30, 50 ), function(n) {
 P_perf= grid.arrange(
   arrangeGrob(grobs = titles, ncol = 3),
   arrangeGrob(  P11, P12,P13 ,
-                 P21, P22,P23,
-                 P31, P32,P33,
-                 P41, P42,P43,
-                 ncol=3),
+                P21, P22,P23,
+                P31, P32,P33,
+                P41, P42,P43,
+                ncol=3),
   heights = c(0.03, 1))
 
 
@@ -496,15 +501,14 @@ grid_plot <- ggdraw()+
   draw_label("C",fontface = "bold",
              size = 20,
              x = 0.5 , y = 0.48, vjust = 1  )+
-draw_label("D",fontface = "bold",
-           size = 20,
-           x = 0.75 , y = 0.48, vjust = 1  )
-  plot_grid(grid_plot )
-
-
+  draw_label("D",fontface = "bold",
+             size = 20,
+             x = 0.75 , y = 0.48, vjust = 1  )
+plot_grid(grid_plot )
 
 ggsave("C:/Document/Serieux/Travail/Package/susie_small_sample/plots/Figure1.pdf",
          plot = grid_plot,
          width = 500,
          height = 280,
          units = "mm")
+

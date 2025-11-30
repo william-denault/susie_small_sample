@@ -1,17 +1,17 @@
-name: "susie_small_sample"
+name: susie_small_sample
 output_dir: ../docs
 navbar:
-  title: "susie_small_sample"
+  title: susie_small_sample
   left:
-  - text: Home
+  - text: Overview
     href: index.html
-  - text: About
-    href: about.html
-  - text: License
-    href: license.html
+  right:
+    - text: source
+      href: https://github.com/william-denault/susie_small_sample
 output:
   workflowr::wflow_html:
-    toc: yes
-    toc_float: yes
-    theme: cosmo
+    toc: no
+    theme: readable
     highlight: textmate
+    lib_dir: site_libs
+    self_contained: no

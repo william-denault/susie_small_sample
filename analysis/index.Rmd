@@ -1,11 +1,9 @@
 ---
-title: "Home"
+title: Experiments on SuSiE in small-sample data sets
 site: workflowr::wflow_site
-output:
-  workflowr::wflow_html:
-    toc: false
-editor_options:
-  chunk_output_type: console
+output: workflowr::wflow_html
 ---
 
-Welcome to my research website.
+The links below contain detailed assessments of different variants of
+the SuSiE model in data sets with smaller sample sizes.
+

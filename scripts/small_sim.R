@@ -29,13 +29,15 @@ for (iter in 1:N) {
   j <- which(colSds(X) > 0)
   X <- X[,j]
 
-  # Simulate b and y.
+  # Simulate b.
   p <- ncol(X)
   b <- rep(0,p)
   names(b) <- colnames(X)
   p1   <- sample(3,1)
   j    <- sample(p,p1)
   b[j] <- sample(c(-1,1),p1,replace = TRUE)
+
+  # Simualte y.
   e    <- rnorm(n,sd = 0.1)
   y    <- drop(X %*% b + e)
   y    <- y/sd(y)

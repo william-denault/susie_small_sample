@@ -5,8 +5,10 @@ library(susieR)
 susie_version <- packageVersion("susieR")
 # N <- 250
 # n <- 40
+# max_maf <- 0.5
 N <- 100
 n <- 500
+max_maf <- 0.05
 outfile <- sprintf("small_sim_out_n=%d_v%s.RData",n,susie_version)
 print(outfile)
 geno <- readRDS("../data/Thyroid.FMO2.1Mb.RDS")$X
@@ -29,15 +31,20 @@ for (iter in 1:N) {
   j <- which(colSds(X) > 0)
   X <- X[,j]
 
-  # Simulate b.
-  p <- ncol(X)
-  b <- rep(0,p)
-  names(b) <- colnames(X)
-  p1   <- sample(3,1)
-  j    <- sample(p,p1)
-  b[j] <- sample(c(-1,1),p1,replace = TRUE)
+  # Choose the causal SNPs.
+  p   <- ncol(X)
+  p1  <- sample(3,1)
+  maf <- colMeans(X)/2
+  maf <- pmin(maf,1 - maf)
+  j   <- which(maf <= max_maf)
+  j   <- sample(j,p1)
 
-  # Simualte y.
+  # Simulate b.
+  b        <- rep(0,p)
+  names(b) <- colnames(X)
+  b[j]     <- sample(c(-1,1),p1,replace = TRUE)
+
+  # Simulate y.
   e    <- rnorm(n,sd = 0.1)
   y    <- drop(X %*% b + e)
   y    <- y/sd(y)

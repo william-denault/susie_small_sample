@@ -9,8 +9,10 @@ susie_version <- packageVersion("susieR")
 N <- 100
 n <- 500
 max_maf <- 0.05
-outfile <- sprintf("small_sim_out_n=%d_v%s.RData",n,susie_version)
+outfile <- sprintf("small_sim_out_n=%d_maf=%0.2f_v%s.RData",
+                   n,max_maf,susie_version)
 print(outfile)
+stop()
 geno <- readRDS("../data/Thyroid.FMO2.1Mb.RDS")$X
 storage.mode(geno) <- "double"
 

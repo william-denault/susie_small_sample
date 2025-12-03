@@ -3,16 +3,12 @@
 library(matrixStats)
 library(susieR)
 susie_version <- packageVersion("susieR")
-# N <- 250
-# n <- 40
-# max_maf <- 0.5
-N <- 100
-n <- 500
-max_maf <- 0.05
+N       <- 250
+max_maf <- 0.5
+n       <- 40
 outfile <- sprintf("small_sim_out_n=%d_maf=%0.2f_v%s.RData",
                    n,max_maf,susie_version)
 print(outfile)
-stop()
 geno <- readRDS("../data/Thyroid.FMO2.1Mb.RDS")$X
 storage.mode(geno) <- "double"
 

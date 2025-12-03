@@ -4,7 +4,10 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-ADD TEXT HERE
+Here I summarize some of the results of my "small" simulations to
+compare the original SuSiE model to SuSiE with an NIG prior (also
+called the "Servin and Stephens", or "SS", prior). In the following,
+we use "SuSiE-SS" as a shorthand for this variant of SuSiE.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -22,12 +25,6 @@ Set the seed for reproducibility:
 
 ```{r set-seed}
 set.seed(1)
-```
-
-ADD TEXT HERE.
-
-```{r load-output-n-500}
-load("../output/small_sim_out_n=500_v0.14.47.RData")
 ```
 
 This is a function I will use to empirically assess power and coverage
@@ -56,7 +53,7 @@ compute_power_and_coverage <- function (res, causal) {
     }
     V_true   <- c(V_true,V[y])
     V_false  <- c(V_false,V[setdiff(all_cs,y)])
-    power    <- power     + length(x)
+    power    <- power    + length(x)
 	coverage <- coverage + length(y)
   }
   num_true <- sum(sapply(causal,length))
@@ -76,6 +73,15 @@ get_cs_sizes <- function (res)
   unlist(lapply(res,function (x) sapply(x$sets$cs,length)))
 ```
 
+## *n* = 500
+
+In this setting, the sample size is large enough ($n = 500$) that I
+do not expect to see much benefit of using the NIG prior.
+
+```{r load-output-n-500}
+load("../output/small_sim_out_n=500_v0.14.47.RData")
+```
+
 Compare power and coverage:
 
 ```{r power-coverage-n-500}
@@ -92,38 +98,150 @@ These are the running times:
 summary(runtimes)
 ```
 
-Compare the prior variances of the true positives vs. the false positives:
+These are the CS sizes:
+
+```{r cs-sizes-n-500, fig.height=3.5, fig.width=3}
+sizes_susie    <- get_cs_sizes(res_susie)
+sizes_susie_ss <- get_cs_sizes(res_susie_small)
+compare_cs_sizes <- function (susie, susie_ss, max_size = Inf) {
+  pdat <- rbind(data.frame(method = "susie",   size = susie),
+                data.frame(method = "susie_ss",size = susie_ss))
+  pdat <- subset(pdat,size <= max_size)
+  return(ggplot(pdat,aes(x = size,color = method,fill = method)) +
+         facet_grid(rows = vars(method),scales = "free_y",axes = "all") +
+		 geom_histogram(bins = 24) +
+		 scale_color_manual(values = c("darkblue","darkorange")) +
+		 scale_fill_manual(values = c("darkblue","darkorange")) +
+		 labs(x = "CS size") +
+		 theme_cowplot(font_size = 10) +
+		 theme(strip.background = element_blank()))
+}
+compare_cs_sizes(sizes_susie,sizes_susie_ss,max_size = 20)
+```
+
+Compare the prior variances of the true positives vs. the false
+positives:
 
 ```{r V-n-500, fig.height=2, fig.width=4.25}
-pdat <- rbind(data.frame(method = "susie",causal = TRUE,
-                         V = stats_susie$V_true),
-              data.frame(method = "susie",causal = FALSE,
-			             V = stats_susie$V_false),
-              data.frame(method = "susie_ss",causal = TRUE,
-			             V = stats_susie_ss$V_true),
-              data.frame(method = "susie_ss",causal = FALSE,
-			             V = stats_susie_ss$V_false))
-pdat <- transform(pdat,sigma = sqrt(V))
-pdat <- subset(pdat,sigma < 2)
-ggplot(pdat,aes(x = sigma,color = causal,fill = causal)) +
-  facet_grid(cols = vars(method),scales = "free_y",axes = "all") +
-  geom_histogram(bins = 24,position = "stack",linewidth = 0.05) +
-  scale_color_manual(values = c("darkblue","orangered")) +
-  scale_fill_manual(values = c("darkblue","orangered")) +
-  ylim(0,50) +
-  labs(x = "prior s.d.") +
-  theme_cowplot(font_size = 10)
+compare_prior_variances <- function (susie_true, susie_false,
+                                     susie_ss_true, susie_ss_false,
+									 ymax = Inf) {
+  pdat <- rbind(data.frame(method="susie",causal=TRUE,V=susie_true),
+                data.frame(method="susie",causal=FALSE,V=susie_false),
+                data.frame(method="susie_ss",causal=TRUE,V=susie_ss_true),
+                data.frame(method="susie_ss",causal=FALSE,V=susie_ss_false))
+  pdat <- transform(pdat,sigma = sqrt(V))
+  p <- ggplot(pdat,aes(x = sigma,color = causal,fill = causal)) +
+    facet_grid(cols = vars(method),scales = "free_y",axes = "all") +
+    geom_histogram(bins = 18,position = "stack",linewidth = 0.05) +
+	scale_color_manual(values = c("darkblue","orangered")) +
+	scale_fill_manual(values = c("darkblue","orangered")) +
+	labs(x = "prior s.d.") +
+	theme_cowplot(font_size = 10) +
+	theme(strip.background = element_blank())
+  if (is.finite(ymax))
+    p <- p + coord_cartesian(ylim = c(0,ymax))
+  return(p)
+}
+compare_prior_variances(stats_susie$V_true,stats_susie$V_false,
+                        stats_susie_ss$V_true,stats_susie_ss$V_false,
+						ymax = 75)
 ```
 
-Now compare in the setting with much fewer samples:
+Note that most of the prior variances are at or near zero; the Y axis
+was cut off at 75 so that we can see the larger prior variances more
+clearly.
 
-```{r load-output-n-40}
-load("../output/small_sim_out_n=40_v0.14.47.RData")
+## *n* = 200
+
+Next let's consider a setting with slightly smaller sample size.
+
+```{r load-output-n-200}
+load("../output/small_sim_out_n=200_v0.14.47.RData")
 ```
 
-Compare power and coverage:
+Notice that SuSiE-SS substantially improves power and coverage only
+diminishes slightly:
+
+```{r power-coverage-n-200}
+stats_susie    <- compute_power_and_coverage(res_susie,causal_snps)
+stats_susie_ss <- compute_power_and_coverage(res_susie_small,causal_snps)
+data.frame(method   = c("susie","susie_ss"),
+           power    = c(stats_susie$power,stats_susie_ss$power),
+  	       coverage = c(stats_susie$coverage,stats_susie_ss$coverage))
+```
+
+These are the running times:
+
+```{r runtimes-n-200}
+summary(runtimes)
+```
+
+These are the CS sizes:
+
+```{r cs-sizes-n-200, fig.height=3.5, fig.width=3}
+sizes_susie    <- get_cs_sizes(res_susie)
+sizes_susie_ss <- get_cs_sizes(res_susie_small)
+compare_cs_sizes(sizes_susie,sizes_susie_ss,max_size = 40)
+```
+
+Compare the prior variances of the true positives vs. the false positives:
+
+```{r V-n-200, fig.height=2, fig.width=4.25}
+compare_prior_variances(stats_susie$V_true,stats_susie$V_false,
+                        stats_susie_ss$V_true,stats_susie_ss$V_false,
+						ymax = 250)
+```
+
+## *n* = 200, MAF < 5%
+
+If we focus on fine-mapping causal SNPs with low minor allele
+frequencies (MAF < 5%), something interesting happens. Overall, we
+have reduced coverage, but SuSiE-SS now greatly improves power over
+SuSiE:
+
+```{r power-coverage-n-200-maf-0.05}
+```{r load-output-n-200-maf-0.05}
+load("../output/small_sim_out_n=100_maf=0.05_v0.14.47.RData")
+stats_susie    <- compute_power_and_coverage(res_susie,causal_snps)
+stats_susie_ss <- compute_power_and_coverage(res_susie_small,causal_snps)
+data.frame(method   = c("susie","susie_ss"),
+           power    = c(stats_susie$power,stats_susie_ss$power),
+  	       coverage = c(stats_susie$coverage,stats_susie_ss$coverage))
+```
+
+These are the running times:
+
+```{r runtimes-n-200-maf-0.05}
+summary(runtimes)
+```
+
+These are the CS sizes:
+
+```{r cs-sizes-n-200-maf-0.05, fig.height=3.5, fig.width=3}
+sizes_susie    <- get_cs_sizes(res_susie)
+sizes_susie_ss <- get_cs_sizes(res_susie_small)
+compare_cs_sizes(sizes_susie,sizes_susie_ss,max_size = 40)
+```
+
+Compare the prior variances of the true positives vs. the false positives:
+
+```{r V-n-200-maf-0.05, fig.height=2, fig.width=4.25}
+compare_prior_variances(stats_susie$V_true,stats_susie$V_false,
+                        stats_susie_ss$V_true,stats_susie_ss$V_false,
+						ymax = 150)
+```
+
+## *n* = 40
+
+If we focus on fine-mapping causal SNPs with low minor allele
+frequencies (MAF < 5%), something interesting happens. Overall, we
+have reduced coverage, but SuSiE-SS now greatly improves power over
+SuSiE:
 
 ```{r power-coverage-n-40}
+```{r load-output-n-40-maf-0.05}
+load("../output/small_sim_out_n=40_v0.14.47.RData")
 stats_susie    <- compute_power_and_coverage(res_susie,causal_snps)
 stats_susie_ss <- compute_power_and_coverage(res_susie_small,causal_snps)
 data.frame(method   = c("susie","susie_ss"),
@@ -137,25 +255,18 @@ These are the running times:
 summary(runtimes)
 ```
 
+These are the CS sizes:
+
+```{r cs-sizes-n-40, fig.height=3.5, fig.width=3}
+sizes_susie    <- get_cs_sizes(res_susie)
+sizes_susie_ss <- get_cs_sizes(res_susie_small)
+compare_cs_sizes(sizes_susie,sizes_susie_ss,max_size = 40)
+```
+
 Compare the prior variances of the true positives vs. the false positives:
 
 ```{r V-n-40, fig.height=2, fig.width=4.25}
-pdat <- rbind(data.frame(method = "susie",causal = TRUE,
-                         V = stats_susie$V_true),
-              data.frame(method = "susie",causal = FALSE,
-			             V = stats_susie$V_false),
-              data.frame(method = "susie_ss",causal = TRUE,
-			             V = stats_susie_ss$V_true),
-              data.frame(method = "susie_ss",causal = FALSE,
-			             V = stats_susie_ss$V_false))
-pdat <- transform(pdat,sigma = sqrt(V))
-pdat <- subset(pdat,sigma < 2)
-ggplot(pdat,aes(x = sigma,color = causal,fill = causal)) +
-  facet_grid(cols = vars(method),scales = "free_y",axes = "all") +
-  geom_histogram(bins = 24,position = "stack",linewidth = 0.05) +
-  scale_color_manual(values = c("darkblue","orangered")) +
-  scale_fill_manual(values = c("darkblue","orangered")) +
-  ylim(0,60) +
-  labs(x = "prior s.d.") +
-  theme_cowplot(font_size = 10)
+compare_prior_variances(stats_susie$V_true,stats_susie$V_false,
+                        stats_susie_ss$V_true,stats_susie_ss$V_false,
+						ymax = 200)
 ```

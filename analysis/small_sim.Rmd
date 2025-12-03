@@ -185,7 +185,8 @@ sizes_susie_ss <- get_cs_sizes(res_susie_small)
 compare_cs_sizes(sizes_susie,sizes_susie_ss,max_size = 40)
 ```
 
-Compare the prior variances of the true positives vs. the false positives:
+Compare the prior variances of the true positives vs. the false
+positives:
 
 ```{r V-n-200, fig.height=2, fig.width=4.25}
 compare_prior_variances(stats_susie$V_true,stats_susie$V_false,
@@ -197,11 +198,11 @@ compare_prior_variances(stats_susie$V_true,stats_susie$V_false,
 
 If we focus on fine-mapping causal SNPs with low minor allele
 frequencies (MAF < 5%), something interesting happens. Overall, we
-have reduced coverage, but SuSiE-SS now greatly improves power over
-SuSiE:
+have reduced coverage—and this may be because we are assuming at least
+one "significant" association at the locus—nonetheless SuSiE-SS now
+provides a greater gain in power over SuSiE:
 
 ```{r power-coverage-n-200-maf-0.05}
-```{r load-output-n-200-maf-0.05}
 load("../output/small_sim_out_n=100_maf=0.05_v0.14.47.RData")
 stats_susie    <- compute_power_and_coverage(res_susie,causal_snps)
 stats_susie_ss <- compute_power_and_coverage(res_susie_small,causal_snps)
@@ -234,13 +235,10 @@ compare_prior_variances(stats_susie$V_true,stats_susie$V_false,
 
 ## *n* = 40
 
-If we focus on fine-mapping causal SNPs with low minor allele
-frequencies (MAF < 5%), something interesting happens. Overall, we
-have reduced coverage, but SuSiE-SS now greatly improves power over
-SuSiE:
+At a much smaller sample size, the advantages of SuSiE-SS become even
+more clear.
 
 ```{r power-coverage-n-40}
-```{r load-output-n-40-maf-0.05}
 load("../output/small_sim_out_n=40_v0.14.47.RData")
 stats_susie    <- compute_power_and_coverage(res_susie,causal_snps)
 stats_susie_ss <- compute_power_and_coverage(res_susie_small,causal_snps)
@@ -263,7 +261,8 @@ sizes_susie_ss <- get_cs_sizes(res_susie_small)
 compare_cs_sizes(sizes_susie,sizes_susie_ss,max_size = 40)
 ```
 
-Compare the prior variances of the true positives vs. the false positives:
+Compare the prior variances of the true positives vs. the false
+positives:
 
 ```{r V-n-40, fig.height=2, fig.width=4.25}
 compare_prior_variances(stats_susie$V_true,stats_susie$V_false,

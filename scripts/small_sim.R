@@ -43,9 +43,9 @@ for (iter in 1:N) {
   b[j]     <- sample(c(-1,1),p1,replace = TRUE)
 
   # Simulate y.
-  e    <- rnorm(n,sd = 0.1)
-  y    <- drop(X %*% b + e)
-  y    <- y/sd(y)
+  e <- rnorm(n,sd = 0.1)
+  y <- drop(X %*% b + e)
+  y <- y/sd(y)
   causal_snps[[iter]] <- j
 
   # Run susie with normal prior.

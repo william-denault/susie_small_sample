@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sbatch cor_small
+sbatch cor_small_unfilter
+sbatch L_1_cor_small
+sbatch L_1_susie_small
+sbatch pip_cor_susie
+sbatch pip_susie
+sbatch susie_small
+sbatch susie_small_unfilter

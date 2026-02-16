@@ -1,0 +1,5 @@
+# Ignore RStudio project files
+*.Rproj
+
+# Ignore all CSV files
+*.csv

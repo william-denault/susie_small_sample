@@ -4,3 +4,5 @@
 # Ignore all CSV files
 *.csv
 *.err
+*.out
+*.pdf

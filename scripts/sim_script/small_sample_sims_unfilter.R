@@ -48,7 +48,7 @@ run_susie_sim <-  function(N=20,
                            n_sim=100,
                            L_sim=NULL,
                            L_susie=NULL,
-                           save_pip=TRUE){
+                           save_pip=FALSE){
 
   res <- list( )
   idx =1
@@ -101,7 +101,36 @@ run_susie_sim <-  function(N=20,
         summary_reg <- c( 0 ,   0,n_effect, NaN,1, 0 ,0,0,sim_data $ncp)
         cs= out$sets
       }
+      if(save_pip){
 
+        tempfile <- paste0("/home/wdenault/susie_small_sample/simulations/pip_susie_n",N,"_h",h,".csv" )
+
+        if( file.exists(paste0("/home/wdenault/susie_small_sample/simulations/pip_susie_n",N,"_h",h,".csv" ) )){
+
+          temp = fread(paste0("/home/wdenault/susie_small_sample/simulations/pip_susie_n",N,"_h",h,".csv" ) )
+
+          true_entry= 0*out$pip
+          true_entry[true_pos]=1
+          temp0= cbind(  true_entry, out$pip)
+          if (ncol(temp) != ncol(temp0)) {
+            stop("Column mismatch between temp and temp0")
+          }
+          colnames(temp0)= colnames(temp)
+          temp = rbind(temp, temp0)
+
+
+          fwrite(temp, file=tempfile, quote=FALSE, row.names=FALSE, col.names=TRUE, sep=",")
+
+        }else{
+          true_entry= 0*out$pip
+          true_entry[true_pos]=1
+          temp0= cbind(  true_entry, out$pip)
+          temp = (temp0)
+          rownames(temp) <- NULL
+          fwrite(temp, file=tempfile, quote=FALSE, row.names=FALSE, col.names=TRUE, sep=",")
+
+        }
+      }
 
 
       res [[i ]] <- list(summary_reg=summary_reg,

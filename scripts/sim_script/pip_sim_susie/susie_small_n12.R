@@ -2,7 +2,7 @@ library(susieR)
 
 rm(list=ls())
 
-source("/home/wdenault/susie_small_sample/scripts/sim_script/small_sample_sims.R")
+source("/home/wdenault/susie_small_sample/scripts/sim_script/small_sample_sims_unfilter.R")
 
 for (o in 1:100){
 

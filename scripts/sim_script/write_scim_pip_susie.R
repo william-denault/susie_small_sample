@@ -20,7 +20,7 @@ for (n in n_values) {
     # Write the header of the script
     writeLines("library(susieR)\n", fileConn)
     writeLines("rm(list=ls())\n", fileConn)
-    writeLines('source("/home/wdenault/susie_small_sample/scripts/sim_script/small_sample_sims.R")\n', fileConn)
+    writeLines('source("/home/wdenault/susie_small_sample/scripts/sim_script/small_sample_sims_unfilter.R")\n', fileConn)
 
     # Write the inner part of the script for each combination of n and h
     writeLines(paste("for (o in 1:100){\n", sep=""), fileConn)

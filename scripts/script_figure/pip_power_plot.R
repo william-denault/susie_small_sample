@@ -14,7 +14,7 @@ library(purrr)
 # PARAMETERS
 # -----------------------------
 
-n_values <- c(10, 20, 30, 50, 70, 100)
+n_values <- c(  20, 30, 50, 70, 100)
 h_values <- c(.1 , .15, .25, .3 , .5 , .75)
 
 # Paths where your simulation outputs are saved
@@ -106,3 +106,4 @@ final_plot <- ggplot(final_df,
     strip.text = element_text(size=10)
   ) +
   ggtitle("ROC Curves Across Sample Sizes and Heritabilities")
+

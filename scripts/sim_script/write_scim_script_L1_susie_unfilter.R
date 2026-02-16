@@ -27,8 +27,8 @@ for (n in n_values) {
     writeLines(paste("  temp0 <- run_susie_sim(N=", n,", L_sim=",1, ", h=", h/100, ", n_sim=100)\n", sep=""), fileConn)
 
     # Write file check and load/save logic
-    writeLines(paste('  if(file.exists("/home/wdenault/susie_small_sample/simulations/small_sample_susie', n, '_h', h, '_unfilter.RData")){\n', sep=""), fileConn)
-    writeLines(paste(' temp=    load("/home/wdenault/susie_small_sample/simulations/small_sample_susie', n, '_h', h, '_unfilter.RData")\n', sep=""), fileConn)
+    writeLines(paste('  if(file.exists("/home/wdenault/susie_small_sample/simulations/small_sample_susie', n, '_h', h, '_unfilter_L1.RData")){\n', sep=""), fileConn)
+    writeLines(paste('  load("/home/wdenault/susie_small_sample/simulations/small_sample_susie', n, '_h', h, '_unfilter_L1.RData")\n', sep=""), fileConn)
     writeLines("    if(!is.null(temp)){\n", fileConn)
     writeLines("      temp <- c(temp, temp0)\n", fileConn)
     writeLines("    } else {\n", fileConn)

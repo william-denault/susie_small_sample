@@ -28,7 +28,7 @@ for (n in n_values) {
 
     # Write file check and load/save logic
     writeLines(paste('  if(file.exists("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie', n, '_h', h, '_unfilterRData")){\n', sep=""), fileConn)
-    writeLines(paste('   temp= load("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie', n, '_h', h, '_unfilterRData")\n', sep=""), fileConn)
+    writeLines(paste('   load("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie', n, '_h', h, '_unfilterRData")\n', sep=""), fileConn)
     writeLines("    if(!is.null(temp)){\n", fileConn)
     writeLines("      temp <- c(temp, temp0)\n", fileConn)
     writeLines("    } else {\n", fileConn)

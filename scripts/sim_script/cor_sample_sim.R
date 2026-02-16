@@ -44,7 +44,7 @@ sim_dat <- function(N=20, h=0.5, L=NULL) {
 
 run_susie_sim <-  function(N=20,
                            h=0.5,
-                           n_sim=10000,
+                           n_sim=100,
                            L_sim=NULL,
                            L_susie=NULL,
                            save_pip=FALSE){
@@ -84,7 +84,6 @@ run_susie_sim <-  function(N=20,
 
 
 
-        print(res)
       }else{
 
         n_effect <- length(true_pos)

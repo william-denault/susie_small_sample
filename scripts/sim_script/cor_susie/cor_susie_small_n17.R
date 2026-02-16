@@ -10,11 +10,11 @@ for (o in 1:100000){
 
   if(file.exists("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie30_h50.RData")){
 
-   temp= load("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie30_h50.RData")
+    load("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie30_h50.RData")
 
     if(!is.null(temp)){
 
-      temp <- c(temp, temp0)
+      temp <- rbind(temp, temp0)
 
     } else {
 

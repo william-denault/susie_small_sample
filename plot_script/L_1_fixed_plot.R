@@ -40,7 +40,7 @@ calculate_error <- function(est_cov, n = 10) {
 }
 
 # Load and process all datasets
-h2_values <- c(25, 30, 50, 75)
+h2_values <- c(10,15,25, 30, 50, 75)
 n_values <- c(10, 20, 30, 50, 75, 100)
 bf_labels <- c("SER Gaus", "SER SS" )
 

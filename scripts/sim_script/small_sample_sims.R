@@ -141,7 +141,7 @@ run_susie_sim <-  function(N=20,
   }
 
   temp <- do.call (rbind ,res)
-  colnames(temp) <- c("n_true_cs", "n_cs", "n_effect", "mean_cs_size", "is.dummy", "purity")
+  colnames(temp) <- c("n_true_cs", "n_cs", "n_effect", "mean_cs_size", "is.dummy", "purity", "ncp")
   temp <- data.frame(temp)
   # Return results
   return(temp )

@@ -8,9 +8,9 @@ for (o in 1:100000){
 
   temp0 <- run_susie_sim(N=20, h=0.3, n_sim=100)
 
-  if(file.exists("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie20_h30_unfilterRData")){
+  if(file.exists("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie20_h30_unfilter_L1.RData")){
 
-   temp= load("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie20_h30_unfilterRData")
+     load("/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie20_h30_unfilter_L1.RData")
 
     if(!is.null(temp)){
 
@@ -28,7 +28,7 @@ for (o in 1:100000){
 
   }
 
-  save (temp, file="/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie20_h30_unfilter.RData")
+  save (temp, file="/home/wdenault/susie_small_sample/simulations/cor_small_sample_susie20_h30_unfilter_L1.RData")
 
 }
 

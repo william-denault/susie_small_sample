@@ -10,11 +10,12 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
+colors <- c( "#D41159","#1A85FF" )
 # -----------------------------
 # PARAMETERS
 # -----------------------------
 
-n_values <- c(  20, 30, 50, 70, 100)
+n_values <- c( 10, 20, 30, 50, 70, 100)
 h_values <- c(.1 , .15, .25, .3 , .5 , .75)
 
 # Paths where your simulation outputs are saved
@@ -61,8 +62,8 @@ for (n in n_values) {
 
     if (file.exists(file_cor) & file.exists(file_susie)) {
 
-      df_cor   <- compute_roc_df(file_cor,   "cor_susie", n, h)
-      df_susie <- compute_roc_df(file_susie, "susie",     n, h)
+      df_cor   <- compute_roc_df(file_cor,   "Servin and Stephens SER", n, h)
+      df_susie <- compute_roc_df(file_susie, "Default SER",     n, h)
 
       combined <- rbind(df_cor, df_susie)
 
@@ -105,5 +106,6 @@ final_plot <- ggplot(final_df,
     legend.position="bottom",
     strip.text = element_text(size=10)
   ) +
+  scale_color_manual(values =colors)+
   ggtitle("ROC Curves Across Sample Sizes and Heritabilities")
 

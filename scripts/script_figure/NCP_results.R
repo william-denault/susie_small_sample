@@ -10,6 +10,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
+colors <- c( "#D41159","#1A85FF" )
 create_NCP_table= function(temp,
                        method="Default SER"
                        ){
@@ -100,10 +101,23 @@ for ( n in n_values){
 
 
 df_out= do.call(rbind, df_out)
-ggplot( df_out, aes(x=(NCP), y=response, colour = Method))+
+P1= ggplot( df_out, aes(x=(NCP), y=response, colour = Method))+
  # geom_point(alpha=.5) +
   scale_x_log10()+
-  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial))
+  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial)) +
+  theme_bw(base_size = 13) +
+  theme(
+    legend.position="bottom",
+    strip.text = element_text(size=10)
+  ) +
+  scale_color_manual(values =colors)+
+  ggtitle("ROC Curves Across Sample Sizes and Heritabilities")
+
+
+
+
+
+
 
 
 ggplot( df_out, aes(x=log(NCP), y=response, colour = Method))+

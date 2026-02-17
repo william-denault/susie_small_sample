@@ -102,18 +102,33 @@ library(
 ggplot(df_out, aes( x= Effect, y= obs_cov, col=Method))+
   geom_point()+
   facet_grid(H~N)+
-  geom_hline(yintercept = .95)
+  geom_hline(yintercept = .95)+
+  theme_bw(base_size = 13) +
+  theme(
+    strip.text = element_text(size=10)
+  )+
+  scale_color_manual(values =colors)
 
 
 ggplot(df_out, aes( x= Effect, y= obs_purity, col=Method))+
   geom_point()+
-  facet_grid(H~N)
+  facet_grid(H~N)+
+  theme_bw(base_size = 13) +
+  theme(
+    strip.text = element_text(size=10)
+  )+
+  scale_color_manual(values =colors)
 
 
 ggplot(df_out, aes( x= Effect, y= (obs_power+0.0001), col=Method))+
   geom_point()+
   scale_y_log10()+
-  facet_grid(H~N)
+  facet_grid(H~N)+
+  theme_bw(base_size = 13) +
+  theme(
+    strip.text = element_text(size=10)
+  )+
+  scale_color_manual(values =colors)
 
 
 

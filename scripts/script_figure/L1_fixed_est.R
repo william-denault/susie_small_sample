@@ -9,7 +9,10 @@ library(pROC)
 library(ggplot2)
 library(dplyr)
 library(purrr)
+results_path_cor   <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
+results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 
+colors <- c( "#D41159","#1A85FF" )
 cal_sum_stat= function(temp,
                        method="Default SER",
                        n=10,
@@ -112,18 +115,16 @@ ggplot(df_out, aes( x=Method, col=Method,shape = Type, y=obs_cov))+
 
 ggplot(df_out, aes(x = Method,
                    y = obs_cov,
-                   colour =  Method,
+                   colour = Method,
                    shape = Type,
                    group = Type)) +
-  geom_point(position = .2, size = 2) +
-  facet_grid(N ~ H)
+  geom_point(position = position_dodge(width = 0.2), size = 2) +
+  facet_grid(N ~ H)+
 
+  geom_hline(yintercept = .95)+
+  theme_bw(base_size = 13) +
+  theme(
+    strip.text = element_text(size=10)
+  )+
+scale_color_manual(values =colors)
 
-ggplot(df_out, aes(x = Method,
-                     y = obs_cov,
-                     colour = Method,
-                     shape = Type,
-                     group = Type)) +
-      geom_line(position = pd) +
-      geom_point(position = pd, size = 2) +
-      facet_grid(N ~ H)

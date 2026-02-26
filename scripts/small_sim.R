@@ -3,9 +3,9 @@
 library(matrixStats)
 library(susieR)
 susie_version <- packageVersion("susieR")
-N       <- 250
-max_maf <- 0.5
-n       <- 40
+N       <- 100
+max_maf <- 0.05
+n       <- 200
 outfile <- sprintf("small_sim_out_n=%d_maf=%0.2f_v%s.RData",
                    n,max_maf,susie_version)
 print(outfile)
@@ -13,6 +13,7 @@ geno <- readRDS("../data/Thyroid.FMO2.1Mb.RDS")$X
 storage.mode(geno) <- "double"
 
 causal_snps     <- vector("list",N)
+pve             <- rep(0,N)
 res_susie       <- vector("list",N)
 res_susie_small <- vector("list",N)
 runtimes        <- data.frame(susie       = rep(0,N),
@@ -31,7 +32,8 @@ for (iter in 1:N) {
 
   # Choose the causal SNPs.
   p   <- ncol(X)
-  p1  <- sample(3,1)
+  # p1  <- sample(3,1)
+  p1  <- 3
   maf <- colMeans(X)/2
   maf <- pmin(maf,1 - maf)
   j   <- which(maf <= max_maf)
@@ -43,8 +45,9 @@ for (iter in 1:N) {
   b[j]     <- sample(c(-1,1),p1,replace = TRUE)
 
   # Simulate y.
-  e <- rnorm(n,sd = 0.1)
+  e <- rnorm(n,sd = 0.3)
   y <- drop(X %*% b + e)
+  pve[iter] <- var(drop(X %*% b))/var(y)
   y <- y/sd(y)
   causal_snps[[iter]] <- j
 
@@ -71,6 +74,6 @@ for (iter in 1:N) {
 cat("\n")
 
 # Save the results.
-save(list = c("n","susie_version","causal_snps","res_susie",
+save(list = c("n","susie_version","causal_snps","pve","res_susie",
               "res_susie_small","runtimes"),
      file = outfile)

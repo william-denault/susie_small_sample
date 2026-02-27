@@ -153,13 +153,3 @@ fit <- gam(response ~ Method +
            method = "REML")
 
 summary(fit)
-
-
-
-fit_reduced <- gam(response ~ Method +
-                     s(NCP, k = 10),
-                   data = df_out,
-                   family = binomial,
-                   method = "REML")
-
-anova(fit_reduced, fit, test = "Chisq")

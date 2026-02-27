@@ -10,6 +10,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
+colors <- c( "#D41159","#1A85FF" )
 cal_sum_stat= function(temp,
                        method="Default SER",
                        n=10,

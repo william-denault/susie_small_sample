@@ -86,6 +86,8 @@ for ( n in n_values){
     df_out[[o]]= create_NCP_table( temp,
                                    method="Default SER"
     )
+    df_out[[o]]=cbind(df_out[[o]],rep(n,
+                                      nrow(df_out[[o]])))
     o= o+1
     file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,".RData")
 
@@ -93,14 +95,19 @@ for ( n in n_values){
     df_out[[o]]= create_NCP_table( temp,
                                    method="Servin & Stephens SER"
     )
+    df_out[[o]]=cbind(df_out[[o]],rep(n,
+                                      nrow(df_out[[o]])))
+
     o= o+1
   }
 
 }
 
 
+df_out1= do.call(rbind, df_out)
+df_out=df_out1
+hist(df_out$NCP)
 
-df_out= do.call(rbind, df_out)
 P1= ggplot( df_out, aes(x=(NCP), y=response, colour = Method))+
   # geom_point(alpha=.5) +
   scale_x_log10( ) +
@@ -192,13 +199,17 @@ for ( n in n_values){
     df_out[[o]]= create_NCP_table( temp,
                                    method="Default SER"
     )
+    df_out[[o]]=cbind(df_out[[o]],rep(n,
+                                      nrow(df_out[[o]])))
     o= o+1
     file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,".RData")
 
     load(file_csusie)
-    df_out[[o]]= create_NCP_table( temp,
+    df_out[[o]]=  create_NCP_table( temp,
                                    method="Servin & Stephens SER"
     )
+    df_out[[o]]=cbind(df_out[[o]],rep(n,
+                                      nrow(df_out[[o]])))
     o= o+1
   }
 
@@ -206,7 +217,10 @@ for ( n in n_values){
 
 
 
-df_out= do.call(rbind, df_out)
+df_out2= do.call(rbind, df_out)
+df_out=df_out2
+hist(df_out$NCP)
+
 P2= ggplot( df_out, aes(x=(NCP), y=response, colour = Method))+
   # geom_point(alpha=.5) +
   scale_x_log10( ) +
@@ -300,6 +314,8 @@ for ( n in n_values){
     df_out[[o]]= create_NCP_table( temp,
                                    method="Default SER"
     )
+    df_out[[o]]=cbind(df_out[[o]],rep(n,
+                                      nrow(df_out[[o]])))
     o= o+1
     file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,"_L1.RData")
 
@@ -307,6 +323,8 @@ for ( n in n_values){
     df_out[[o]]= create_NCP_table( temp,
                                    method="Servin & Stephens SER"
     )
+    df_out[[o]]=cbind(df_out[[o]],rep(n,
+                                      nrow(df_out[[o]])))
     o= o+1
   }
 
@@ -314,7 +332,10 @@ for ( n in n_values){
 
 
 
-df_out= do.call(rbind, df_out)
+df_out3= do.call(rbind, df_out)
+df_out=df_out3
+hist(df_out3$NCP)
+
 P3 =ggplot( df_out, aes(x=(NCP), y=response, colour = Method))+
   # geom_point(alpha=.5) +
   scale_x_log10( ) +
@@ -331,4 +352,8 @@ P3 =ggplot( df_out, aes(x=(NCP), y=response, colour = Method))+
           L fixed =1 , number of effect 1")
 
 grid.arrange(P1,P2,P3, ncol=3)
+
+
+
+
 

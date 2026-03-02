@@ -32,7 +32,8 @@ for (iter in 1:N) {
 
   # Choose the causal SNPs.
   p   <- ncol(X)
-  # p1  <- sample(3,1)
+  # p1 <- sample(3,1)
+  # p1 <- 1
   p1  <- 3
   maf <- colMeans(X)/2
   maf <- pmin(maf,1 - maf)

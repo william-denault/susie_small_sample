@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH --job-name=unfilter_tbf
+#SBATCH --output=unfilter_tbf.out
+#SBATCH --error=unfilter_tbf.err
+#SBATCH --time=23:00:00
+#SBATCH --partition=broadwl
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
+#SBATCH --mem-per-cpu=5000
+#SBATCH --array=1-36
+
+module load R/4.1.0
+Rscript /home/wdenault/susie_small_sample/scripts/sim_script/tbf_susie_unfilter/tbf_susie_small_n$SLURM_ARRAY_TASK_ID.R
+

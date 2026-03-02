@@ -69,8 +69,7 @@ run_susie_sim <-  function(N=20,
     if (var (y)>0.00001){
       out <-  susieR::susie(X,y, L= L_susie,
                             min_abs_corr = 0,
-                            check_null_threshold = -1000,
-                            estimate_prior_method = "EM")
+                            check_null_threshold = -1000 )
       out$sets
       if(!is.null(out$sets$cs)){
 

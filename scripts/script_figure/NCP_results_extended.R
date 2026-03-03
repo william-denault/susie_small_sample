@@ -117,20 +117,37 @@ for ( n in n_values){
 df_out1= do.call(rbind, df_out)
 df_out=df_out1
 hist(df_out$NCP)
+# 1. Create the binned data
+df_binned <- df_out %>%
+  mutate(
+    # Transform to log space, bin it, then transform back to get "real" numbers
+    log_ncp = log10(NCP),
+    bin = cut_interval(log_ncp, n = 15)
+  ) %>%
+  group_by(Method, bin) %>%
+  summarise(
+    # We use the mean NCP in each bin for the x-coordinate
+    mean_ncp = mean(NCP, na.rm = TRUE),
+    mean_res = mean(response, na.rm = TRUE),
+    .groups = "drop"
+  )
 
-P1= ggplot( df_out, aes(x=(NCP), y=response, colour = Method))+
-  # geom_point(alpha=.5) +
-  scale_x_log10( ) +
-  geom_hline(yintercept = .95)+
-  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial)) +
+# 2. Plot using the numeric 'mean_ncp'
+P1= ggplot(df_binned, aes(x = mean_ncp, y = mean_res, colour = Method, group = Method)) +
+  geom_line() +
+  geom_point() +
+  scale_x_log10() + # Now this works because mean_ncp is a number!
+  geom_hline(yintercept = 0.95, linetype = "dashed") +
+  labs(x = "NCP (Log-Spaced Bins)", y = "Mean Response") +
+  theme_minimal()+
+  ggtitle("Probability of CS containning a causal SNP vs NCP \n
+          L estimated number of effect from 1 to 10") +
+  scale_color_manual(values =colors)  +
   theme_bw(base_size = 13) +
   theme(
     legend.position="bottom",
     strip.text = element_text(size=10)
-  ) +
-  scale_color_manual(values =colors)+
-  ggtitle("Probability of CS containning a causal SNP vs NCP \n
-          L estimated number of effect from 1 to 10")
+  )
 
 
 
@@ -246,19 +263,38 @@ df_out2= do.call(rbind, df_out)
 df_out=df_out2
 hist(df_out$NCP)
 
-P2= ggplot( df_out, aes(x=(NCP), y=response, colour = Method))+
-  # geom_point(alpha=.5) +
-  scale_x_log10( ) +
-  geom_hline(yintercept = .95)+
-  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial)) +
+
+
+df_binned2 <- df_out2 %>%
+  mutate(
+    # Transform to log space, bin it, then transform back to get "real" numbers
+    log_ncp = log10(NCP),
+    bin = cut_interval(log_ncp, n = 15)
+  ) %>%
+  group_by(Method, bin) %>%
+  summarise(
+    # We use the mean NCP in each bin for the x-coordinate
+    mean_ncp = mean(NCP, na.rm = TRUE),
+    mean_res = mean(response, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# 2. Plot using the numeric 'mean_ncp'
+P2= ggplot(df_binned2, aes(x = mean_ncp, y = mean_res, colour = Method, group = Method)) +
+  geom_line() +
+  geom_point() +
+  scale_x_log10() + # Now this works because mean_ncp is a number!
+  geom_hline(yintercept = 0.95, linetype = "dashed") +
+  labs(x = "NCP (Log-Spaced Bins)", y = "Mean Response") +
+  theme_minimal()+
+  ggtitle("Probability of CS containning a causal SNP vs NCP \n
+          L estimated, number of effect 1")+
+  scale_color_manual(values =colors)  +
   theme_bw(base_size = 13) +
   theme(
     legend.position="bottom",
     strip.text = element_text(size=10)
-  ) +
-  scale_color_manual(values =colors)+
-  ggtitle("Probability of CS containning a causal SNP vs NCP \n
-          L estimated, number of effect 1")
+  )
 
 
 
@@ -370,27 +406,12 @@ df_out3= do.call(rbind, df_out)
 df_out=df_out3
 hist(df_out3$NCP)
 
-P3 =ggplot( df_out, aes(x=(NCP), y=response, colour = Method))+
-  # geom_point(alpha=.5) +
-  scale_x_log10( ) +
-  geom_hline(yintercept = .95)+
-  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial)) +
-  theme_bw(base_size = 13) +
-
-  theme(
-    legend.position="bottom",
-    strip.text = element_text(size=10)
-  ) +
-  scale_color_manual(values =colors)+
-  ggtitle("Probability of CS containning a causal SNP vs NCP \n
-          L fixed =1 , number of effect 1")
-
-grid.arrange(P1,P2,P3, ncol=3)
 
 
 
-# 1. Create the binned data
-df_binned <- df_out %>%
+
+
+df_binned3 <- df_out3 %>%
   mutate(
     # Transform to log space, bin it, then transform back to get "real" numbers
     log_ncp = log10(NCP),
@@ -405,12 +426,21 @@ df_binned <- df_out %>%
   )
 
 # 2. Plot using the numeric 'mean_ncp'
-ggplot(df_binned, aes(x = mean_ncp, y = mean_res, colour = Method, group = Method)) +
+P3= ggplot(df_binned2, aes(x = mean_ncp, y = mean_res, colour = Method, group = Method)) +
   geom_line() +
   geom_point() +
   scale_x_log10() + # Now this works because mean_ncp is a number!
   geom_hline(yintercept = 0.95, linetype = "dashed") +
   labs(x = "NCP (Log-Spaced Bins)", y = "Mean Response") +
-  theme_minimal()
+  theme_minimal()+
+  ggtitle("Probability of CS containning a causal SNP vs NCP \n
+          L fixed =1 , number of effect 1")+
+  scale_color_manual(values =colors)  +
+  theme_bw(base_size = 13) +
+  theme(
+    legend.position="bottom",
+    strip.text = element_text(size=10)
+  )
 
 
+grid.arrange(P1,P2,P3, ncol=3)

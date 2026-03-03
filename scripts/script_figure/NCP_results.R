@@ -94,6 +94,16 @@ for ( n in n_values){
                                method="Servin & Stephens SER"
                                 )
     o= o+1
+
+
+
+    file_tbf=paste0(results_path_susie, "tbf_sample_susie",n,"_h",h,".RData")
+
+    load(file_tbf)
+    df_out[[o]]= create_NCP_table( temp,
+                                   method="tbf"
+    )
+    o= o+1
   }
 
 }

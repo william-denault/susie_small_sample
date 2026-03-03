@@ -12,7 +12,7 @@ library(purrr)
 results_path_cor   <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 
-colors <- c( "#D41159","#1A85FF" )
+colors <- c( "#D41159","#1A85FF"  ,"darkgreen")
 cal_sum_stat= function(temp,
                        method="Default SER",
                        n=10,
@@ -88,9 +88,9 @@ for ( n in n_values){
                                h=h,
                                type= "Fixed")
     o= o+1
-    file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,".RData")
+    file_tbf=paste0(results_path_susie, "tbf_small_sample_susie",n,"_h",h,".RData")
 
-    load(file_csusie)
+    load( file_tbf)
     df_out[[o]]= cal_sum_stat( temp,
                                method="Servin & Stephens SER",
                                n=n,

@@ -11,7 +11,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-colors <- c( "#D41159","#1A85FF" )
+colors <- c( "#D41159","#1A85FF" ,"darkgreen" )
 # -----------------------------
 # PARAMETERS
 # -----------------------------
@@ -67,14 +67,17 @@ for (n in n_values) {
 
     file_cor   <- paste0(results_path_cor,   "pip_corsusie_n",n,"_h" ,h, ".csv")
     file_susie <- paste0(results_path_susie, "pip_susie_n",n,"_h" ,h, ".csv")
+    file_tbf <- paste0(results_path_susie, "pip_tbf_n",n,"_h" ,h, ".csv")
 
     if (file.exists(file_cor) & file.exists(file_susie)) {
 
       df_cor   <- compute_pr_df(file_cor,   "Servin and Stephens SER", n, h)
       df_susie <- compute_pr_df(file_susie, "Default SER", n, h)
 
+      df_tbf  <- compute_pr_df(file_susie, "tbf", n, h)
 
-      combined <- rbind(df_cor, df_susie)
+
+      combined <- rbind(df_cor, df_susie,df_tbf )
 
       # Save individual plot
       p <- ggplot(combined, aes(Recall, Precision, color=Method)) +

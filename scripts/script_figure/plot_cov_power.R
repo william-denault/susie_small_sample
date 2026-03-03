@@ -10,7 +10,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-colors <- c( "#D41159","#1A85FF" )
+colors <- c( "#D41159","#1A85FF" ,"darkgreen" )
 cal_sum_stat= function(temp,
                        method="Default SER",
                        n=10,
@@ -52,6 +52,7 @@ cal_sum_stat= function(temp,
                   H= rep(h, length(obs_cov)),
                   Effect= factor(c("1","2","3", "4+"))
   )
+  return(out)
 
 }
 
@@ -83,6 +84,14 @@ for ( n in n_values){
     load(file_csusie)
     df_out[[o]]= cal_sum_stat( temp,
                                method="Servin & Stephens SER",
+                               n=n,
+                               h=h)
+    o= o+1
+    file_tbfusie=paste0(results_path_susie, "tbf_sample_susie",n,"_h",h,".RData")
+
+    load(file_tbfusie)
+    df_out[[o]]= cal_sum_stat( temp,
+                               method="tbf",
                                n=n,
                                h=h)
     o= o+1

@@ -10,7 +10,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-colors <- c( "#D41159","#1A85FF" )
+colors <- c( "#D41159","#1A85FF" ,"darkgreen" )
 create_NCP_table= function(temp,
                            method="Default SER"
 ){
@@ -99,6 +99,16 @@ for ( n in n_values){
                                       nrow(df_out[[o]])))
 
     o= o+1
+    file_tbfusie=paste0(results_path_susie, "tbf_sample_susie",n,"_h",h,".RData")
+
+    load(file_tbfusie)
+    df_out[[o]]=create_NCP_table( temp,
+                               method="tbf" )
+    df_out[[o]]=cbind(df_out[[o]],rep(n,
+                                      nrow(df_out[[o]])))
+
+
+    o= o+1
   }
 
 }
@@ -131,7 +141,11 @@ create_NCP_table= function(temp,
 
   if ( length(which(temp$is.dummy==0))>0){
 
-    temp=temp[which(temp$is.dummy==0 &temp$n_effect==1 ),]
+    if( length(which(temp$is.dummy==0 &temp$n_effect==1 ))>0)
+    {
+
+      temp=temp[which(temp$is.dummy==0 &temp$n_effect==1 ),]
+    }
 
   }else{
 
@@ -208,6 +222,17 @@ for ( n in n_values){
     df_out[[o]]=  create_NCP_table( temp,
                                    method="Servin & Stephens SER"
     )
+    df_out[[o]]=cbind(df_out[[o]],rep(n,
+                                      nrow(df_out[[o]])))
+    o= o+1
+
+
+
+    file_tbfusie=paste0(results_path_susie, "tbf_sample_susie",n,"_h",h,".RData")
+
+    load(file_tbfusie)
+    df_out[[o]]=create_NCP_table( temp,
+                                  method="tbf" )
     df_out[[o]]=cbind(df_out[[o]],rep(n,
                                       nrow(df_out[[o]])))
     o= o+1
@@ -326,6 +351,15 @@ for ( n in n_values){
     df_out[[o]]=cbind(df_out[[o]],rep(n,
                                       nrow(df_out[[o]])))
     o= o+1
+    file_tbfusie=paste0(results_path_susie, "tbf_small_sample_susie",n,"_h",h,"_L1.RData")
+
+    load(file_tbfusie)
+    df_out[[o]]=    create_NCP_table( temp,
+                               method="tbf" )
+    df_out[[o]]=cbind(df_out[[o]],rep(n,
+                                      nrow(df_out[[o]])))
+    o= o+1
+
   }
 
 }
@@ -355,5 +389,28 @@ grid.arrange(P1,P2,P3, ncol=3)
 
 
 
+# 1. Create the binned data
+df_binned <- df_out %>%
+  mutate(
+    # Transform to log space, bin it, then transform back to get "real" numbers
+    log_ncp = log10(NCP),
+    bin = cut_interval(log_ncp, n = 15)
+  ) %>%
+  group_by(Method, bin) %>%
+  summarise(
+    # We use the mean NCP in each bin for the x-coordinate
+    mean_ncp = mean(NCP, na.rm = TRUE),
+    mean_res = mean(response, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# 2. Plot using the numeric 'mean_ncp'
+ggplot(df_binned, aes(x = mean_ncp, y = mean_res, colour = Method, group = Method)) +
+  geom_line() +
+  geom_point() +
+  scale_x_log10() + # Now this works because mean_ncp is a number!
+  geom_hline(yintercept = 0.95, linetype = "dashed") +
+  labs(x = "NCP (Log-Spaced Bins)", y = "Mean Response") +
+  theme_minimal()
 
 

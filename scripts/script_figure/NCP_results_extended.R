@@ -426,7 +426,7 @@ df_binned3 <- df_out3 %>%
   )
 
 # 2. Plot using the numeric 'mean_ncp'
-P3= ggplot(df_binned2, aes(x = mean_ncp, y = mean_res, colour = Method, group = Method)) +
+P3= ggplot(df_binned3, aes(x = mean_ncp, y = mean_res, colour = Method, group = Method)) +
   geom_line() +
   geom_point() +
   scale_x_log10() + # Now this works because mean_ncp is a number!

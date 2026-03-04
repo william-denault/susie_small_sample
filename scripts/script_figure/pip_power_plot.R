@@ -10,7 +10,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-colors <- c( "#D41159","#1A85FF" )
+colors <- c( "#D41159","#1A85FF","darkgreen" )
 # -----------------------------
 # PARAMETERS
 # -----------------------------
@@ -60,12 +60,13 @@ for (n in n_values) {
     file_cor   <- paste0(results_path_cor,   "pip_corsusie_n",n,"_h" ,h, ".csv")
     file_susie <- paste0(results_path_susie, "pip_susie_n",n,"_h" ,h, ".csv")
 
+    file_tbf <- paste0(results_path_susie, "pip_tbf_n",n,"_h" ,h, ".csv")
     if (file.exists(file_cor) & file.exists(file_susie)) {
 
       df_cor   <- compute_roc_df(file_cor,   "Servin and Stephens SER", n, h)
       df_susie <- compute_roc_df(file_susie, "Default SER",     n, h)
-
-      combined <- rbind(df_cor, df_susie)
+      df_tbf  <- compute_roc_df( file_tbf, "tbf", n, h)
+      combined <- rbind(df_cor, df_susie, df_tbf )
 
       # Save individual plot
       p <- ggplot(combined, aes(FPR, TPR, color=Method)) +
@@ -75,12 +76,12 @@ for (n in n_values) {
         ggtitle(paste0("ROC Curve - N=", n, "  h=", h)) +
         theme(legend.position="bottom")
 
-      ggsave(
-        filename = paste0("ROC_N", n, "_h", h, ".pdf"),
-        plot = p,
-        width = 6,
-        height = 5
-      )
+      # ggsave(
+      #   filename = paste0("ROC_N", n, "_h", h, ".pdf"),
+      #   plot = p,
+      #   width = 6,
+      #   height = 5
+      # )
 
       all_roc[[length(all_roc)+1]] <- combined
     }
@@ -98,7 +99,7 @@ final_df <- do.call(rbind,(all_roc))
 final_plot <- ggplot(final_df,
                      aes(FPR, TPR, color=Method)) +
   geom_line(size=0.9) +
-  xlim(c(0,.2))+
+  xlim(c(0,.5))+
   geom_abline(linetype="dashed") +
   facet_grid(N ~ h, labeller = label_both) +
   theme_bw(base_size = 13) +
@@ -109,3 +110,9 @@ final_plot <- ggplot(final_df,
   scale_color_manual(values =colors)+
   ggtitle("ROC Curves Across Sample Sizes and Heritabilities")
 
+ggsave(
+  filename =  "ROC.png" ,
+  plot = final_plot,
+  width = 20,
+  height = 10
+)

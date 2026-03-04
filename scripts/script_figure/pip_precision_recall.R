@@ -74,7 +74,7 @@ for (n in n_values) {
       df_cor   <- compute_pr_df(file_cor,   "Servin and Stephens SER", n, h)
       df_susie <- compute_pr_df(file_susie, "Default SER", n, h)
 
-      df_tbf  <- compute_pr_df(file_susie, "tbf", n, h)
+      df_tbf  <- compute_pr_df( file_tbf, "tbf", n, h)
 
 
       combined <- rbind(df_cor, df_susie,df_tbf )
@@ -105,7 +105,7 @@ final_plot <- ggplot(final_df,
   geom_line(linewidth=0.5) +
   facet_grid(N ~ h, labeller = label_both) +
   theme_bw(base_size = 13) +
-  xlim(c(0,.2))+
+  xlim(c(0,.5))+
   theme(
     legend.position="bottom",
     strip.text = element_text(size=10)

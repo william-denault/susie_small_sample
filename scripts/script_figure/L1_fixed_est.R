@@ -88,11 +88,29 @@ for ( n in n_values){
                                h=h,
                                type= "Fixed")
     o= o+1
-    file_tbf=paste0(results_path_susie, "tbf_small_sample_susie",n,"_h",h,".RData")
+    file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,".RData")
+
+    load(file_csusie)
+    df_out[[o]]= cal_sum_stat( temp,
+                               method="Servin & Stephens SER",
+                               n=n,
+                               h=h,
+                               type=  "Estimated")
+    o= o+1
+    file_tbf=paste0(results_path_susie, "tbf_small_sample_susie",n,"_h",h,"_L1.RData")
 
     load( file_tbf)
     df_out[[o]]= cal_sum_stat( temp,
-                               method="Servin & Stephens SER",
+                               method="TBF",
+                               n=n,
+                               h=h,
+                               type= "Fixed")
+    o= o+1
+    file_tbf=paste0(results_path_susie, "tbf_sample_susie",n,"_h",h,".RData")
+
+    load( file_tbf)
+    df_out[[o]]= cal_sum_stat( temp,
+                               method="TBF",
                                n=n,
                                h=h,
                                type= "Estimated")

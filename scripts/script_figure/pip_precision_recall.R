@@ -101,7 +101,7 @@ for (n in n_values) {
 
 final_df <- do.call(rbind,(all_roc))
 final_plot <- ggplot(final_df,
-                     aes(Recall, log10(Precision+0.0001), color=Method)) +
+                     aes(Recall, log( Precision +0.0001), color=Method)) +
   geom_line(linewidth=0.5) +
   facet_grid(N ~ h, labeller = label_both) +
   theme_bw(base_size = 13) +

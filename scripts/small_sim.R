@@ -3,7 +3,7 @@
 library(matrixStats)
 library(susieR)
 susie_version <- packageVersion("susieR")
-N       <- 250
+N       <- 1000
 max_maf <- 0.5
 n       <- 40
 outfile <- sprintf("small_sim_out_n=%d_maf=%0.2f_v%s.RData",
@@ -31,19 +31,25 @@ for (iter in 1:N) {
 
   # Choose the causal SNPs.
   p   <- ncol(X)
-  p1  <- sample(3,1)
+  p1  <- sample(c(0,1),1)
   maf <- colMeans(X)/2
   maf <- pmin(maf,1 - maf)
-  j   <- which(maf <= max_maf)
-  j   <- sample(j,p1)
-
+  if (p1 == 0) {
+    j <- NULL
+  } else {
+    j <- which(maf <= max_maf)
+    j <- sample(j,p1)
+  }
+    
   # Simulate b.
-  b        <- rep(0,p)
+  b <- rep(0,p)
   names(b) <- colnames(X)
-  b[j]     <- sample(c(-1,1),p1,replace = TRUE)
-
+  if (p1 > 0) {
+    b[j] <- sample(c(-1,1),p1,replace = TRUE)
+  }
+  
   # Simulate y.
-  e <- rnorm(n,sd = 0.1)
+  e <- rnorm(n,sd = 0.5)
   y <- drop(X %*% b + e)
   y <- y/sd(y)
   causal_snps[[iter]] <- j
@@ -51,21 +57,21 @@ for (iter in 1:N) {
   # Run susie with normal prior.
   t0 <- proc.time()
   fit1 <- suppressMessages(
-            susie(X,y,L = 10,standardize = FALSE,min_abs_corr = 0.5,
+            susie(X,y,L = 1,standardize = FALSE,min_abs_corr = 0.5,
                   estimate_prior_method = "EM",verbose = FALSE))
   t1 <- proc.time()
-  res_susie[[iter]] <- fit1[c("V","sets")]
+  res_susie[[iter]] <- fit1[c("V","sets","lbf")]
   runtimes[iter,"susie"] <- (t1 - t0)["elapsed"]
 
   # Run susie with NIG prior. 
   t0 <- proc.time()
   fit2 <- suppressMessages(
-            susie(X,y,L = 10,standardize = FALSE,min_abs_corr = 0.5,
+            susie(X,y,L = 1,standardize = FALSE,min_abs_corr = 0.5,
                   estimate_residual_method = "Servin_Stephens",
                   estimate_prior_method = "EM",alpha0 = 0.1,beta0 = 0.1,
                   verbose = FALSE))
   t1 <- proc.time()
-  res_susie_small[[iter]] <- fit2[c("V","sets")]
+  res_susie_small[[iter]] <- fit2[c("V","sets","lbf")]
   runtimes[iter,"susie_small"] <- (t1 - t0)["elapsed"]
 }
 cat("\n")

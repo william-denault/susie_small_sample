@@ -51,13 +51,14 @@ for (iter in 1:N) {
   # Run susie with normal prior.
   t0 <- proc.time()
   fit1 <- suppressMessages(
-            susie(X,y,L = 10,standardize = FALSE,min_abs_corr = 0,
-                  estimate_prior_method = "EM",prior_tol = 0.01,
-                  verbose = FALSE))
+    susie(X,y,L = 10,standardize = FALSE,min_abs_corr = 0,
+          estimate_residual_method = "MLE",
+          estimate_prior_method = "EM",
+          prior_tol = 0.01,verbose = FALSE))
   t1 <- proc.time()
   res_susie[[iter]] <- fit1[c("V","sets")]
   runtimes[iter,"susie"] <- (t1 - t0)["elapsed"]
-
+  
   # Run susie with NIG prior. 
   t0 <- proc.time()
   fit2 <- suppressMessages(

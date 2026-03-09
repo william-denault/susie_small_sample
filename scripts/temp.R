@@ -7,11 +7,15 @@ j <- which(x == 1)
 
 lbf0 <- sapply(res_susie[i],function (x) x$lbf)
 lbf1 <- sapply(res_susie[j],function (x) x$lbf)
+# lbf0 <- sapply(res_susie[i],function (x) sqrt(x$V))
+# lbf1 <- sapply(res_susie[j],function (x) sqrt(x$V))
 pdat1 <- rbind(data.frame(causal = FALSE,lbf = lbf0),
                data.frame(causal = TRUE,lbf = lbf1))
 
 lbf0 <- sapply(res_susie_small[i],function (x) x$lbf)
 lbf1 <- sapply(res_susie_small[j],function (x) x$lbf)
+# lbf0 <- sapply(res_susie_small[i],function (x) sqrt(x$V))
+# lbf1 <- sapply(res_susie_small[j],function (x) sqrt(x$V))
 pdat2 <- rbind(data.frame(causal = FALSE,lbf = lbf0),
                data.frame(causal = TRUE,lbf = lbf1))
 

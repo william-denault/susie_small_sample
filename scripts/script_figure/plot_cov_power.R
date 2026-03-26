@@ -100,7 +100,7 @@ ggplot(df_out, aes( x= Effect, y= obs_purity, col=Method))+
   scale_color_manual(values =colors)
 
 
-ggplot(df_out, aes( x= Effect, y= (obs_power+0.0001), col=Method))+
+ggplot(df_out, aes( x= Effect, y= (obs_power ), col=Method))+
   geom_point()+
   scale_y_log10()+
   facet_grid(H~N)+

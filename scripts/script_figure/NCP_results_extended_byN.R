@@ -270,7 +270,7 @@ df_binned2 <- df_out2 %>%
   mutate(
     # Transform to log space, bin it, then transform back to get "real" numbers
     log_ncp = log10(NCP),
-    bin = cut_interval(log_ncp, n = 30)
+    bin = cut_interval(log_ncp, n = 50)
   ) %>%
   group_by(Method,N, bin) %>%
   summarise(
@@ -300,7 +300,7 @@ P2= ggplot(df_binned2, aes(x = mean_ncp, y = mean_res, colour = Method, group = 
 
 
 
-
+P2
 
 create_NCP_table= function(temp,
                            method="Default SER",N=10

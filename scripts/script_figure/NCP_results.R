@@ -146,20 +146,3 @@ ggplot(df_out, aes(x = NCP, y = response, colour = Method)) +
               se = FALSE)
 
 
-
-summary(glm(response~log10(NCP)*Method, data = df_out))
-
-
-
-library(mgcv)
-
-library(mgcv)
-
-fit <- gam(response ~ Method +
-             s(NCP, k = 10) +
-             s(NCP, by = Method, k = 10),
-           data = df_out,
-           family = binomial(link = "logit"),
-           method = "REML")
-
-summary(fit)

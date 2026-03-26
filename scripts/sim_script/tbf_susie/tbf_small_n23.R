@@ -2,7 +2,7 @@ library(susieR)
 
 rm(list=ls())
 
-source("/home/wdenault/susie_small_sample/scripts/sim_script/tbf_sample_sims.R")
+source("/home/wdenault/susie_small_sample/scripts/sim_script/tbf_sample_sim.R")
 
 for (o in 1:100000){
 

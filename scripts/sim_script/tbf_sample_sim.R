@@ -38,7 +38,7 @@ sim_dat <- function(N=20, h=0.5, L=NULL) {
 
 
 
-  return(list(X = X, y = y, true_pos = true_pos, ncp = h*N/ L))
+  return(list(X = X, y = y, true_pos = true_pos, ncp =N * ((h / L) / (1 - h))))
 }
 
 

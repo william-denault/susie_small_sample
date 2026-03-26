@@ -6,7 +6,7 @@ library(stringr)
 library(data.table)
 library(gridExtra)
 
-colors <- c("#D41159", "#1A85FF", "darkgreen")
+colors <- c("#1A85FF","#D41159",  "darkgreen")
 
 # ── helper: expand rows, one row per CS ──────────────────────────────────────
 create_NCP_table <- function(temp, method = "Default SER", N = 10,

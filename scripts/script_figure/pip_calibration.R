@@ -8,7 +8,7 @@ library(stringr)
 # -----------------------------
 # PARAMETERS
 # -----------------------------
-colors <- c( "#D41159","#1A85FF","darkgreen" )
+colors <- c( "#1A85FF","#D41159","darkgreen" )
 
 n_values <- c( 10, 20, 30, 50, 70, 100)
 h_values <- c(.1 , .15, .25, .3 , .5 , .75)

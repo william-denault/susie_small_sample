@@ -12,7 +12,7 @@ library(purrr)
 results_path_cor   <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 
-colors <- c( "#D41159","#1A85FF"  ,"darkgreen")
+colors <- c("#1A85FF"  , "#D41159","darkgreen")
 cal_sum_stat= function(temp,
                        method="Default SER",
                        n=10,

@@ -10,7 +10,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-colors <- c( "#D41159","#1A85FF" ,"darkgreen" )
+colors <- c( "#1A85FF" ,"#D41159","darkgreen" )
 create_NCP_table= function(temp,
                            method="Default SER",N=10
 ){

@@ -6,7 +6,7 @@ library(stringr)
 library(data.table)
 
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
-colors <- c("#D41159", "#1A85FF", "darkgreen")
+colors <- c("#1A85FF","#D41159",  "darkgreen")
 
 # --- Function 0: For standard SuSiE outputs ---
 cal_sum_stat0 <- function(temp, method = "Default SER", n = 10, h = 25, type = "Fixed") {

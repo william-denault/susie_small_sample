@@ -3,7 +3,7 @@ library(pROC)
 library(ggplot2)
 library(dplyr)
 library(data.table)
-colors <- c("#D41159", "#1A85FF", "darkgreen")
+colors <- c( "#1A85FF","#D41159", "darkgreen")
 
 cal_sum_stat <- function(temp, method = "Default SER", n = 10, h = 25) {
   obs_cov    <- numeric(4)

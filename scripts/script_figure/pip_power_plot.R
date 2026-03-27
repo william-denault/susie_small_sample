@@ -116,3 +116,43 @@ ggsave(
   width = 20,
   height = 10
 )
+
+
+
+
+
+final_plot <- ggplot(final_df,
+                     aes(FPR, TPR, color=Method)) +
+  geom_line(linewidth=0.5) +
+  # 1. Update the labeller to change "N:" to "N=" and "h:" to "h²="
+  facet_grid(N ~ h, labeller = labeller(
+    N =  as_labeller(c(`10` = 'N=10', `20` = 'N=20', `30` = 'N=30', `50` = 'N=50', `70` = 'N=70', `100` = 'N=100'),
+                     default = label_value),
+    h = as_labeller(c(`0.1` = 'h²=0.1', `0.15` = 'h²=0.15', `0.25` = 'h²=0.25',
+                      `0.3` = 'h²=0.3', `0.5` = 'h²=0.5', `0.75` = 'h²=0.75'),
+                    default = label_value)
+  )) +
+  # Using the simpler `label_both` for N as you requested "N=", which it produces.
+  # For 'h', we need to manually define the mapping to get the h² symbol.
+  # If `label_both` isn't working for 'N' due to your R version, you can manually define it like 'h':
+  # N = as_labeller(c(`10` = 'N=10', `20` = 'N=20', `30` = 'N=30', `50` = 'N=50', `70` = 'N=70', `100` = 'N=100'))
+
+  theme_bw(base_size = 13) +
+  xlim(c(0,.5))+
+  theme(
+    legend.position="bottom",
+    # 2. Change grey box to white
+    strip.background = element_rect(fill = "white", color = "white"),
+    # Optional: ensure text is black and clean
+    strip.text = element_text(size=10, color = "black")
+  ) +
+  scale_color_manual(values = colors) +  ggtitle("ROC Curves Across Sample Sizes and Heritabilities")
+
+# Save the plot
+ggsave(
+  filename =  "ROC_updated_labels.png",
+  plot = final_plot,
+  width = 20,
+  height = 10
+)
+

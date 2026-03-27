@@ -11,7 +11,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-colors <- c( "#D41159","#1A85FF" ,"darkgreen" )
+colors <- c( "#1A85FF" ,"#D41159","darkgreen" )
 # -----------------------------
 # PARAMETERS
 # -----------------------------
@@ -29,7 +29,12 @@ results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revi
 compute_pr_df <- function(file_path, method_name, N, h){
 
   mat <- as.matrix(fread(file_path))
+if ( sum(is.na(mat))>0){
 
+
+  to_rm= unique( c( which(is.na(mat[,1])),which(is.na(mat[,2]))) )
+  mat= mat[-to_rm,]
+}
   truth <- as.numeric(mat[,1])
   score <- as.numeric(mat[,2])
 
@@ -101,7 +106,7 @@ for (n in n_values) {
 
 final_df <- do.call(rbind,(all_roc))
 final_plot <- ggplot(final_df,
-                     aes(Recall, log( Precision +0.0001), color=Method)) +
+                     aes(Recall, log( Precision +1e-6), color=Method)) +
   geom_line(linewidth=0.5) +
   facet_grid(N ~ h, labeller = label_both) +
   theme_bw(base_size = 13) +
@@ -115,6 +120,50 @@ final_plot <- ggplot(final_df,
 
 ggsave(
   filename =  "RRC_N.png" ,
+  plot = final_plot,
+  width = 20,
+  height = 10
+)
+
+
+
+
+# --------------------------------------------------------------------------------------
+# FINAL COMBINED PLOT (UPDATED TO REMOVE GREY STRIPS AND UPDATE LABELS)
+# --------------------------------------------------------------------------------------
+
+# Make sure 'final_df' has been correctly created by your loop above before running this block.
+
+final_plot <- ggplot(final_df,
+                     aes(Recall, log(Precision + 1e-6), color=Method)) +
+  geom_line(linewidth=0.5) +
+  # 1. Update the labeller to change "N:" to "N=" and "h:" to "h²="
+  facet_grid(N ~ h, labeller = labeller(
+    N = as_labeller(c(`10` = 'N=10', `20` = 'N=20', `30` = 'N=30', `50` = 'N=50', `70` = 'N=70', `100` = 'N=100'),default = label_value),
+    h = as_labeller(c(`0.1` = 'h²=0.1', `0.15` = 'h²=0.15', `0.25` = 'h²=0.25',
+                      `0.3` = 'h²=0.3', `0.5` = 'h²=0.5', `0.75` = 'h²=0.75'),
+                    default = label_value)
+  )) +
+  # Using the simpler `label_both` for N as you requested "N=", which it produces.
+  # For 'h', we need to manually define the mapping to get the h² symbol.
+  # If `label_both` isn't working for 'N' due to your R version, you can manually define it like 'h':
+  # N = as_labeller(c(`10` = 'N=10', `20` = 'N=20', `30` = 'N=30', `50` = 'N=50', `70` = 'N=70', `100` = 'N=100'))
+
+  theme_bw(base_size = 13) +
+  xlim(c(0,.5))+
+  theme(
+    legend.position="bottom",
+    # 2. Change grey box to white
+    strip.background = element_rect(fill = "white", color = "white"),
+    # Optional: ensure text is black and clean
+    strip.text = element_text(size=10, color = "black")
+  ) +
+  scale_color_manual(values = colors) +
+  ggtitle("Precision–Recall Curves Across Sample Sizes and Heritabilities")
+
+# Save the plot
+ggsave(
+  filename =  "RRC_N_updated_labels.png",
   plot = final_plot,
   width = 20,
   height = 10

@@ -42,7 +42,7 @@ cal_sum_stat <- function(temp, method = "Default SER", n = 10, h = 25) {
 # -----------------------------
 # PARAMETERS & LOADING
 # -----------------------------
-n_values <- c(10, 20, 30, 50, 70, 100)
+n_values <- c(10, 20, 30, 50, 70, 100,200)
 h_values <- c(10, 15, 25, 30, 50, 75)
 res_path <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 

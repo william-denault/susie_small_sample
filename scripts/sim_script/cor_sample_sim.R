@@ -67,7 +67,9 @@ run_susie_sim <-  function(N=20,
     true_pos <- sim_data$true_pos
     if (var (y)>0.00001){
       out <-  susieR ::susie(X,y, L= L_susie,
-                                 estimate_residual_method =  "Servin_Stephens"
+                                 estimate_residual_method =  "Servin_Stephens",
+                             alpha0 = sqrt(1/nrow(X))  ,
+                             beta0 = sqrt(1/nrow(X))
                                  #min_abs_corr = 0,
                                  #check_null_threshold = -1000
                                  )

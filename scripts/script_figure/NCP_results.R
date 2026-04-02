@@ -70,7 +70,7 @@ if ( length(which(temp$is.dummy==0))>0){
 # PARAMETERS
 # -----------------------------
 
-n_values <- c(10,  20, 30, 50, 70, 100)
+n_values <- c(10,  20, 30, 50, 70, 100,200)
 h_values <- c(10 ,  15,  25,  30 ,  50 ,  75)
 
 # Paths where your simulation outputs are saved

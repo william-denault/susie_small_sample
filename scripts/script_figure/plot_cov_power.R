@@ -83,6 +83,8 @@ ggplot(df_out, aes( x= Effect, y= obs_cov, col=Method))+
   geom_point()+
   facet_grid(H~N)+
   geom_hline(yintercept = .95)+
+
+  ylab("Coverage")+
   theme_bw(base_size = 13) +
   theme(
     strip.text = element_text(size=10)
@@ -93,6 +95,7 @@ ggplot(df_out, aes( x= Effect, y= obs_cov, col=Method))+
 ggplot(df_out, aes( x= Effect, y= obs_purity, col=Method))+
   geom_point()+
   facet_grid(H~N)+
+  ylab("Purity")+
   theme_bw(base_size = 13) +
   theme(
     strip.text = element_text(size=10)
@@ -104,6 +107,7 @@ ggplot(df_out, aes( x= Effect, y= (obs_power ), col=Method))+
   geom_point()+
   scale_y_log10()+
   facet_grid(H~N)+
+  ylab("Power")+
   theme_bw(base_size = 13) +
   theme(
     strip.text = element_text(size=10)

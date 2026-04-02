@@ -1,0 +1,3 @@
+#!/bin/bash
+sbatch L_1_cor_small
+sbatch cor_small

@@ -1,10 +1,11 @@
 # Define the values for n and h
-n_values <- c(10, 20, 30, 50, 70, 100)
+n_values <- c(10, 20, 30, 50, 70, 100,200)
 h_values <- c(10,15,25, 30, 50, 75)
 
 # Specify the output file where the generated script will be saved
 
-path = "/home/wdenault/susie_small_sample/scripts/sim_script/tbf_susie/"
+#path = "/home/wdenault/susie_small_sample/scripts/sim_script/tbf_susie/"
+path="C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/scripts/sim_script/tbf_susie/"
 
 tt=1
 

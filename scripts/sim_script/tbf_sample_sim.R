@@ -11,9 +11,9 @@ sim_dat <- function(N=20, h=0.5, L=NULL) {
 
   }
 
-  lf = list.files("/project2/mstephens/wdenault/susie_small_sample/data/1kg/rds/")
+  lf = list.files("/home/wdenault/susie_small_sample/data/1kg/rds/")
   id = sample( 1:length(lf), size=1)
-  X <- readRDS(paste0("/project2/mstephens/wdenault/susie_small_sample/data/1kg/rds/" ,lf[id]))
+  X <- readRDS(paste0("/home/wdenault/susie_small_sample/data/1kg/rds/" ,lf[id]))
   X <-   X[sample (1:nrow(  X), size=N, replace=FALSE), ]
 
   if (length(which( apply(X,2,var)==0))>0){

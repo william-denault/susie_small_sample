@@ -5,6 +5,8 @@ h_values <- c(10,15,25, 30, 50, 75)
 
 path = "/home/wdenault/susie_small_sample/scripts/sim_script/cor_susie_unfilter/"
 
+path="C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/scripts/sim_script/cor_susie_unfilter/"
+
 tt=1
 
 # Loop over all combinations of n and h

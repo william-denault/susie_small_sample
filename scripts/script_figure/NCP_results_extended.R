@@ -70,7 +70,7 @@ create_NCP_table= function(temp,
 # PARAMETERS
 # -----------------------------
 
-n_values <- c(10,  20, 30, 50, 70, 100)
+n_values <- c(10,  20, 30, 50, 70, 100,200)
 h_values <- c(10 ,  15,  25,  30 ,  50 ,  75)
 
 # Paths where your simulation outputs are saved
@@ -214,7 +214,7 @@ create_NCP_table= function(temp,
 # PARAMETERS
 # -----------------------------
 
-n_values <- c(10,  20, 30, 50, 70, 100)
+n_values <- c(10,  20, 30, 50, 70, 100,200)
 h_values <- c(10 ,  15,  25,  30 ,  50 ,  75)
 
 # Paths where your simulation outputs are saved
@@ -359,7 +359,7 @@ create_NCP_table= function(temp,
 # PARAMETERS
 # -----------------------------
 
-n_values <- c(10,  20, 30, 50, 70, 100)
+n_values <- c(10,  20, 30, 50, 70, 100,200)
 h_values <- c(10 ,  15,  25,  30 ,  50 ,  75)
 
 # Paths where your simulation outputs are saved
@@ -443,4 +443,32 @@ P3= ggplot(df_binned3, aes(x = mean_ncp, y = mean_res, colour = Method, group = 
   )
 
 
-grid.arrange(P1,P2,P3, ncol=3)
+
+Pout= grid.arrange(P1,P2,P3, ncol=1)
+
+ggsave(
+  filename =  "NCP_extended.png",
+  plot = Pout,
+  width = 20,
+  height = 30
+)
+ggsave(
+  filename =  "NCP_extended1.png",
+  plot = P1,
+  width = 20,
+  height = 10
+)
+ggsave(
+  filename =  "NCP_extended2.png",
+  plot = P2,
+  width = 20,
+  height = 10
+)
+ggsave(
+  filename =  "NCP_extended3.png",
+  plot = P3,
+  width = 20,
+  height = 10
+)
+
+

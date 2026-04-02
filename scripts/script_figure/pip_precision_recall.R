@@ -79,10 +79,10 @@ for (n in n_values) {
       df_cor   <- compute_pr_df(file_cor,   "Servin and Stephens SER", n, h)
       df_susie <- compute_pr_df(file_susie, "Default SER", n, h)
 
-      df_tbf  <- compute_pr_df( file_tbf, "tbf", n, h)
+      #df_tbf  <- compute_pr_df( file_tbf, "tbf", n, h)
 
 
-      combined <- rbind(df_cor, df_susie,df_tbf )
+      combined <- rbind(df_cor, df_susie )
 
       # Save individual plot
       p <- ggplot(combined, aes(Recall, Precision, color=Method)) +

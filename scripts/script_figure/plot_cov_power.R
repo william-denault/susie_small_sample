@@ -45,7 +45,7 @@ cal_sum_stat <- function(temp, method = "Default SER", n = 10, h = 25) {
 n_values <- c(10, 20, 30, 50, 70, 100,200)
 h_values <- c(10, 15, 25, 30, 50, 75)
 res_path <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
-
+dir_cor_smal="ss_sqrt/"
 # Using a list and incrementing is good;
 # but we can use expand.grid for cleaner looping if you prefer
 df_list <- list()
@@ -56,8 +56,8 @@ for (n in n_values) {
     # Define file patterns and their corresponding labels
     configs <- list(
       list(f = paste0("small_sample_susie", n, "_h", h, ".RData"), m = "Default SER"),
-      list(f = paste0("cor_small_sample_susie", n, "_h", h, ".RData"), m = "Servin & Stephens SER"),
-      list(f = paste0("tbf_sample_susie", n, "_h", h, ".RData"), m = "tbf")
+      list(f = paste0(dir_cor_smal,"cor_small_sample_susie", n, "_h", h, ".RData"), m = "Servin & Stephens SER")
+
     )
 
     for (conf in configs) {

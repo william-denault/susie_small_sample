@@ -75,7 +75,7 @@ n_values <- c(10,  20, 30, 50, 70, 100,200)
 h_values <- c(10 ,  15,  25,  30 ,  50 ,  75)
 
 # Paths where your simulation outputs are saved
-results_path_cor   <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
+results_path_cor   <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/ss_sqrt/"
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 df_out=list()
 o=1
@@ -90,7 +90,7 @@ for ( n in n_values){
     df_out[[o]]=cbind(df_out[[o]],rep(n,
                                       nrow(df_out[[o]])))
     o= o+1
-    file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,".RData")
+    file_csusie=paste0(results_path_cor , "cor_small_sample_susie",n,"_h",h,".RData")
 
     load(file_csusie)
     df_out[[o]]= create_NCP_table( temp,
@@ -100,16 +100,7 @@ for ( n in n_values){
                                       nrow(df_out[[o]])))
 
     o= o+1
-    file_tbfusie=paste0(results_path_susie, "tbf_sample_susie",n,"_h",h,".RData")
 
-    load(file_tbfusie)
-    df_out[[o]]=create_NCP_table( temp,
-                                  method="tbf",N=n )
-    df_out[[o]]=cbind(df_out[[o]],rep(n,
-                                      nrow(df_out[[o]])))
-
-
-    o= o+1
   }
 
 }
@@ -244,12 +235,6 @@ create_NCP_table= function(temp,
 # PARAMETERS
 # -----------------------------
 
-n_values <- c(10,  20, 30, 50, 70, 100,200)
-h_values <- c(10 ,  15,  25,  30 ,  50 ,  75)
-
-# Paths where your simulation outputs are saved
-results_path_cor   <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
-results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 df_out=list()
 o=1
 for ( n in n_values){
@@ -263,7 +248,7 @@ for ( n in n_values){
     df_out[[o]]=cbind(df_out[[o]],rep(n,
                                       nrow(df_out[[o]])))
     o= o+1
-    file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,".RData")
+    file_csusie=paste0(results_path_cor , "cor_small_sample_susie",n,"_h",h,".RData")
 
     load(file_csusie)
     df_out[[o]]=  create_NCP_table( temp,
@@ -274,15 +259,6 @@ for ( n in n_values){
     o= o+1
 
 
-
-    file_tbfusie=paste0(results_path_susie, "tbf_sample_susie",n,"_h",h,".RData")
-
-    load(file_tbfusie)
-    df_out[[o]]=create_NCP_table( temp,
-                                  method="tbf" ,N=n)
-    df_out[[o]]=cbind(df_out[[o]],rep(n,
-                                      nrow(df_out[[o]])))
-    o= o+1
   }
 
 }
@@ -423,9 +399,6 @@ create_NCP_table= function(temp,
 n_values <- c(10,  20, 30, 50, 70, 100 )
 h_values <- c(10 ,  15,  25,  30 ,  50 ,  75)
 
-# Paths where your simulation outputs are saved
-results_path_cor   <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
-results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 df_out=list()
 o=1
 for ( n in n_values){
@@ -439,7 +412,7 @@ for ( n in n_values){
     df_out[[o]]=cbind(df_out[[o]],rep(n,
                                       nrow(df_out[[o]])))
     o= o+1
-    file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,"_L1.RData")
+    file_csusie=paste0(results_path_cor , "cor_small_sample_susie",n,"_h",h,"_L1.RData")
 
     load(file_csusie)
     df_out[[o]]= create_NCP_table( temp,
@@ -448,14 +421,7 @@ for ( n in n_values){
     df_out[[o]]=cbind(df_out[[o]],rep(n,
                                       nrow(df_out[[o]])))
     o= o+1
-    file_tbfusie=paste0(results_path_susie, "tbf_small_sample_susie",n,"_h",h,"_L1.RData")
 
-    load(file_tbfusie)
-    df_out[[o]]=    create_NCP_table( temp,
-                                      method="tbf",N=n )
-    df_out[[o]]=cbind(df_out[[o]],rep(n,
-                                      nrow(df_out[[o]])))
-    o= o+1
 
   }
 

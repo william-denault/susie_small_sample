@@ -72,8 +72,8 @@ run_susie_sim <-  function(N=20,
                             min_abs_corr = 0,
                             check_null_threshold = -1000,
                             estimate_residual_method =  "Servin_Stephens" ,
-                            alpha0 = sqrt(1/nrow(X))  ,
-                            beta0 = sqrt(1/nrow(X)))
+                            alpha0 = .5 ,
+                            beta0 =.5)
       out$sets
       if(!is.null(out$sets$cs)){
 

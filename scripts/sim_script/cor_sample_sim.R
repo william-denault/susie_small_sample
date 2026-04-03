@@ -68,8 +68,8 @@ run_susie_sim <-  function(N=20,
     if (var (y)>0.00001){
       out <-  susieR ::susie(X,y, L= L_susie,
                                  estimate_residual_method =  "Servin_Stephens",
-                             alpha0 = sqrt(1/nrow(X))  ,
-                             beta0 = sqrt(1/nrow(X))
+                             alpha0 = .5 ,
+                             beta0 =.5
                                  #min_abs_corr = 0,
                                  #check_null_threshold = -1000
                                  )

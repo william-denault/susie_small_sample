@@ -4,7 +4,8 @@ library(ggplot2)
 library(dplyr)
 library(data.table)
 colors <- c( "#1A85FF","#D41159", "darkgreen")
-
+res_path <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
+dir_cor_smal="s0_05/"
 cal_sum_stat <- function(temp, method = "Default SER", n = 10, h = 25) {
   obs_cov    <- numeric(4)
   obs_cov_n  <- numeric(4)   # <-- denominator for SE calculation
@@ -45,15 +46,14 @@ cal_sum_stat <- function(temp, method = "Default SER", n = 10, h = 25) {
 # -----------------------------
 n_values <- c(10, 20, 30, 50, 70, 100)
 h_values <- c(10, 15, 25, 30, 50, 75)
-res_path <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
+
 
 df_list <- list()
 for (n in n_values) {
   for (h in h_values) {
     configs <- list(
       list(f = paste0("small_sample_susie",     n, "_h", h, ".RData"), m = "Default SER"),
-      list(f = paste0("cor_small_sample_susie", n, "_h", h, ".RData"), m = "Servin & Stephens SER"),
-      list(f = paste0("tbf_sample_susie",       n, "_h", h, ".RData"), m = "tbf")
+      list(f = paste0(dir_cor_smal,"cor_small_sample_susie", n, "_h", h, ".RData"), m = "Servin & Stephens SER")
     )
     for (conf in configs) {
       full_path <- paste0(res_path, conf$f)

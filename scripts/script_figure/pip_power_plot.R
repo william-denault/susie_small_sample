@@ -96,28 +96,6 @@ for (n in n_values) {
 
 final_df <- do.call(rbind,(all_roc))
 
-final_plot <- ggplot(final_df,
-                     aes(FPR, TPR, color=Method)) +
-  geom_line(size=0.9) +
-  xlim(c(0,.5))+
-  geom_abline(linetype="dashed") +
-  facet_grid(N ~ h, labeller = label_both) +
-  theme_bw(base_size = 13) +
-  theme(
-    legend.position="bottom",
-    strip.text = element_text(size=10)
-  ) +
-  scale_color_manual(values =colors)+
-  ggtitle("ROC Curves Across Sample Sizes and Heritabilities")
-
-ggsave(
-  filename =  "ROC.png" ,
-  plot = final_plot,
-  width = 20,
-  height = 10
-)
-
-
 
 
 
@@ -155,4 +133,30 @@ ggsave(
   width = 20,
   height = 10
 )
+
+
+final_plot <- ggplot(final_df,
+                     aes(FPR, TPR, color=Method)) +
+  geom_line(size=0.9) +
+  xlim(c(0,.5))+
+  geom_abline(linetype="dashed") +
+  facet_grid(N ~ h, labeller = label_both) +
+  theme_bw(base_size = 13) +
+  theme(
+    legend.position="bottom",
+    strip.text = element_text(size=10)
+  ) +
+  scale_color_manual(values =colors)+
+  ggtitle("ROC Curves Across Sample Sizes and Heritabilities")
+
+ggsave(
+  filename =  "ROC.png" ,
+  plot = final_plot,
+  width = 20,
+  height = 10
+)
+
+
+
+
 

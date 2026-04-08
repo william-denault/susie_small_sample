@@ -9,7 +9,10 @@ library(pROC)
 library(ggplot2)
 library(dplyr)
 library(purrr)
-results_path_cor   <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
+
+dir_cor_smal="ss_sqrt/"#"sqrt_alphabeta_s0/"
+results_path_cor   <-  paste0("C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/",
+                              dir_cor_smal)
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 
 colors <- c("#1A85FF"  , "#D41159","darkgreen")
@@ -53,7 +56,7 @@ cal_sum_stat= function(temp,
 # exact
 # -----------------------------
 
-n_values <- c(10,  20, 30, 50, 70, 100)
+n_values <- c(10,  20, 30, 50, 70, 100 )
 h_values <- c(10 ,  15,  25,  30 ,  50 ,  75)
 
 # Paths where your simulation outputs are saved
@@ -79,42 +82,27 @@ for ( n in n_values){
                                h=h,
                                type= "Estimated")
     o= o+1
-    file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,"_L1.RData")
+    file_csusie=paste0(results_path_cor, "cor_small_sample_susie",n,"_h",h,"_L1.RData")
 
     load(file_csusie)
+    temp = temp[which(temp$n_effect==1),]
     df_out[[o]]= cal_sum_stat( temp,
                                method="Servin & Stephens SER",
                                n=n,
                                h=h,
                                type= "Fixed")
     o= o+1
-    file_csusie=paste0(results_path_susie, "cor_small_sample_susie",n,"_h",h,".RData")
+    file_csusie=paste0(results_path_cor, "cor_small_sample_susie",n,"_h",h,".RData")
 
     load(file_csusie)
+    temp = temp[which(temp$n_effect==1),]
     df_out[[o]]= cal_sum_stat( temp,
                                method="Servin & Stephens SER",
                                n=n,
                                h=h,
                                type=  "Estimated")
     o= o+1
-    file_tbf=paste0(results_path_susie, "tbf_small_sample_susie",n,"_h",h,"_L1.RData")
 
-    load( file_tbf)
-    df_out[[o]]= cal_sum_stat( temp,
-                               method="TBF",
-                               n=n,
-                               h=h,
-                               type= "Fixed")
-    o= o+1
-    file_tbf=paste0(results_path_susie, "tbf_sample_susie",n,"_h",h,".RData")
-
-    load( file_tbf)
-    df_out[[o]]= cal_sum_stat( temp,
-                               method="TBF",
-                               n=n,
-                               h=h,
-                               type= "Estimated")
-    o= o+1
   }
 
 }
@@ -137,7 +125,7 @@ ggplot(df_out, aes(x = Method,
                    shape = Type,
                    group = Type)) +
   geom_point(position = position_dodge(width = 0.2), size = 2) +
-  facet_grid(N ~ H)+
+  facet_grid(H ~ N)+
 
   geom_hline(yintercept = .95)+
   theme_bw(base_size = 13) +

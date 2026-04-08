@@ -9,7 +9,11 @@ library(pROC)
 library(ggplot2)
 library(dplyr)
 library(purrr)
-
+dir_cor_smal="ss_sqrt/"#"sqrt_alphabeta_s0/"#"alpha0_beta_05/"
+# Paths where your simulation outputs are saved
+results_path_cor   <- paste0("C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/",
+                             dir_cor_smal)
+results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 colors <- c( "#1A85FF" ,"#D41159","darkgreen" )
 create_NCP_table= function(temp,
                            method="Default SER",N=10
@@ -71,12 +75,9 @@ create_NCP_table= function(temp,
 # PARAMETERS
 # -----------------------------
 
-n_values <- c(10,  20, 30, 50, 70, 100,200)
-h_values <- c(10 ,  15,  25,  30 ,  50 ,  75)
+n_values <- c(10,  20, 30,  70, 100,200)
+h_values <- c(10 ,  15,  25,  30 ,     75)
 
-# Paths where your simulation outputs are saved
-results_path_cor   <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/ss_sqrt/"
-results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 df_out=list()
 o=1
 for ( n in n_values){
@@ -84,6 +85,7 @@ for ( n in n_values){
     file_susie=paste0(results_path_susie, "small_sample_susie",n,"_h",h,".RData")
 
     load(file_susie )
+    temp = temp[which(temp$n_effect<4),]
     df_out[[o]]= create_NCP_table( temp,
                                    method="Default SER",N=n
     )
@@ -93,6 +95,7 @@ for ( n in n_values){
     file_csusie=paste0(results_path_cor , "cor_small_sample_susie",n,"_h",h,".RData")
 
     load(file_csusie)
+    temp = temp[which(temp$n_effect<4),]
     df_out[[o]]= create_NCP_table( temp,
                                    method="Servin & Stephens SER",N=n
     )
@@ -141,7 +144,7 @@ P1= ggplot(df_binned, aes(x = mean_ncp, y = mean_res, colour = Method, group = M
   geom_line() +
   geom_point() +
   facet_grid(.~N)+
-  scale_x_log10() + # Now this works because mean_ncp is a number!
+  scale_x_log10(limits=c(.1, 600)) + # Now this works because mean_ncp is a number!
   geom_hline(yintercept = 0.95, linetype = "dashed") +
   labs(x = "NCP (Log-Spaced Bins)", y = "Mean Response") +
   theme_minimal()+
@@ -154,6 +157,7 @@ P1= ggplot(df_binned, aes(x = mean_ncp, y = mean_res, colour = Method, group = M
     strip.text = element_text(size=10)
   )
 
+P1
 P0= ggplot(df_binned0, aes(x = mean_ncp, y = mean_res, colour = Method, group = Method)) +
   geom_line() +
   geom_point() +
@@ -251,6 +255,7 @@ for ( n in n_values){
     file_csusie=paste0(results_path_cor , "cor_small_sample_susie",n,"_h",h,".RData")
 
     load(file_csusie)
+    temp = temp[which(temp$n_effect==1),]
     df_out[[o]]=  create_NCP_table( temp,
                                     method="Servin & Stephens SER",N=n
     )
@@ -288,7 +293,7 @@ P2= ggplot(df_binned2, aes(x = mean_ncp, y = mean_res, colour = Method, group = 
   geom_line() +
   geom_point() +
   facet_grid(.~N)+
-  scale_x_log10() + # Now this works because mean_ncp is a number!
+  scale_x_log10(limits=c(.1, 600)) + # Now this works because mean_ncp is a number!
   geom_hline(yintercept = 0.95, linetype = "dashed") +
   labs(x = "NCP (Log-Spaced Bins)", y = "Mean Response") +
   theme_minimal()+
@@ -415,6 +420,7 @@ for ( n in n_values){
     file_csusie=paste0(results_path_cor , "cor_small_sample_susie",n,"_h",h,"_L1.RData")
 
     load(file_csusie)
+    temp = temp[which(temp$n_effect==1),]
     df_out[[o]]= create_NCP_table( temp,
                                    method="Servin & Stephens SER",N=n
     )
@@ -457,7 +463,7 @@ P3= ggplot(df_binned3, aes(x = mean_ncp, y = mean_res, colour = Method, group = 
   geom_line() +
   geom_point() +
   facet_grid(.~N)+
-  scale_x_log10() + # Now this works because mean_ncp is a number!
+  scale_x_log10(limits=c(.1, 600)) + # Now this works because mean_ncp is a number!
   geom_hline(yintercept = 0.95, linetype = "dashed") +
   labs(x = "NCP (Log-Spaced Bins)", y = "Mean Response") +
   theme_minimal()+

@@ -10,7 +10,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-dir_cor_smal="ss_sqrt/"#"sqrt_alphabeta_s0/"
+dir_cor_smal=  ""#"ss_sqrt/"#"tt2/"#"sqrt_alphabeta_s0/"
 results_path_cor   <-  paste0("C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/",
                               dir_cor_smal)
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"

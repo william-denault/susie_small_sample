@@ -9,7 +9,7 @@ library(pROC)
 library(ggplot2)
 library(dplyr)
 library(purrr)
-dir_cor_smal="ss_sqrt/"#"sqrt_alphabeta_s0/"#"alpha0_beta_05/"
+dir_cor_smal="tt/"#"ss_sqrt/"#"sqrt_alphabeta_s0/"#"alpha0_beta_05/"
 # Paths where your simulation outputs are saved
 results_path_cor   <- paste0("C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/",
                              dir_cor_smal)
@@ -75,7 +75,7 @@ create_NCP_table= function(temp,
 # PARAMETERS
 # -----------------------------
 
-n_values <- c(10,  20, 30,  70, 100,200)
+n_values <- c(10,  20, 30,  70, 100 )
 h_values <- c(10 ,  15,  25,  30 ,     75)
 
 df_out=list()

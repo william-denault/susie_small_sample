@@ -1,4 +1,4 @@
-rm(list=ls())
+
 library(pROC)
 library(ggplot2)
 library(dplyr)
@@ -11,13 +11,13 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-dir_cor_smal="ss_sqrt/"#"sqrt_alphabeta_s0/"#"alpha0_beta_05/"#"s0_05/"
+dir_cor_smal="tt2/"#"tt/"#"sqrt_alphabeta_s0/"#"alpha0_beta_05/"#"s0_05/"
 # Paths where your simulation outputs are saved
 results_path_cor   <- paste0("C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/",
                              dir_cor_smal)
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 colors <- c( "#1A85FF" ,"#D41159","darkgreen" )
-n_values <- c(   20, 30, 50,  70 )
+n_values <- c(   20, 30, 50,  70,100,200 )
 h_values <- c(   15,  25,  30 ,   50,    75)
 create_NCP_table_stratified = function(temp, method="Default SER", N=10) {
   # Filter dummies if they exist
@@ -113,23 +113,22 @@ df_binned_strat <- df_binned_strat[ -which(df_binned_strat$n_effect>1),]
 
 
 # 2. Plot using the numeric 'mean_ncp'
-P1_stratified = ggplot(df_binned_strat, aes(x = mean_ncp, y = mean_res, colour = Method)) +
+P1_stratified = ggplot(df_binned_strat[ which(df_binned_strat$n_effect==1),], aes(x = mean_ncp, y = mean_res, colour = Method)) +
   geom_line(linewidth = 0.8) +
   geom_point(alpha = 0.6) +
   # Stratify by Number of Effects (rows) and Sample Size (columns)
-  facet_grid(n_effect ~ N, labeller = label_both) +
+  facet_grid( .~ N ) +
   scale_x_log10( ) +  scale_y_log10( ) +
-  geom_hline(yintercept = 0.95, linetype = "dashed", color = "red") +
+  geom_hline(yintercept = 0.95, linetype = "dashed" ) +
   labs(
     x = "NCP (Log-Spaced Bins)",
-    y = "Mean Coverage (Response)",
-    title = "CS Coverage vs NCP , single effect L=1 "
+    y = "Coverage"#,
+    #title = "CS Coverage vs NCP , single effect L=1 "
   ) +
   scale_color_manual(values = colors) +
   theme_bw(base_size = 12) +
   theme(
-    legend.position = "bottom",
-    strip.background = element_rect(fill = "gray95")
+    legend.position = "none"
   )
 
 print(P1_stratified)

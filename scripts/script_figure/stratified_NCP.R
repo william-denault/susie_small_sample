@@ -10,13 +10,13 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-dir_cor_smal=  "ss_sqrt/"#"sqrt_alphabeta_s0/"#"alpha0_beta_05/"#"s0_05/"
+dir_cor_smal="tt2/"#"ss_sqrt/"#"tt/" #"sqrt_alphabeta_s0/"#"alpha0_beta_05/"#"s0_05/"
 # Paths where your simulation outputs are saved
 results_path_cor   <- paste0("C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/",
                              dir_cor_smal)
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
 colors <- c( "#1A85FF" ,"#D41159","darkgreen" )
-n_values <- c(10,  20, 30, 50,  70, 100,200)
+n_values <- c(10,  20, 30, 50,  70)#, 100,200)
 h_values <- c(   15,  25,  30 ,   50,    75)
 create_NCP_table_stratified = function(temp, method="Default SER", N=10) {
   # Filter dummies if they exist
@@ -98,7 +98,7 @@ df_binned_strat <- df_out1 %>%
   mutate(
     log_ncp = log10(NCP),
     # Using cut_number or cut_interval to ensure enough points per bin
-    bin = cut_interval(log_ncp, n = 30)
+    bin = cut_interval(log_ncp, n = 10)
   ) %>%
   group_by(Method, N, n_effect, bin) %>%
   summarise(
@@ -108,7 +108,7 @@ df_binned_strat <- df_out1 %>%
   ) %>%
   filter(!is.na(mean_ncp)) # Clean up any empty bins
 
-df_binned_strat <- df_binned_strat[ -which(df_binned_strat$n_effect>4),]
+ df_binned_strat <- df_binned_strat[ -which(df_binned_strat$n_effect>4),]
 
 
 # 2. Plot using the numeric 'mean_ncp'

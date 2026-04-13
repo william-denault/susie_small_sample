@@ -255,9 +255,10 @@ y <- small_data$ENSG00000151694$residual_Y[[3]]
 X <- small_data$ENSG00000151694$residual_X[[3]]
 
 res_susie       <- susieR::susie(X = X, y = y, L = 20)
-res_susie_small <- susie(X = X, y = y, L = 10,
-                         estimate_residual_method = "Servin_Stephens",
-                         alpha0 = 2.5, beta0 = 0.51)
+res_susie_small = susieR::susie(X = X,y=y,L=10,
+                                estimate_residual_method ="Servin_Stephens" , tol = 0.0000001 ,
+                                alpha0 = 1/sqrt(nrow(X) ),
+                                beta0 = 1/sqrt(nrow(X) ))
 
 # ---- Panel C ----
 df_plot_pred <- data.frame(

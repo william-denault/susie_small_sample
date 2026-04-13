@@ -139,7 +139,7 @@ final_plot <- ggplot(final_df,
   geom_line(linewidth=0.5) +
   # 1. Update the labeller to change "N:" to "N=" and "h:" to "h²="
   facet_grid(N ~ h, labeller = labeller(
-    N = as_labeller(c(`10` = 'N=10', `20` = 'N=20', `30` = 'N=30', `50` = 'N=50', `70` = 'N=70', `100` = 'N=100'),default = label_value),
+    N = as_labeller(c(`10` = 'N=10', `20` = 'N=20', `30` = 'N=30', `50` = 'N=50', `70` = 'N=70', `100` = 'N=100',`200` = 'N=200'),default = label_value),
     h = as_labeller(c(`0.1` = 'h²=0.1', `0.15` = 'h²=0.15', `0.25` = 'h²=0.25',
                       `0.3` = 'h²=0.3', `0.5` = 'h²=0.5', `0.75` = 'h²=0.75'),
                     default = label_value)

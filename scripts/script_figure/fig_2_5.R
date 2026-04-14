@@ -123,6 +123,12 @@ fig2 <- ggplot(df_out,
 
 fig2
 
+ggsave(
+  filename =  paste0(getwd(),"/plots/fig2.pdf"),
+  plot = fig2,
+  width = 15,
+  height = 15
+)
 # ============================================================
 # Fig 3 – CS size  (add cs_size column if present in temp)
 # ============================================================
@@ -132,7 +138,6 @@ fig2
 fig3 <- ggplot(df_out,
                aes(x = Effect, y = obs_cs_size, col = Method)) +
   geom_point(size = 2.5) +
-  geom_hline(yintercept = 0.95, linetype = "dashed") +
   facet_grid(H ~ N, labeller = n_labeller) +
   scale_color_manual(values = colors) +
   #ylim(c(min(df_out$obs_cs_size, na.rm = TRUE) - 0.02, 1)) +
@@ -141,7 +146,12 @@ fig3 <- ggplot(df_out,
 
 fig3
 
-
+ggsave(
+  filename =  paste0(getwd(),"/plots/fig3.pdf"),
+  plot = fig3,
+  width = 15,
+  height = 15
+)
 # ============================================================
 # Fig 4 – Purity
 # ============================================================
@@ -155,7 +165,12 @@ fig4 <- ggplot(df_out,
   theme_paper
 
 fig4
-
+ggsave(
+  filename =  paste0(getwd(),"/plots/fig4.pdf"),
+  plot = fig4,
+  width = 15,
+  height = 15
+)
 # ============================================================
 # Fig 5 – Power  (log scale, matching paper)
 # ============================================================
@@ -172,3 +187,9 @@ fig5 <- ggplot(df_out,
   theme_paper
 
 fig5
+ggsave(
+  filename =  paste0(getwd(),"/plots/fig5.pdf"),
+  plot = fig5,
+  width = 15,
+  height = 15
+)

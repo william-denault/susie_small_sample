@@ -152,6 +152,6 @@ fig_ncp
 ggsave(
   filename =  paste0(getwd(),"/plots/fig10_ncp_strat.pdf"),
   plot = fig_ncp,
-  width = 20,
-  height = 15
+  width =15,
+  height = 10
 )

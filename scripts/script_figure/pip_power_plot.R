@@ -100,10 +100,9 @@ fig9 <- ggplot(final_df,
   ) +
   theme_paper
 
-fig9
 
 ggsave(
-  filename = "fig9_ROC_curves.png",
+  filename = paste0(getwd(),"/plots/fig9_ROC_curves.png"),
   plot     = fig9,
   width    = 20,
   height   = 10

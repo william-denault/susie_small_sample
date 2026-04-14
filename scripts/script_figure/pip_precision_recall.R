@@ -123,12 +123,5 @@ ggsave(
   height   = 10
 )
 
-# Save the plot
-ggsave(
-  filename =  paste0(getwd(),"/plots/RRC_N_updated_labels.png"),
-  plot = final_plot,
-  width = 20,
-  height = 10
-)
 
 

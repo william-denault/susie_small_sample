@@ -6,7 +6,7 @@ library(stringr)
 library(data.table)
 
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
-colors <- c("#1A85FF","#D41159",  "darkgreen")
+colors <- c("#1A85FF","#D41159" )
 
 # --- Function 0: For standard SuSiE outputs ---
 cal_sum_stat0 <- function(temp, method = "Default SER", n = 10, h = 25, type = "Fixed") {
@@ -69,16 +69,13 @@ df_out <- list()
 for (n in n_values) {
   for (h in h_values) {
     # 1. Default Susie
-    f1 <- paste0(results_path_susie, "small_sample_susie", n, "_h", h, ".RData")
+    f1 <- paste0(results_path_susie, "small_sample_susie", n, "_h", h, "_unfilter_L1.RData")
     if(file.exists(f1)) { load(f1); df_out[[length(df_out)+1]] <- cal_sum_stat0(temp, "Default SER", n, h) }
 
     # 2. Servin & Stephens
     f2 <- paste0(results_path_susie, "cor_small_sample_susie", n, "_h", h, "_unfilter_L1.RData")
     if(file.exists(f2)) { load(f2); df_out[[length(df_out)+1]] <- cal_sum_stat(temp, "Servin & Stephens SER", n, h) }
 
-    # 3. TBF
-    f3 <- paste0(results_path_susie, "tbf_small_sample_susie", n, "_h", h, "_unfilter_L1.RData")
-    if(file.exists(f3)) { load(f3); df_out[[length(df_out)+1]] <- cal_sum_stat(temp, "TBF", n, h) }
   }
 }
 

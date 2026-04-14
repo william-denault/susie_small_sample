@@ -12,7 +12,7 @@ cal_sum_stat <- function(temp, method = "Default SER", n = 10, h = 25) {
   obs_cov    <- numeric(4)
   obs_purity <- numeric(4)
   obs_power  <- numeric(4)
-
+  obs_cs_size  <- numeric(4)
   for (i in 1:4) {
     # Create a logical index for readability and reuse
     if (i < 4) {
@@ -26,6 +26,7 @@ cal_sum_stat <- function(temp, method = "Default SER", n = 10, h = 25) {
     # Calculations
     obs_cov[i]    <- sum(temp$n_true_cs[idx_no_dummy], na.rm = TRUE) / sum(temp$n_cs[idx_no_dummy], na.rm = TRUE)
     obs_purity[i] <- mean(temp$purity[idx_no_dummy], na.rm = TRUE)
+    obs_cs_size[i] <- mean(temp$mean_cs_size [idx_no_dummy], na.rm = TRUE)
     obs_power[i]  <- sum(temp$n_true_cs[idx_all], na.rm = TRUE) / sum(temp$n_effect[idx_all], na.rm = TRUE)
   }
 
@@ -33,6 +34,7 @@ cal_sum_stat <- function(temp, method = "Default SER", n = 10, h = 25) {
     obs_cov    = obs_cov,
     obs_purity = obs_purity,
     obs_power  = obs_power,
+    obs_cs_size=obs_cs_size,
     Method     = factor(method),
     N          = n,
     H          = h,

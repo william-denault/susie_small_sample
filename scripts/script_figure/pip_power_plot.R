@@ -150,7 +150,7 @@ final_plot <- ggplot(final_df,
   ggtitle("ROC Curves Across Sample Sizes and Heritabilities")
 
 ggsave(
-  filename =  "ROC.png" ,
+  filename = paste0(getwd(),"/plots/ROC_N_updated_labels.png") ,
   plot = final_plot,
   width = 20,
   height = 10

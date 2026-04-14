@@ -90,7 +90,7 @@ df_out <- do.call(rbind, df_list)
 # Labellers  (H already in percent)
 # ============================================================
 fig6_labeller <- labeller(
-  N = function(x) paste0("n = ", x),
+  N = function(x) paste0("N = ", x),
   H = function(x) paste0("h² = ", x, "%")
 )
 
@@ -132,5 +132,5 @@ ggsave(
   filename =  paste0(getwd(),"/plots/fig6.pdf"),
   plot = fig_type,
   width = 15,
-  height = 15
+  height = 10
 )

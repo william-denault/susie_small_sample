@@ -95,7 +95,7 @@ df_out <- do.call(rbind, df_list)
 # Shared style
 # ============================================================
 n_labeller <- labeller(
-  N = function(x) paste0("n = ", x),
+  N = function(x) paste0("N = ", x),
   H = function(x) paste0("h² = ", x, "%")
 )
 theme_paper <- theme_cowplot() +
@@ -127,7 +127,7 @@ ggsave(
   filename =  paste0(getwd(),"/plots/fig2.pdf"),
   plot = fig2,
   width = 15,
-  height = 15
+  height = 10
 )
 # ============================================================
 # Fig 3 – CS size  (add cs_size column if present in temp)
@@ -141,7 +141,7 @@ fig3 <- ggplot(df_out,
   facet_grid(H ~ N, labeller = n_labeller) +
   scale_color_manual(values = colors) +
   #ylim(c(min(df_out$obs_cs_size, na.rm = TRUE) - 0.02, 1)) +
-  labs(y = "Coverage", x = "Number of effects") +
+  labs(y = "CS size", x = "Number of effects") +
   theme_paper
 
 fig3
@@ -150,7 +150,7 @@ ggsave(
   filename =  paste0(getwd(),"/plots/fig3.pdf"),
   plot = fig3,
   width = 15,
-  height = 15
+  height = 10
 )
 # ============================================================
 # Fig 4 – Purity
@@ -169,7 +169,7 @@ ggsave(
   filename =  paste0(getwd(),"/plots/fig4.pdf"),
   plot = fig4,
   width = 15,
-  height = 15
+  height = 10
 )
 # ============================================================
 # Fig 5 – Power  (log scale, matching paper)
@@ -191,5 +191,5 @@ ggsave(
   filename =  paste0(getwd(),"/plots/fig5.pdf"),
   plot = fig5,
   width = 15,
-  height = 15
+  height = 10
 )

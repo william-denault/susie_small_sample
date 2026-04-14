@@ -91,7 +91,7 @@ fig9 <- ggplot(final_df,
   geom_line(linewidth = 0.6) +
   geom_abline(linetype = "dashed", colour = "gray40") +
   facet_grid(N ~ h, labeller = n_labeller) +
-  xlim(c(0, 0.5)) +
+  xlim(c(0, 0.25)) +
   scale_color_manual(values = colors) +
   labs(
     title = "ROC Curves Across Sample Sizes and Heritabilities",

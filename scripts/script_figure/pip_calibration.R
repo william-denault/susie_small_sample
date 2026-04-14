@@ -40,8 +40,8 @@ load_sim_data <- function(file_path, method_name, N, h) {
 get_roc_data <- function(raw_df) {
   roc_obj <- roc(raw_df$causal_flags, raw_df$pip_scores, quiet = TRUE)
   data.frame(
-    FPR    = 1 - roc_obj$specificities,
-    TPR    = roc_obj$sensitivities,
+    FDR    = 1 - roc_obj$specificities,
+    Power    = roc_obj$sensitivities,
     Method = unique(raw_df$Method),
     N      = unique(raw_df$N),
     h      = unique(raw_df$h)

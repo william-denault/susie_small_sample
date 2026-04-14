@@ -16,7 +16,7 @@ colors <- c( "#1A85FF" ,"#D41159","darkgreen" )
 # PARAMETERS
 # -----------------------------
 
-n_values <- c( 10, 20, 30, 50, 70, 100,200)
+n_values <- c(   20, 30, 50, 70, 100,200)
 h_values <- c(.1 , .15, .25, .3 , .5 , .75)
 
 # Paths where your simulation outputs are saved
@@ -104,29 +104,6 @@ for (n in n_values) {
 # FINAL COMBINED PLOT
 # -----------------------------
 
-final_df <- do.call(rbind,(all_roc))
-final_plot <- ggplot(final_df,
-                     aes(Recall, log( Precision +1e-6), color=Method)) +
-  geom_line(linewidth=0.5) +
-  facet_grid(N ~ h, labeller = label_both) +
-  theme_bw(base_size = 13) +
-  xlim(c(0,.5))+
-  theme(
-    legend.position="bottom",
-    strip.text = element_text(size=10)
-  ) +
-  scale_color_manual(values = colors) +
-  ggtitle("Precision–Recall Curves Across Sample Sizes and Heritabilities")
-
-ggsave(
-  filename =  "RRC_N.png" ,
-  plot = final_plot,
-  width = 20,
-  height = 10
-)
-
-
-
 
 # --------------------------------------------------------------------------------------
 # FINAL COMBINED PLOT (UPDATED TO REMOVE GREY STRIPS AND UPDATE LABELS)
@@ -168,3 +145,29 @@ ggsave(
   width = 20,
   height = 10
 )
+
+
+
+
+final_df <- do.call(rbind,(all_roc))
+final_plot <- ggplot(final_df,
+                     aes(Recall, log( Precision +1e-6), color=Method)) +
+  geom_line(linewidth=0.5) +
+  facet_grid(N ~ h, labeller = label_both) +
+  theme_bw(base_size = 13) +
+  xlim(c(0,.5))+
+  theme(
+    legend.position="bottom",
+    strip.text = element_text(size=10)
+  ) +
+  scale_color_manual(values = colors) +
+  ggtitle("Precision–Recall Curves Across Sample Sizes and Heritabilities")
+
+ggsave(
+  filename =  "RRC_N.png" ,
+  plot = final_plot,
+  width = 20,
+  height = 10
+)
+
+

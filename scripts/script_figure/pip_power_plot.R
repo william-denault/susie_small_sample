@@ -15,7 +15,7 @@ colors <- c( "#1A85FF","#D41159","darkgreen" )
 # PARAMETERS
 # -----------------------------
 
-n_values <- c( 10, 20, 30, 50, 70, 100,200)
+n_values <- c(  20, 30, 50, 70, 100,200)
 h_values <- c(.1 , .15, .25, .3 , .5 , .75)
 
 # Paths where your simulation outputs are saved

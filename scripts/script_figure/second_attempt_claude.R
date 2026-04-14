@@ -53,7 +53,7 @@ cal_sum_stat <- function(temp, method = "Default SER", n = 10, h = 25) {
   )
 }
 
-n_values <- c(20, 30, 50, 70, 100, 200)
+n_values <- c(20, 30, 50, 70)#, 100, 200)
 h_values <- c(10, 15, 25, 30, 50, 75)
 
 df_list <- list()
@@ -129,7 +129,7 @@ create_NCP_table_stratified <- function(temp, method = "Default SER", N = 10) {
 df_ncp_list <- list()
 o <- 1
 for (n in n_values) {
-  for (h in c(15, 25, 30, 50, 75)) {
+  for (h in c(  15, 25, 30, 50, 75)) {
     file_susie <- paste0(res_path,
                          "small_sample_susie", n, "_h", h, "_L1.RData")
     if (file.exists(file_susie)) {
@@ -226,8 +226,9 @@ PA_ncp <- ggplot(
 ) +
   geom_line(linewidth = 0.8) +
   geom_point(alpha = 0.6) +
+
   facet_grid(. ~ N) +
-  scale_x_log10() +
+  scale_x_log10(lim=c(2.3, 600)) +
   scale_y_log10() +
   geom_hline(yintercept = 0.95, linetype = "dashed") +
   labs(x = "NCP (log scale)", y = "Coverage") +

@@ -101,10 +101,10 @@ theme_paper <- theme_cowplot() +
   theme(
     panel.grid.major = element_line(color = "gray80"),
     strip.background = element_blank(),
-    strip.text       = element_text(size = 9, face = "bold"),
+    strip.text       = element_text(size = 15, face = "bold"),
     legend.position  = "bottom",
     legend.title     = element_blank(),
-    axis.title       = element_text(size = 12)
+    axis.title       = element_text(size = 15)
   )
 
 # ============================================================

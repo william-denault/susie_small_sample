@@ -111,7 +111,7 @@ df_binned <- df_out1 %>%
 # Labellers
 # ============================================================
 ncp_labeller <- labeller(
-  N        = function(x) paste0("n = ", x),
+  N        = function(x) paste0("N = ", x),
   n_effect = function(x) paste0("n effect = ", x)
 )
 
@@ -122,10 +122,10 @@ theme_paper <- theme_cowplot() +
   theme(
     panel.grid.major = element_line(color = "gray80"),
     strip.background = element_blank(),
-    strip.text       = element_text(size = 9, face = "bold"),
+    strip.text       = element_text(size = 15, face = "bold"),
     legend.position  = "bottom",
     legend.title     = element_blank(),
-    axis.title       = element_text(size = 12)
+    axis.title       = element_text(size = 15)
   )
 
 # ============================================================
@@ -137,7 +137,7 @@ fig_ncp <- ggplot(df_binned,
   geom_point(alpha = 0.6) +
   geom_hline(yintercept = 0.95, linetype = "dashed") +
   facet_grid(n_effect ~ N, labeller = ncp_labeller) +
-  scale_x_log10(limits = c(0.1, 600)) +
+  scale_x_log10(limits = c(0.1, 200)) +
   scale_y_log10() +
   scale_color_manual(values = colors) +
   labs(

@@ -405,4 +405,10 @@ grid_plot <- ggdraw() +
   draw_label("D", fontface = "bold", size = 20,
              x = 0.75, y = 0.48, vjust = 1)
 
-plot_grid(grid_plot)
+Pfinal= plot_grid(grid_plot)
+ggsave(
+  filename = paste0(getwd(),"/plots/fig1.pdf"),
+  plot     = Pfinal,
+  width    = 20,
+  height   = 10
+)

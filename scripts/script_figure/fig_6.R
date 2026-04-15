@@ -33,7 +33,14 @@ for (n in n_values) {
     if (file.exists(f1) && file.exists(f2)) {
       load(f1)
       t0         <- do.call(rbind, temp)
-      susie_cov  <- mean(t0[-which(is.na(t0[, 4])), 1])
+
+      if( length(-which(is.na(t0[, 4])>0))){
+
+        susie_cov  <- mean(t0[-which(is.na(t0[, 4])>0) , 1])
+      }else{
+
+        susie_cov  <- mean(t0[, 1])
+      }
 
       load(f2)
       cor_cov    <- mean(do.call(rbind, temp)[, 1])
@@ -91,11 +98,10 @@ fig_unfilter <- ggplot(df_final,
 fig_unfilter
 # ── Save ──────────────────────────────────────────────────────────────────────
 ggsave(
-  "coverage_figure.pdf",
-  plot   = p,
-  width  = 8,    # inches – adjust to column width of your journal
-  height = 6,
-  device = "pdf"
+  filename =  paste0(getwd(),"/plots/fig6.pdf"),
+  plot = fig_unfilter,
+  width =15,
+  height = 10
 )
 
 

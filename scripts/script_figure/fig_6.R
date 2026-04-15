@@ -17,7 +17,10 @@ for (n in n_values) {
     # 1. Default Susie
     f1 <- paste0(results_path_susie, "small_sample_susie", n, "_h", h, "_unfilter.RData")
     load(f1)
-    susie_cov=  mean(do.call(rbind, temp)[,1])
+
+    t0 =do.call(rbind, temp)
+
+    susie_cov=  mean(mean(t0 [ -which(is.na(t0 [,4])),1]))
 
     # 2. Servin & Stephens
     f2 <- paste0(results_path_susie, "cor_small_sample_susie", n, "_h", h, "_unfilter_L1.RData")
@@ -36,7 +39,7 @@ for (n in n_values) {
 df_final <- bind_rows(df_out)
 
 # --- Visualization ---
-ggplot(df_final, aes(x = method, y =  cov, color = Method   )) +
+ggplot(df_final, aes(x = Method, y =  cov, color = Method   )) +
   geom_point(   size = 2) +
   facet_grid(n ~ h ) +
   geom_hline(yintercept = 0.95, linetype = "dashed", alpha = 0.5) +

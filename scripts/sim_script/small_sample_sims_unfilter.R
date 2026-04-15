@@ -132,9 +132,7 @@ run_susie_sim <-  function(N=20,
       }
 
 
-      res [[i ]] <- list(summary_reg=summary_reg,
-                         cs= cs,
-                         true_pos=true_pos)
+      res [[i ]] <-  summary_reg
 
 
 

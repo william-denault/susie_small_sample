@@ -7,7 +7,7 @@ sim_dat <- function(N=20, h=0.5, L=NULL) {
 
 
   if(is.null(L)){
-    L <-sample(1:10, size=1)#Number of effect
+    L <-sample(1:4, size=1)#Number of effect
 
   }
 
@@ -68,11 +68,11 @@ run_susie_sim <-  function(N=20,
     if (var (y)>0.00001){
       out <-  susieR ::susie(X,y, L= L_susie,
                                  estimate_residual_method =  "Servin_Stephens",
-                             alpha0 = .5 ,
-                             beta0 =.5
-                                 #min_abs_corr = 0,
-                                 #check_null_threshold = -1000
-                                 )
+                             #estimate_residual_method =  "Servin_Stephens" ,
+                             # estimate_prior_variance  = FALSE,   # fix V — don't estimate it per-effect
+
+                             #scaled_prior_variance = .05,
+                             alpha0=1/sqrt(nrow(X)),beta0=1/sqrt(nrow(X)))
       out$sets
       if(!is.null(out$sets$cs)){
 

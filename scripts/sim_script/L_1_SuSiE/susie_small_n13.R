@@ -6,7 +6,8 @@ source("/home/wdenault/susie_small_sample/scripts/sim_script/small_sample_sims.R
 
 for (o in 1:100000){
 
-  temp0 <- run_susie_sim(N=30, L_sim=1, h=0.1, L_susie=1, n_sim=100)
+  L = sample (1:4, size=1)
+  temp0 <- run_susie_sim(N=30, h=0.1,L_susie=L, L_sim=L, n_sim=100)
 
   if(file.exists("/home/wdenault/susie_small_sample/simulations/small_sample_susie30_h10_L1.RData")){
 

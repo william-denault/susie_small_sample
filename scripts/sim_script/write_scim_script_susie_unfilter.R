@@ -4,8 +4,7 @@ h_values <- c(10,15,25, 30, 50, 75)
 
 # Specify the output file where the generated script will be saved
 
-#path = "/home/wdenault/susie_small_sample/scripts/sim_script/susie_unfilter/"
-path="C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/scripts/sim_script/susie_unfilter/"
+ path = "/home/wdenault/susie_small_sample/scripts/sim_script/susie_unfilter/"
 
 tt=1
 
@@ -25,7 +24,7 @@ for (n in n_values) {
 
     # Write the inner part of the script for each combination of n and h
     writeLines(paste("for (o in 1:100000){\n", sep=""), fileConn)
-    writeLines(paste("  temp0 <- run_susie_sim(N=", n, ", h=", h/100, ", n_sim=100)\n", sep=""), fileConn)
+    writeLines(paste("  temp0 <- run_susie_sim(N=", n, ", h=", h/100, ",L_sim=1, L_susie=1,  n_sim=100)\n", sep=""), fileConn)
 
     # Write file check and load/save logic
     writeLines(paste('  if(file.exists("/home/wdenault/susie_small_sample/simulations/small_sample_susie', n, '_h', h, '_unfilter.RData")){\n', sep=""), fileConn)

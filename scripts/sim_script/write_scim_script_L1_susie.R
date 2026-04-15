@@ -6,7 +6,7 @@ h_values <- c(10,15,25, 30, 50, 75)
 
 path = "/home/wdenault/susie_small_sample/scripts/sim_script/L_1_SuSiE/"
 
-path="C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/scripts/sim_script/L_1_SuSiE/"
+path="/home/wdenault/susie_small_sample/scripts/sim_script/L_1_SuSiE/"
 tt=1
 
 # Loop over all combinations of n and h
@@ -25,7 +25,11 @@ for (n in n_values) {
 
     # Write the inner part of the script for each combination of n and h
     writeLines(paste("for (o in 1:100000){\n", sep=""), fileConn)
-    writeLines(paste("  temp0 <- run_susie_sim(N=", n,", L_sim=",1, ", h=", h/100, ", L_susie=1, n_sim=100)\n", sep=""), fileConn)
+
+
+    writeLines(paste("  L = sample (1:4, size=1)", sep=""), fileConn)
+
+    writeLines(paste("  temp0 <- run_susie_sim(N=", n, ", h=", h/100, ",L_susie=L, L_sim=L, n_sim=100)\n", sep=""), fileConn)
 
     # Write file check and load/save logic
     writeLines(paste('  if(file.exists("/home/wdenault/susie_small_sample/simulations/small_sample_susie', n, '_h', h, '_L1.RData")){\n', sep=""), fileConn)

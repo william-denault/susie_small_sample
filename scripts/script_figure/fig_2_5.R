@@ -11,7 +11,7 @@ library(cowplot)
 # Paths & colors
 # ============================================================
 res_path     <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
-dir_cor_smal <- "ss_sqrt/"
+
 
 colors <- c(
   "Default SER"           = "#1A85FF",
@@ -72,7 +72,7 @@ for (n in n_values) {
     configs <- list(
       list(f = paste0("small_sample_susie", n, "_h", h, "_L1.RData"),
            m = "Default SER"),
-      list(f = paste0(dir_cor_smal,
+      list(f = paste0(
                       "cor_small_sample_susie", n, "_h", h, "_L1.RData"),
            m = "Servin & Stephens SER")
     )

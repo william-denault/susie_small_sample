@@ -6,9 +6,9 @@ library(cowplot)
 # ============================================================
 # Paths & colors
 # ============================================================
-dir_cor_smal       <-"ss_sqrt/"
+
 results_path_susie <- "C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/simulations/"
-results_path_cor   <- paste0(results_path_susie, dir_cor_smal)
+results_path_cor   <- results_path_susie
 
 colors <- c(
   "Default SER"           = "#1A85FF",

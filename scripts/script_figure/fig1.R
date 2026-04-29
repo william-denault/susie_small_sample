@@ -330,47 +330,48 @@ make_pip_plot <- function(model, title_str) {
 pip_plot_susie       <- make_pip_plot(res_susie,       "SuSiE default SER, n = 75")
 pip_plot_susie_small <- make_pip_plot(res_susie_small, "SuSiE Servin & Stephens SER")
 
+
+load("C:/Document/Serieux/Travail/Data_analysis_and_papers/revision_susie_small_sample/permutation_Lopes.RData")
 # ---- Panel D ----
-mat <- matrix(c(
-  0, 12,  1, 0, 0,
-  2634, 858,  9, 0, 0,
-  647, 284, 64, 0, 0,
-  140,  68, 27, 8, 0,
-  50,  33, 11, 3, 1,
-  15,   8,  5, 1, 0,
-  3,   2,  2, 0, 0,
-  4,   1,  1, 0, 0,
-  1,   1,  1, 0, 0,
-  0,   1,  0, 0, 0,
-  0,   0,  1, 0, 0,
-  1,   0,  0, 0, 0,
-  0,   1,  0, 0, 0
-), nrow = 13, byrow = TRUE)
+mat <-as.matrix(table(res[,1], res[,4]))
 
-df_miga <- as.data.frame(mat)
-colnames(df_miga) <- 0:4
-df_miga$fSuSiE <- 0:12
+mat[1,1]=0
 
-df_long <- df_miga %>%
-  pivot_longer(cols = -fSuSiE, names_to = "SuSiE_topPC", values_to = "count") %>%
-  mutate(SuSiE_topPC = as.integer(SuSiE_topPC),
-         fSuSiE      = as.integer(fSuSiE)) %>%
-  filter(count > 0)
+mat[1,1]=0
+df  <- as.data.frame(as.table(mat))
+colnames(df) <- c("SuSiE", "SuSiE_SS", "n_genes")
 
-P_Miga <- ggplot(df_long, aes(y = SuSiE_topPC, x = fSuSiE, size = count)) +
-  geom_point(alpha = 0.9, color = "darkblue") +
-  scale_size_continuous(name   = "Number of genes",
-                        breaks = c(10, 50, 100, 1000),
-                        labels = c(10, 50, 100, 1000),
-                        range  = c(1, 10)) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dotted") +
-  coord_cartesian(xlim = c(0, max(df_long$fSuSiE)),
-                  ylim = c(-0.2, max(df_long$SuSiE_topPC))) +
-  scale_x_continuous(breaks = 0:20) +
-  scale_y_continuous(breaks = 0:20) +
-  labs(y = "CSs SS SER", x = "CSs Default SER") +
-  theme_cowplot() +
-  theme(panel.grid.major = element_line(color = "gray80"))
+# Keep numeric axes
+df$SuSiE_SS <- as.integer(as.character(df$SuSiE_SS))
+df$SuSiE    <- as.integer(as.character(df$SuSiE))
+
+# Drop zeros (no bubble to draw)
+df <- df[df$n_genes > 0, ]
+P_Miga <- ggplot(df, aes(x = SuSiE, y = SuSiE_SS, size = n_genes)) +
+  geom_point(color = "lightblue3", alpha = 0.85) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dotted", linewidth = 0.6) +
+  scale_size_area(
+    max_size = 10,
+    breaks   = c(10,   100, 500, 1000),
+    name     = "Number of genes"
+  ) +
+  scale_x_continuous(breaks = 0:max(df$SuSiE)) +
+   scale_y_continuous(
+    breaks = 0:max(df$SuSiE_SS),
+    expand = expansion(mult = c(0.07 , 0.05))  # 5% bottom, 10% top
+  )+
+  labs(x = "CSs Default SER", y = "CSs SS SER") +
+  theme_bw(base_size = 13) +
+  theme(
+    panel.grid.major = element_line(color = "grey85"),
+    panel.grid.minor = element_blank(),
+    legend.position  = "bottom",
+    legend.direction = "horizontal"
+  ) +
+  guides(size = guide_legend(
+    title.position = "left",
+    nrow           = 1,
+    label.position = "right"))
 
 # ============================================================
 # Final assembly

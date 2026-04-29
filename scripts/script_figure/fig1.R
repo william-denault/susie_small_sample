@@ -249,7 +249,7 @@ P_perf <- plot_grid(PA_cov, PA_pow, PA_pur, PA_ncp,
 colors <- c("#1A85FF" ,"#D41159"  )
 
 your_path  <- "C:/Document/Serieux/Travail/Package/susie_small_sample/data_gao/"
-small_data <- readRDS(paste0(your_path,
+small_data<- readRDS(paste0(your_path,
                              "MiGA_eQTL.chr2_ENSG00000151694.univariate_data.rds"))
 
 y <- small_data$ENSG00000151694$residual_Y[[3]]

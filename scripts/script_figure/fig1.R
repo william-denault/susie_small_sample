@@ -348,7 +348,7 @@ df$SuSiE    <- as.integer(as.character(df$SuSiE))
 # Drop zeros (no bubble to draw)
 df <- df[df$n_genes > 0, ]
 P_Miga <- ggplot(df, aes(x = SuSiE, y = SuSiE_SS, size = n_genes)) +
-  geom_point(color = "lightblue3", alpha = 0.85) +
+  geom_point(color= 'steelblue', alpha = 0.85) +
   geom_abline(slope = 1, intercept = 0, linetype = "dotted", linewidth = 0.6) +
   scale_size_area(
     max_size = 10,

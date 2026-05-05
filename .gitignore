@@ -1,7 +1,16 @@
 # Ignore RStudio project files
 *.Rproj
+.Rproj.user/
+.Rhistory
+.virtual_documents/
 
-# Ignore all CSV files
+# Ignore R data/output files
+*.RData
+*.rds
+*.Rdata
+*.RDS
+
+# Ignore other generated files
 *.csv
 *.err
 *.out

@@ -4,11 +4,9 @@
 .Rhistory
 .virtual_documents/
 
-# Ignore R data/output files
+# Ignore raw R data files (we keep .rds versions tracked instead)
 *.RData
-*.rds
 *.Rdata
-*.RDS
 
 # Ignore other generated files
 *.csv

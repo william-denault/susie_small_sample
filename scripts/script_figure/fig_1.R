@@ -475,20 +475,42 @@ P_pred <- ggplot(df_plot_pred, aes(y = y, x = x, col = col)) +
 # Step 6 — Panel D (bubble)
 # =============================================================================
 
-P_Miga <- ggplot(df_bubble, aes(x = SuSiE, y = SuSiE_SS, size = n_genes)) +
+# Bin counts to compress the long upper tail and dramatize the asymmetry.
+# All gene counts are preserved (binning aggregates, never truncates).
+#   SER (x):   0, 1, 2, 3, 4, 5+
+#   SS-SER (y): 0, 1, 2, 3+
+df_bubble_binned <- df_bubble |>
+  within({
+    x_bin <- cut(SuSiE,    breaks = c(-1, 0, 1, 2, 3, 4, Inf),
+                            labels = c("0","1","2","3","4","5+"), right = TRUE)
+    y_bin <- cut(SuSiE_SS, breaks = c(-1, 0, 1, 2, Inf),
+                            labels = c("0","1","2","3+"), right = TRUE)
+  })
+df_bubble_binned <- aggregate(n_genes ~ x_bin + y_bin, df_bubble_binned, sum)
+df_bubble_binned$side <- factor(
+  ifelse(as.integer(df_bubble_binned$x_bin) >  as.integer(df_bubble_binned$y_bin),
+         "SS-SER fewer CSs",
+  ifelse(as.integer(df_bubble_binned$x_bin) <  as.integer(df_bubble_binned$y_bin),
+         "SS-SER more CSs", "equal")),
+  levels = c("SS-SER fewer CSs", "equal", "SS-SER more CSs"))
+
+side_pal <- c("SS-SER fewer CSs" = "#1A85FF",
+              "equal"            = "gray60",
+              "SS-SER more CSs"  = "#D41159")
+
+P_Miga <- ggplot(df_bubble_binned, aes(x = x_bin, y = y_bin, size = n_genes)) +
   geom_point(color = "gray85", size = 2.4, alpha = 0.6) +
-  geom_point(color = "#2E86AB", alpha = 0.6) +
-  geom_point(shape = 1, stroke = 1.8, color = "#2E86AB") +
-  scale_size_continuous(
-    name   = "Gene \ncounts",
-    breaks = c(10, 50, 100, 1000),
-    labels = c(10, 50, 100, 1000),
-    range  = c(0.8, 10)
+  geom_point(aes(color = side), alpha = 0.6) +
+  geom_point(aes(color = side), shape = 1, stroke = 1.8) +
+  scale_color_manual(values = side_pal, guide = "none") +
+  scale_size_area(
+    name     = "Gene \ncounts",
+    breaks   = c(50, 100, 500, 1000),
+    labels   = c(50, 100, 500, 1000),
+    max_size = 12
   ) +
   geom_abline(slope = 1, intercept = 0, linetype = "dotted") +
-  scale_x_continuous(breaks = 0:max(df_bubble$SuSiE)) +
-  scale_y_continuous(breaks = 0:max(df_bubble$SuSiE_SS),
-                     expand = expansion(mult = c(0.1, 0.1))) +
+  expand_limits(x = 0.5, y = 0.5) +
   labs(x = "CSs SER", y = "CSs SS-SER") +
   theme_cowplot(font_size = 14) +
   theme(

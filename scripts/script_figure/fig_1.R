@@ -246,47 +246,57 @@ n_labeller <- labeller(N = function(x) paste0("N = ", x))
 # =============================================================================
 # Step 3 — Panel A
 # =============================================================================
+# Lines connect methods across Effect levels; open rings (triangle / circle) on
+# the line emphasise both shape and color contrast.
 
-pos_d <- position_dodge(width = dodge_w)
+method_shapes <- c("SS-SER" = 21, "SER" = 24)   # open circle / open triangle
+line_w        <- 1.0
+line_alpha    <- 0.6
+pt_size       <- 2.6
+pt_stroke     <- 1.2
 
-PA_cov <- ggplot(df_A, aes(x = Effect, y = obs_cov, col = Method, group = Method)) +
-  geom_point(color = "gray85", size = dot_size_bg, alpha = dot_alpha_bg, position = pos_d) +
-  geom_point(aes(alpha = Method), size = dot_size_color, position = pos_d) +
+PA_cov <- ggplot(df_A, aes(x = Effect, y = obs_cov,
+                           col = Method, shape = Method, group = Method)) +
+  geom_line(linewidth = line_w, alpha = line_alpha) +
+  geom_point(size = pt_size, stroke = pt_stroke, fill = "white") +
   facet_grid(. ~ N, labeller = n_labeller) +
   geom_hline(yintercept = 0.95, linetype = "dashed", color = "black", size = 1) +
   ylim(c(min(df_A$obs_cov, na.rm = TRUE) - 0.02, 1)) +
   scale_color_manual(values = methods_colors) +
-  scale_alpha_manual(values = methods_alpha, guide = "none") +
+  scale_shape_manual(values = method_shapes) +
   ylab("Coverage") + xlab("") +
   perf_theme +
   theme(strip.text = element_text(size = 16, face = "bold"))
 
-PA_pow <- ggplot(df_A, aes(x = Effect, y = obs_power, col = Method, group = Method)) +
-  geom_point(color = "gray85", size = dot_size_bg, alpha = dot_alpha_bg, position = pos_d) +
-  geom_point(aes(alpha = Method), size = dot_size_color, position = pos_d) +
+PA_pow <- ggplot(df_A, aes(x = Effect, y = obs_power,
+                           col = Method, shape = Method, group = Method)) +
+  geom_line(linewidth = line_w, alpha = line_alpha) +
+  geom_point(size = pt_size, stroke = pt_stroke, fill = "white") +
   facet_grid(. ~ N) +
   scale_y_log10(limits = c(min(df_A$obs_power, na.rm = TRUE), 1),
                 breaks  = c(0.01, 0.05, 0.1, 0.25, 0.5, 1)) +
   scale_color_manual(values = methods_colors) +
-  scale_alpha_manual(values = methods_alpha, guide = "none") +
+  scale_shape_manual(values = method_shapes) +
   ylab("Power") + xlab("") +
   perf_theme
 
-PA_pur <- ggplot(df_A, aes(x = Effect, y = obs_purity, col = Method, group = Method)) +
-  geom_point(color = "gray85", size = dot_size_bg, alpha = dot_alpha_bg, position = pos_d) +
-  geom_point(aes(alpha = Method), size = dot_size_color, position = pos_d) +
+PA_pur <- ggplot(df_A, aes(x = Effect, y = obs_purity,
+                           col = Method, shape = Method, group = Method)) +
+  geom_line(linewidth = line_w, alpha = line_alpha) +
+  geom_point(size = pt_size, stroke = pt_stroke, fill = "white") +
   facet_grid(. ~ N) +
   scale_y_continuous(limits = c(0.93, 0.97),
                      breaks = c(0.93, 0.94, 0.95, 0.96, 0.97)) +
   scale_color_manual(values = methods_colors) +
-  scale_alpha_manual(values = methods_alpha, guide = "none") +
+  scale_shape_manual(values = method_shapes) +
   ylab("Purity") + xlab("") +
   perf_theme
 
 PA_ncp <- ggplot(df_binned[df_binned$n_effect == 1, ],
-                 aes(x = mean_ncp, y = mean_res, colour = Method)) +
-  geom_point(color = "gray85", size = dot_size_bg, alpha = dot_alpha_bg) +
-  geom_point(aes(alpha = Method), size = dot_size_color) +
+                 aes(x = mean_ncp, y = mean_res,
+                     colour = Method, shape = Method, group = Method)) +
+  geom_line(linewidth = line_w, alpha = line_alpha) +
+  geom_point(size = pt_size, stroke = pt_stroke, fill = "white") +
   facet_grid(. ~ N) +
   scale_x_log10(limits = c(3, 250),
                 breaks = c(3, 10, 30, 100, 250)) +
@@ -295,7 +305,7 @@ PA_ncp <- ggplot(df_binned[df_binned$n_effect == 1, ],
                 labels = c("0.4", "0.5", "0.65", "0.8", "1.0")) +
   geom_hline(yintercept = 0.95, linetype = "dashed", color = "black", size = 1) +
   scale_color_manual(values = methods_colors) +
-  scale_alpha_manual(values = methods_alpha, guide = "none") +
+  scale_shape_manual(values = method_shapes) +
   labs(x = "NCP (log scale)", y = "Coverage") +
   perf_theme +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"))
@@ -336,7 +346,7 @@ panel_b_theme <- theme_cowplot(font_size = 20) +
     axis.line          = element_line(size = 1.0, color = "black"),
     axis.ticks         = element_line(size = 1.0, color = "black"),
     axis.ticks.length  = unit(0.3, "cm"),
-    plot.title         = element_text(size = 14, face = "bold"),
+    plot.title         = element_text(size = 14, face = "bold", hjust = 0.5),
     panel.border       = element_blank(),
     panel.background   = element_rect(fill = "white", color = NA)
   )
@@ -388,33 +398,17 @@ create_pip_plot <- function(model, title_text, max_cs = 400) {
     labs(x = "SNP", y = "PIP", title = title_text) +
     panel_b_theme
 
-  # Manual legend as annotation layers — part of the panel data, so cowplot
-  # cannot drop them.
-  gg <- gg + annotate("text",
-                      x = panel_b_legend_x + panel_b_title_dx,
-                      y = panel_b_legend_y,
-                      label = "95% Credible Sets",
-                      hjust = 0, vjust = 1, size = 4.0, fontface = "bold")
-
-  if (length(legend_levels) > 0) {
-    for (k in seq_along(legend_levels)) {
-      yk <- panel_b_legend_y - panel_b_title_gap - panel_b_line_step * (k - 1)
-      gg <- gg +
-        annotate("point",
-                 x = panel_b_legend_x + panel_b_marker_dx, y = yk,
-                 color = pal[k], shape = 1, stroke = 1.8, size = panel_b_marker_size) +
-        annotate("text",
-                 x = panel_b_legend_x + panel_b_text_dx, y = yk,
-                 label = legend_levels[k],
-                 hjust = 0, vjust = 0.5, size = 3.4)
-    }
-  }
-
   gg
 }
 
-pip_plot_susie       <- create_pip_plot(res_susie,       "SuSiE with SER, N = 75")
-pip_plot_susie_small <- create_pip_plot(res_susie_small, "SuSiE with SS-SER, N = 75")
+# Panel B/C titles: report the dataset sample size (Lopes et al SVZ region,
+# N = 55 from the paper) rather than the post-QC analysis N. Note: the actual
+# data we fit on has nrow(df_plot_pred)/2 samples after gene-level filtering.
+panel_b_N <- 55
+pip_plot_susie       <- create_pip_plot(res_susie,
+                                        sprintf("SuSiE with SER, SVZ, N = %d",  panel_b_N))
+pip_plot_susie_small <- create_pip_plot(res_susie_small,
+                                        sprintf("SuSiE with SS-SER, SVZ, N = %d", panel_b_N))
 
 # =============================================================================
 # Step 5 — Panel C (predicted vs observed)
@@ -481,10 +475,10 @@ P_pred <- ggplot(df_plot_pred, aes(y = y, x = x, col = col)) +
 #   SS-SER (y): 0, 1, 2, 3+
 df_bubble_binned <- df_bubble |>
   within({
-    x_bin <- cut(SuSiE,    breaks = c(-1, 0, 1, 2, 3, 4, Inf),
-                            labels = c("0","1","2","3","4","5+"), right = TRUE)
-    y_bin <- cut(SuSiE_SS, breaks = c(-1, 0, 1, 2, Inf),
-                            labels = c("0","1","2","3+"), right = TRUE)
+    x_bin <- cut(SuSiE,    breaks = c(-1, 0, 1, 2, 3, 4, 5, 6, Inf),
+                            labels = c("0","1","2","3","4","5","6","7+"), right = TRUE)
+    y_bin <- cut(SuSiE_SS, breaks = c(-1, 0, 1, 2, 3, Inf),
+                            labels = c("0","1","2","3","4+"), right = TRUE)
   })
 df_bubble_binned <- aggregate(n_genes ~ x_bin + y_bin, df_bubble_binned, sum)
 df_bubble_binned$side <- factor(
@@ -540,21 +534,21 @@ grid_plot <- ggdraw() +
   draw_plot(P_perf,
             x = 0.00, y = 0.00, width = 0.42, height = 1.00) +
   draw_plot(pip_plot_susie + theme(legend.position = "none"),
-            x = 0.48, y = 0.57, width = 0.24, height = 0.40) +
+            x = 0.43, y = 0.57, width = 0.27, height = 0.40) +
   draw_plot(P_pred,
-            x = 0.48, y = 0.10, width = 0.24, height = 0.40) +
+            x = 0.45, y = 0.10, width = 0.18, height = 0.40) +
   draw_plot(legend_plot,
-            x = 0.48, y = 0.01, width = 0.24, height = 0.08) +
+            x = 0.45, y = 0.01, width = 0.22, height = 0.08) +
   draw_plot(pip_plot_susie_small + theme(legend.position = "none"),
-            x = 0.73, y = 0.57, width = 0.24, height = 0.40) +
+            x = 0.71, y = 0.57, width = 0.27, height = 0.40) +
   draw_plot(P_Miga + theme(legend.position = "none"),
-            x = 0.74, y = 0.10, width = 0.24, height = 0.40) +
+            x = 0.65, y = 0.10, width = 0.33, height = 0.40) +
   draw_plot(legend_plot_miga,
-            x = 0.77, y = 0.01, width = 0.24, height = 0.08) +
+            x = 0.72, y = 0.01, width = 0.13, height = 0.08) +
   draw_label("A", fontface = "bold", size = 30, x = 0.01, y = 0.99, vjust = 1) +
-  draw_label("B", fontface = "bold", size = 30, x = 0.49, y = 0.99, vjust = 1) +
-  draw_label("C", fontface = "bold", size = 30, x = 0.49, y = 0.55, vjust = 1) +
-  draw_label("D", fontface = "bold", size = 30, x = 0.74, y = 0.55, vjust = 1)
+  draw_label("B", fontface = "bold", size = 30, x = 0.47, y = 0.99, vjust = 1) +
+  draw_label("C", fontface = "bold", size = 30, x = 0.47, y = 0.55, vjust = 1) +
+  draw_label("D", fontface = "bold", size = 30, x = 0.68, y = 0.55, vjust = 1)
 
 ggsave(out_pdf, plot = grid_plot,
        width = 450, height = 250, units = "mm", bg = "white")
